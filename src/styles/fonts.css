@@ -1,0 +1,33 @@
+/* ----- Vazirmatn (Persian body) ----- */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("dara-ui/fonts/Vazirmatn-RD-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----- Kook (Persian headings) ----- */
+@font-face {
+  font-family: "Kook";
+  src: url("dara-ui/fonts/Kook-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("dara-ui/fonts/Kook-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("dara-ui/fonts/Kook-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

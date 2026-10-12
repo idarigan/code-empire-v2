@@ -1,0 +1,114 @@
+/* ======================================================
+   CODE EMPIRE — EMPIRE-NIGHT THEME
+   Extends Dara UI's token system with imperial palette
+   ====================================================== */
+
+[data-theme="empire-night"] {
+  /* ---------- Backgrounds ---------- */
+  --color-bg-primary: #06080f;
+  --color-bg-secondary: #0d1220;
+  --color-bg-tertiary: #141b30;
+  --color-bg-elevated: #1c2540;
+  --color-bg-inverse: #f8fafc;
+
+  /* ---------- Text ---------- */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #a8b6d1;
+  --color-text-tertiary: #7a8bab;
+  --color-text-inverse: #06080f;
+
+  /* ---------- Borders ---------- */
+  --color-border-primary: #1e2a4a;
+  --color-border-secondary: #16203a;
+
+  /* ---------- Semantic Colors ---------- */
+
+  /* Primary — Empire Blue */
+  --color-primary: #60a5fa;
+  --color-primary-solid: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  --color-primary-light: rgba(59, 130, 246, 0.15);
+
+  /* Secondary — Imperial Purple */
+  --color-secondary: #a78bfa;
+  --color-secondary-solid: #8b5cf6;
+  --color-secondary-hover: #7c3aed;
+  --color-secondary-active: #6d28d9;
+  --color-secondary-light: rgba(139, 92, 246, 0.15);
+
+  /* Accent — Royal Gold */
+  --color-accent: #fbbf24;
+  --color-accent-solid: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-accent-active: #b45309;
+  --color-accent-light: rgba(245, 158, 11, 0.15);
+
+  /* Success */
+  --color-success: #34d399;
+  --color-success-solid: #10b981;
+  --color-success-hover: #059669;
+  --color-success-active: #047857;
+  --color-success-light: rgba(16, 185, 129, 0.15);
+
+  /* Danger */
+  --color-danger: #f87171;
+  --color-danger-solid: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-active: #b91c1c;
+  --color-danger-light: rgba(239, 68, 68, 0.15);
+
+  /* Warning */
+  --color-warning: #fbbf24;
+  --color-warning-solid: #f59e0b;
+  --color-warning-hover: #d97706;
+  --color-warning-active: #b45309;
+  --color-warning-light: rgba(245, 158, 11, 0.15);
+
+  /* Info */
+  --color-info: #38bdf8;
+  --color-info-solid: #0ea5e9;
+  --color-info-hover: #0284c7;
+  --color-info-active: #0369a1;
+  --color-info-light: rgba(14, 165, 233, 0.15);
+
+  /* ---------- Gradients ---------- */
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #8b5cf6 100%);
+  --gradient-hero: linear-gradient(
+    135deg,
+    #f1f5f9 0%,
+    #93c5fd 30%,
+    #a78bfa 60%,
+    #fbbf24 100%
+  );
+
+  /* ---------- Button Shadows ---------- */
+  --shadow-btn-primary: 0 4px 20px rgba(59, 130, 246, 0.35);
+  --shadow-btn-primary-hover: 0 6px 32px rgba(59, 130, 246, 0.5);
+  --shadow-btn-secondary: 0 4px 20px rgba(139, 92, 246, 0.35);
+  --shadow-btn-secondary-hover: 0 6px 32px rgba(139, 92, 246, 0.5);
+  --shadow-btn-accent: 0 4px 20px rgba(245, 158, 11, 0.35);
+  --shadow-btn-accent-hover: 0 6px 32px rgba(245, 158, 11, 0.5);
+  --shadow-btn-success: 0 4px 20px rgba(16, 185, 129, 0.35);
+  --shadow-btn-success-hover: 0 6px 32px rgba(16, 185, 129, 0.5);
+  --shadow-btn-danger: 0 4px 20px rgba(239, 68, 68, 0.35);
+  --shadow-btn-danger-hover: 0 6px 32px rgba(239, 68, 68, 0.5);
+
+  /* ---------- Glow Shadows ---------- */
+  --shadow-glow-primary: 0 0 40px rgba(59, 130, 246, 0.4);
+  --shadow-glow-secondary: 0 0 40px rgba(139, 92, 246, 0.4);
+  --shadow-glow-accent: 0 0 40px rgba(245, 158, 11, 0.4);
+  --shadow-glow-success: 0 0 40px rgba(16, 185, 129, 0.4);
+  --shadow-glow-danger: 0 0 40px rgba(239, 68, 68, 0.4);
+  --shadow-glow-warning: 0 0 40px rgba(245, 158, 11, 0.4);
+
+  /* ---------- Glass Surfaces ---------- */
+  --glass-bg: rgba(20, 27, 48, 0.55);
+  --glass-border: rgba(96, 165, 250, 0.12);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
