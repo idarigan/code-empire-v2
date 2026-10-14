@@ -1,56 +1,75 @@
 /**
  * Code Empire — Root App
  *
- * Phase 3: AppProviders wraps a temporary welcome screen.
- * Real router + layouts land in Phase 4.
+ * Providers + router. Every page below is a stub until its phase.
+ * Lazy loading keeps the initial bundle small.
  */
 
-import { Button, Card } from "dara-ui";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProviders } from "@/components/providers/AppProviders";
-import { useI18n } from "dara-ui";
-import { useProgress } from "@/contexts";
+import { RootLayout } from "@/layouts/RootLayout";
+import { DashboardLayout } from "@/layouts/DashboardLayout";
 
 // ============================================
-// Temporary welcome screen (removed in Phase 4)
+// Lazy-loaded pages
 // ============================================
 
-function WelcomeScreen() {
-  const { t } = useI18n();
-  const { xp, overallProgress, ready } = useProgress();
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const CoursesPage = lazy(() => import("@/pages/CoursesPage"));
+const SingleCoursePage = lazy(() => import("@/pages/SingleCoursePage"));
+const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
+const GuidePage = lazy(() => import("@/pages/GuidePage"));
+const BlogPage = lazy(() => import("@/pages/BlogPage"));
+const SingleBlogPage = lazy(() => import("@/pages/SingleBlogPage"));
+const AboutPage = lazy(() => import("@/pages/AboutPage"));
+const ContactPage = lazy(() => import("@/pages/ContactPage"));
+const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
+const SingleRulePage = lazy(() => import("@/pages/SingleRulePage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
-  return (
-    <div className="route-container">
-      <main className="section">
-        <div className="section-container flex flex-col items-center gap-6">
-          <h1 className="text-4xl font-bold text-gradient-primary">
-            {t("home.heroTitle")}
-          </h1>
-          <Card glow="primary" className="max-w-lg text-center">
-            <p className="text-[var(--color-text-secondary)]">
-              {t("home.heroSubtitle")}
-            </p>
-            <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
-              XP: {xp} · Progress: {overallProgress}% ·{" "}
-              {ready ? "ready" : "loading"}
-            </p>
-          </Card>
-          <Button variant="primary" glow="primary">
-            {t("home.startLearning")}
-          </Button>
-        </div>
-      </main>
-    </div>
-  );
-}
+const DashboardHome = lazy(() => import("@/pages/dashboard/DashboardHome"));
+const MyCourses = lazy(() => import("@/pages/dashboard/MyCourses"));
+const Bookmarks = lazy(() => import("@/pages/dashboard/Bookmarks"));
+const ProgressPage = lazy(() => import("@/pages/dashboard/ProgressPage"));
+const Certificates = lazy(() => import("@/pages/dashboard/Certificates"));
+const Settings = lazy(() => import("@/pages/dashboard/Settings"));
 
 // ============================================
-// App
+// Route table
 // ============================================
 
 function App() {
   return (
     <AppProviders>
-      <WelcomeScreen />
+      <BrowserRouter>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route element={<RootLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="courses" element={<CoursesPage />} />
+              <Route path="courses/register" element={<RegisterPage />} />
+              <Route path="courses/:slug" element={<SingleCoursePage />} />
+              <Route path="guide" element={<GuidePage />} />
+              <Route path="blog" element={<BlogPage />} />
+              <Route path="blog/:slug" element={<SingleBlogPage />} />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="contact" element={<ContactPage />} />
+              <Route path="policy" element={<PolicyPage />} />
+              <Route path="policy/:slug" element={<SingleRulePage />} />
+              <Route path="dashboard" element={<DashboardLayout />}>
+                <Route index element={<DashboardHome />} />
+                <Route path="courses" element={<MyCourses />} />
+                <Route path="bookmarks" element={<Bookmarks />} />
+                <Route path="progress" element={<ProgressPage />} />
+                <Route path="certificates" element={<Certificates />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </AppProviders>
   );
 }
