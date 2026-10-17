@@ -14,6 +14,7 @@
     "@emailjs/browser": "^4.4.1",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
+    "@trg69/react-splide": "^0.7.14",
     "dara-ui": "^0.4.9",
     "date-fns": "^4.1.0",
     "idb-keyval": "^6.2.1",

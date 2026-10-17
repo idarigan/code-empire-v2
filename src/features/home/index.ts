@@ -1,0 +1,13 @@
+export { Hero } from "./Hero";
+export { TrustBar } from "./TrustBar";
+export { LatestCourses } from "./LatestCourses";
+export { PopularPodium } from "./PopularPodium";
+export { WhyUs } from "./WhyUs";
+export { HowItWorks } from "./HowItWorks";
+export { StudentStats } from "./StudentStats";
+export { Testimonials } from "./Testimonials";
+export { MagazinePreview } from "./MagazinePreview";
+export { NewsletterSection } from "./NewsletterSection";
+export { FinalCTA } from "./FinalCTA";
+export { SectionHeader } from "./SectionHeader";
+export { CourseCard } from "./CourseCard";

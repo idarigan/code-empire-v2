@@ -1,24 +1,35 @@
 /**
  * Code Empire — Home page
  *
- * Phase 4 stub. Full sections land in Phase 5.
+ * Full landing page. Every section is defined in features/home.
  */
 
-import { useI18n } from "dara-ui";
+import { Hero } from "@/features/home/Hero";
+import { TrustBar } from "@/features/home/TrustBar";
+import { LatestCourses } from "@/features/home/LatestCourses";
+import { PopularPodium } from "@/features/home/PopularPodium";
+import { WhyUs } from "@/features/home/WhyUs";
+import { HowItWorks } from "@/features/home/HowItWorks";
+import { StudentStats } from "@/features/home/StudentStats";
+import { Testimonials } from "@/features/home/Testimonials";
+import { MagazinePreview } from "@/features/home/MagazinePreview";
+import { NewsletterSection } from "@/features/home/NewsletterSection";
+import { FinalCTA } from "@/features/home/FinalCTA";
 
 export default function HomePage() {
-  const { t } = useI18n();
-
   return (
-    <section className="section">
-      <div className="section-container text-center">
-        <h1 className="text-5xl font-bold text-gradient-primary mb-4">
-          {t("home.heroTitle")}
-        </h1>
-        <p className="text-[var(--color-text-secondary)] text-lg">
-          {t("home.heroSubtitle")}
-        </p>
-      </div>
-    </section>
+    <>
+      <Hero />
+      <TrustBar />
+      <LatestCourses />
+      <PopularPodium />
+      <WhyUs />
+      <HowItWorks />
+      <StudentStats />
+      <Testimonials />
+      <MagazinePreview />
+      <NewsletterSection />
+      <FinalCTA />
+    </>
   );
 }
