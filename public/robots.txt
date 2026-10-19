@@ -1,4 +1,8 @@
+# Code Empire — robots.txt
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /dashboard/*
 
+# Sitemap
 Sitemap: https://code-empire-v2.vercel.app/sitemap.xml

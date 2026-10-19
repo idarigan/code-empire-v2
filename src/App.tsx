@@ -1,8 +1,7 @@
 /**
  * Code Empire — Root App
  *
- * Providers + router. Every page below is a stub until its phase.
- * Lazy loading keeps the initial bundle small.
+ * Providers + router. SEOManager handles all page titles and meta.
  */
 
 import { lazy, Suspense } from "react";
