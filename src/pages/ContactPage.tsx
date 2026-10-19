@@ -1,24 +1,45 @@
 /**
  * Code Empire — Contact page
  *
- * Phase 4 stub. Full form + info lands in Phase 8.
+ * Info cards, communication bridges, contact form.
  */
 
-import { useI18n } from "dara-ui";
+import { ScrollReveal, useI18n } from "dara-ui";
+import { ContactInfo } from "@/features/contact/ContactInfo";
+import { ContactLinks } from "@/features/contact/ContactLinks";
+import { ContactForm } from "@/features/contact/ContactForm";
+import { SectionHeader } from "@/features/home/SectionHeader";
 
 export default function ContactPage() {
   const { t } = useI18n();
 
   return (
-    <section className="section">
-      <div className="section-container">
-        <h1 className="text-4xl font-bold text-gradient-primary mb-4">
-          {t("contact.title")}
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">
-          {t("contact.subtitle")}
-        </p>
-      </div>
-    </section>
+    <>
+      <section className="section pt-8">
+        <div className="section-container">
+          <ScrollReveal animation="fade-up">
+            <SectionHeader
+              eyebrow={t("nav.contact")}
+              title={t("contact.title")}
+              subtitle={t("contact.subtitle")}
+              align="center"
+            />
+          </ScrollReveal>
+          <ContactInfo />
+        </div>
+      </section>
+
+      <section className="section pt-0">
+        <div className="section-container">
+          <ContactLinks />
+        </div>
+      </section>
+
+      <section className="section pt-0">
+        <div className="section-container max-w-3xl">
+          <ContactForm />
+        </div>
+      </section>
+    </>
   );
 }
