@@ -2,16 +2,31 @@
  * Code Empire — Policy overview
  *
  * Charter bill + rules list + validity warning.
+ * Reads Persian by default and switches to English for en/fr locales.
  */
 
 import { Card, ScrollReveal, useI18n } from "dara-ui";
+import { charterBill, charterBillI18n } from "@/data/policy";
 import { RulesBill } from "@/features/policy/RulesBill";
 import { RulesList } from "@/features/policy/RulesList";
 import { SectionHeader } from "@/features/home/SectionHeader";
 import { Icons } from "@/lib/icons";
 
 export default function PolicyPage() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+  const locale = language || "fa";
+
+  // Pick the right charter based on current language.
+  // charterBillI18n stores paragraphs as an array; the RulesBill component
+  // expects a single `body` string, so we join them for the UI.
+  const displayCharter =
+    locale === "fa"
+      ? charterBill
+      : charterBillI18n.map((item, i) => ({
+          id: String(i + 1),
+          title: item.title,
+          body: item.paragraphs.join(" "),
+        }));
 
   return (
     <>
@@ -46,7 +61,7 @@ export default function PolicyPage() {
             title={t("policy.charter")}
             align="start"
           />
-          <RulesBill />
+          <RulesBill items={displayCharter} />
         </div>
       </section>
 

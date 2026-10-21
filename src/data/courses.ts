@@ -1,565 +1,2368 @@
 /**
  * Code Empire — Course catalog
  *
- * Placeholder content. Replace strings with real data.
- * Keep slug format (kebab-case, unique) — routes depend on it.
+ * 13 real courses pulled from the previous site. Every Persian field
+ * has an English counterpart in the `i18n` block so pages can switch
+ * languages without a second data file. Only the private price
+ * survives as the main `price` — the group price was dropped.
  */
 
-import type { Course } from "@/types";
+import type { Course, CourseCategory, ArticleSection, FAQItem } from "@/types";
+
+// ============================================
+// Helpers — compress your raw paragraph blocks
+// ============================================
+
+interface RawParagraphBlock {
+  title?: string;
+  cover?: string;
+  paragraph?: string[];
+  hints?: string[];
+}
+
+/**
+ * Convert the legacy paragraph block shape into our ArticleSection shape.
+ * Non-breaking: if a block has only hints, paragraphs stays undefined.
+ */
+function toSections(blocks: RawParagraphBlock[]): ArticleSection[] {
+  return blocks.map((b) => ({
+    title: b.title,
+    cover: b.cover,
+    paragraphs: b.paragraph,
+    hints: b.hints,
+  }));
+}
+
+/**
+ * Convert a JSON-LD FAQ block into our FAQItem[] shape.
+ */
+function toFaq(jsonLd: {
+  mainEntity: { name: string; acceptedAnswer: { text: string } }[];
+}): FAQItem[] {
+  return jsonLd.mainEntity.map((q, i) => ({
+    id: `faq-${i + 1}`,
+    question: q.name,
+    answer: q.acceptedAnswer.text,
+  }));
+}
+
+// ============================================
+// Courses
+// ============================================
 
 export const courses: Course[] = [
   // ============================================
-  // WEB DEVELOPMENT
+  // 1. HTML & CSS
   // ============================================
   {
-    slug: "html-css-fundamentals",
-    title: "HTML & CSS Fundamentals",
-    persianTitle: "مبانی HTML و CSS",
-    fullTitle: "HTML & CSS — Foundations of the Web",
+    slug: "html-css",
+    title: "HTML & CSS",
+    persianTitle: "اچ‌تی‌ام‌ال و سی‌اس‌اس",
+    fullTitle: "آموزش طراحی وبسایت با HTML,CSS",
     category: "web",
-    description:
-      "ساختار و ظاهر وب را از صفر یاد بگیرید و اولین صفحه‌ی خود را بسازید.",
+    description: "اصلی‌ترین زبان‌های طراحی وبسایت",
     longDescription:
-      "دوره‌ی مبانی HTML و CSS برای کسانی طراحی شده که می‌خواهند از صفر وارد دنیای وب شوند. از تگ‌های پایه تا Flexbox و Grid مدرن.",
-    price: 1500000,
-    privatePrice: 3000000,
-    originalPrice: 2000000,
-    logo: "/images/courses/html-css.png",
-    color: ["#f97316", "#fbbf24"],
-    rank: 5,
-    capacity: 20,
-    enrolled: 18,
+      "از صفر تا صد یاد بگیرید چطور وبسایت‌های کامل و زیبا طراحی کنید، پروژه‌محور و ریسپانسیو.",
+    i18n: {
+      title: "HTML & CSS",
+      fullTitle: "Website Design with HTML & CSS",
+      description: "The foundational languages of web design",
+      details: [
+        { label: "Course", value: "HTML & CSS" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Build page structure with HTML5",
+        "Style with modern CSS3",
+        "Responsive design for mobile and tablet",
+        "Ship a complete portfolio-ready project",
+      ],
+      sections: [
+        {
+          title: "What do we do in this class?",
+          cover: "/images/courses/html-css-1.png",
+          paragraphs: [
+            "You'll learn how to design complete, beautiful websites from scratch. Every step is tied to a real project — from structuring pages with HTML to styling them with CSS. You'll build menus, images, forms, and responsive layouts for mobile and tablet.",
+          ],
+        },
+        {
+          title: "What are HTML and CSS?",
+          cover: "/images/courses/html-css-3.webp",
+          paragraphs: [
+            "HTML (HyperText Markup Language) defines the structure and content of a web page. CSS (Cascading Style Sheets) controls how that content looks — colors, fonts, spacing, layout.",
+            "Important: HTML and CSS are not programming languages. They describe structure and appearance; the logic and interactivity is handled by languages like JavaScript.",
+          ],
+        },
+        {
+          title: "Why do they matter?",
+          cover: "/images/courses/html-css-2.png",
+          paragraphs: [
+            "HTML and CSS are the foundation of every website you see on the internet. If you want to start in web design, learning them is the first mandatory step.",
+          ],
+        },
+        {
+          title: "What's the final project?",
+          cover: "/images/courses/html-css-4.png",
+          paragraphs: [
+            "You'll build a complete responsive website with a menu, banner, content, and contact section — ready to drop into your portfolio.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "What does project-based mean?",
+          answer:
+            "It means you learn by building. Real projects make the concepts stick better than exercises alone.",
+        },
+        {
+          id: "faq-2",
+          question: "Who is this class for?",
+          answer:
+            "Anyone who wants to enter web design or web apps. This is the foundation of everything else.",
+        },
+        {
+          id: "faq-3",
+          question: "Can I learn HTML and CSS without any background?",
+          answer: "Yes, absolutely.",
+        },
+        {
+          id: "faq-4",
+          question: "What should I learn after this?",
+          answer:
+            "JavaScript, or one of the CSS frameworks (Tailwind or Bootstrap). Code Empire offers online classes for all three.",
+        },
+      ],
+    },
+    price: 219000,
+    logo: "/images/courses/html-css-logo.png",
+    color: ["#f06529", "#663399"],
+    rank: 2,
+    capacity: 120,
+    enrolled: 83,
     prerequisites: [],
-    relatedCourses: ["tailwind-mastery", "bootstrap-pro", "total-web"],
+    relatedCourses: ["tailwind", "bootstrap", "total-web"],
     learningOutcomes: [
-      "درک ساختار HTML5",
-      "استایل‌دهی با CSS3",
-      "چیدمان با Flexbox و Grid",
-      "ریسپانسیو دیزاین",
+      "ساختاردهی با HTML5",
+      "استایل‌دهی با CSS3 مدرن",
+      "طراحی ریسپانسیو برای موبایل و تبلت",
+      "پروژه‌ی کامل آماده برای نمونه‌کار",
     ],
-    syllabus: [
-      {
-        week: 1,
-        title: "HTML Basics",
-        topics: ["Tags", "Attributes", "Semantic HTML"],
-      },
-      {
-        week: 2,
-        title: "CSS Basics",
-        topics: ["Selectors", "Box Model", "Colors"],
-      },
-      { week: 3, title: "Layouts", topics: ["Flexbox", "Grid", "Positioning"] },
-      {
-        week: 4,
-        title: "Responsive",
-        topics: ["Media Queries", "Mobile First"],
-      },
-    ],
+    syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 18 },
-      { icon: "clock", label: "ساعت آموزشی", value: 40 },
-      { icon: "calendar", label: "تعداد جلسات", value: 20 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 83 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۲۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۲۰" },
     ],
     details: [
-      { label: "نام دوره", value: "HTML & CSS Fundamentals" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین / حضوری" },
+      { label: "نام کلاس", value: "HTML و CSS" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "پروژه محور" },
     ],
-    sections: [
+    sections: toSections([
       {
-        title: "این دوره برای چه کسانی است؟",
-        paragraphs: [
-          "اگر تازه می‌خواهید وارد دنیای برنامه‌نویسی وب شوید، این دوره نقطه‌ی شروع شماست.",
-          "تمام مفاهیم با مثال‌های واقعی و پروژه‌های عملی آموزش داده می‌شود.",
+        title: "تو این کلاس چیکار میکنیم؟",
+        cover: "/images/courses/html-css-1.png",
+        paragraph: [
+          "در این کلاس شما از صفر تا صد یاد می‌گیرید چطور وبسایت‌های کامل و زیبا طراحی کنید. هر مرحله با یک پروژه واقعی همراه است. از ساختاردهی صفحات وب با HTML گرفته تا استفاده از CSS برای استایل‌دهی و ساختن طرح‌های حرفه‌ای. یاد می‌گیرید چطور عناصر مثل منوها، تصاویر، فرم‌ها و حتی بخش‌های ریسپانسیو (واکنش‌گرا) برای موبایل و تبلت بسازید.",
         ],
       },
-    ],
-    faq: [
       {
-        id: "1",
-        question: "آیا نیاز به دانش قبلی دارم؟",
-        answer: "خیر، دوره از صفر شروع می‌شود.",
+        title: "این دوتا چیان؟",
+        cover: "/images/courses/html-css-3.webp",
+        paragraph: [
+          "HTML (مخفف HyperText Markup Language) زبانی است که برای ساختاردهی و تعریف محتوای صفحات وب استفاده می‌شود. با استفاده از HTML، شما می‌توانید عناصر مختلفی مانند تیترها، پاراگراف‌ها، تصاویر و لینک‌ها را به درستی در صفحه قرار دهید. CSS (مخفف Cascading Style Sheets) برای تعیین شکل ظاهری این عناصر به کار می‌رود. CSS به شما این امکان را می‌دهد که رنگ‌ها، فونت‌ها، فاصله‌ها و چیدمان المان‌ها را تنظیم کنید و ظاهر کلی یک صفحه وب را زیبا و جذاب کنید.",
+          "اما نکته مهم این است که HTML و CSS زبان برنامه‌نویسی محسوب نمی‌شوند. برخلاف زبان‌های برنامه‌نویسی مانند پایتون یا جاوااسکریپت که توانایی اجرای منطق، انجام محاسبات پیچیده و تعامل با داده‌ها را دارند، HTML و CSS تنها وظیفه مشخص کردن ساختار و استایل صفحات وب را بر عهده دارند. در واقع، HTML و CSS به توصیف ظاهر و نحوه نمایش محتوا پرداخته و اجرای عملکردها و منطق‌های تعاملی را به زبان‌های برنامه‌نویسی می‌سپارند.",
+        ],
       },
-    ],
+      {
+        title: "چرا HTML و CSS مهم هستند؟",
+        cover: "/images/courses/html-css-2.png",
+        paragraph: [
+          "HTML و CSS مثل پایه‌های ساختمان یک وبسایت هستند. هر وبسایتی که در اینترنت می‌بینید با همین دو زبان ساخته شده است. اگر می‌خواهید در دنیای طراحی وب شروع به کار کنید، یادگیری این دو زبان نخستین قدم ضروری است. تسلط بر HTML و CSS به شما کمک می‌کند که ساختار و استایل وبسایت‌ها را به دلخواه خود ایجاد و تنظیم کنید و به دنیای بی‌نهایت طراحی وب وارد شوید.",
+        ],
+      },
+      {
+        title: "پروژه پایانی این کلاس چیه؟",
+        cover: "/images/courses/html-css-4.png",
+        paragraph: [
+          "پروژه نهایی این کلاس شامل ساختن یک وبسایت کامل است که شامل بخش‌های مختلفی مثل منو، بنر، محتوا و بخش تماس با ما است. تمام این بخش‌ها با HTML و CSS ساخته می‌شوند و در نهایت شما می‌توانید یک نمونه‌کار حرفه‌ای داشته باشید که آن را در نموکار خود جایگزاری کنید. همچنین، این پروژه ریسپانسیو خواهد بود، یعنی به‌طور کامل روی موبایل و تبلت هم به خوبی نمایش داده می‌شود.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "پروژه محور بودن یعنی چی؟",
+          acceptedAnswer: {
+            text: "یعنی اینکه شما با ساخت پروژه مطالب کلاس رو فرامیگیرید. یادگیری یک دانش و مهارت با انجام پروژه‌های واقعی به شما کمک می‌کند به نتیجه‌ای عالی برسید.",
+          },
+        },
+        {
+          name: "این کلاس برای چه کسانی مناسب است؟",
+          acceptedAnswer: {
+            text: "همه کسانی که قصد دارند پا به دنیای طراحی وب و وب اپ ها بگزارند به این کلاس نیاز دارند، چراکه پایه و اساس این حوزه میباشد.",
+          },
+        },
+        {
+          name: "من بدون هیچ پیش زمینه ای میتونم HTML و CSS یاد بگیرم؟",
+          acceptedAnswer: { text: "بله!" },
+        },
+        {
+          name: "پس از این کلاس چی باید یادبگیرم؟",
+          acceptedAnswer: {
+            text: "برای ادامه ی مسیر طراحی وب پس از این کلاس باید بری سره JavaScript یا یک از فریم ورک های CSS (Tailwind یا Bootstrap). خوشبختانه امپراتوری کد برای هر سه ی این تکنولوژی ها کلاس آنلاین آماده کرده.",
+          },
+        },
+      ],
+    }),
     featured: true,
-  },
-  {
-    slug: "tailwind-mastery",
-    title: "Tailwind CSS Mastery",
-    persianTitle: "تسلط بر Tailwind CSS",
-    fullTitle: "Tailwind CSS — Utility-First Styling",
-    category: "web",
-    description:
-      "طراحی سریع رابط کاربری با Tailwind و ساخت کامپوننت‌های ریسپانسیو.",
-    longDescription:
-      "Tailwind یکی از پرکاربردترین فریم‌ورک‌های CSS است. در این دوره تمام نکات پیشرفته را یاد می‌گیرید.",
-    price: 2000000,
-    privatePrice: 4000000,
-    logo: "/images/courses/tailwind.png",
-    color: ["#06b6d4", "#3b82f6"],
-    rank: 4,
-    capacity: 25,
-    enrolled: 22,
-    prerequisites: ["html-css-fundamentals"],
-    relatedCourses: ["html-css-fundamentals", "total-web"],
-    learningOutcomes: [
-      "استایل‌دهی سریع",
-      "ساخت Design System",
-      "تم‌دهی پیشرفته",
-    ],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 22 },
-      { icon: "clock", label: "ساعت آموزشی", value: 30 },
-      { icon: "calendar", label: "تعداد جلسات", value: 15 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Tailwind CSS Mastery" },
-      { label: "پیش‌نیاز", value: "HTML & CSS" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
-    featured: true,
-  },
-  {
-    slug: "bootstrap-pro",
-    title: "Bootstrap Pro",
-    persianTitle: "بوت‌استرپ حرفه‌ای",
-    fullTitle: "Bootstrap — Rapid UI Prototyping",
-    category: "web",
-    description: "ساخت رابط‌های حرفه‌ای با Bootstrap و کامپوننت‌های آماده.",
-    longDescription: "Bootstrap همچنان محبوب‌ترین فریم‌ورک CSS در دنیا است.",
-    price: 1800000,
-    privatePrice: 3500000,
-    logo: "/images/courses/bootstrap.png",
-    color: ["#8b5cf6", "#ec4899"],
-    rank: 3,
-    capacity: 30,
-    enrolled: 28,
-    prerequisites: ["html-css-fundamentals"],
-    relatedCourses: ["tailwind-mastery", "total-web"],
-    learningOutcomes: ["کامپوننت‌های آماده", "گرید سیستم", "ساخت قالب"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 28 },
-      { icon: "clock", label: "ساعت آموزشی", value: 25 },
-      { icon: "calendar", label: "تعداد جلسات", value: 12 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Bootstrap Pro" },
-      { label: "پیش‌نیاز", value: "HTML & CSS" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "total-web",
-    title: "Total Web Development",
-    persianTitle: "توسعه وب جامع",
-    fullTitle: "Total Web — Full Frontend Track",
-    category: "web",
-    description: "مسیر جامع از HTML تا React و دیپلوی.",
-    longDescription:
-      "یک مسیر کامل که شما را از مبتدی به توسعه‌دهنده فرانت‌اند تبدیل می‌کند.",
-    price: 8000000,
-    privatePrice: 15000000,
-    originalPrice: 10000000,
-    logo: "/images/courses/total-web.png",
-    color: ["#3b82f6", "#8b5cf6"],
-    rank: 1,
-    capacity: 15,
-    enrolled: 15,
-    prerequisites: [],
-    relatedCourses: [
-      "html-css-fundamentals",
-      "tailwind-mastery",
-      "bootstrap-pro",
-    ],
-    learningOutcomes: ["HTML/CSS", "JavaScript", "React", "Deployment"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 15 },
-      { icon: "clock", label: "ساعت آموزشی", value: 200 },
-      { icon: "calendar", label: "تعداد جلسات", value: 60 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Total Web Development" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین / حضوری" },
-    ],
-    sections: [],
-    faq: [],
-    featured: true,
-  },
-  {
-    slug: "javascript-pro",
-    title: "JavaScript Pro",
-    persianTitle: "جاوااسکریپت حرفه‌ای",
-    fullTitle: "JavaScript — The Language of the Web",
-    category: "web",
-    description: "زبان برنامه‌نویسی وب را از پایه تا پیشرفته بیاموزید.",
-    longDescription: "JavaScript قلب هر وب‌اپلیکیشن مدرن است.",
-    price: 2500000,
-    privatePrice: 5000000,
-    logo: "/images/courses/js.png",
-    color: ["#fbbf24", "#f59e0b"],
-    rank: 2,
-    capacity: 25,
-    enrolled: 20,
-    prerequisites: ["html-css-fundamentals"],
-    relatedCourses: ["total-web"],
-    learningOutcomes: ["ES6+", "Async/Await", "DOM", "Fetch API"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 20 },
-      { icon: "clock", label: "ساعت آموزشی", value: 60 },
-      { icon: "calendar", label: "تعداد جلسات", value: 30 },
-    ],
-    details: [
-      { label: "نام دوره", value: "JavaScript Pro" },
-      { label: "پیش‌نیاز", value: "HTML & CSS" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
   },
 
   // ============================================
-  // SOFTWARE DEVELOPMENT
+  // 2. Tailwind
+  // ============================================
+  {
+    slug: "tailwind",
+    title: "Tailwind",
+    persianTitle: "تیلویند",
+    fullTitle: "آموزش طراحی وبسایت با Tailwind",
+    category: "web",
+    description: "استایل‌دهی پویاتر و ریسپانسیو کردن اصولی‌تر",
+    longDescription:
+      "با رویکرد utility-first تیلویند، طراحی دقیق، سریع و کاملاً تحت کنترل خودت.",
+    i18n: {
+      title: "Tailwind",
+      fullTitle: "Website Design with Tailwind",
+      description: "Dynamic styling and principled responsive design",
+      details: [
+        { label: "Course", value: "Tailwind" },
+        { label: "Prerequisites", value: "HTML & CSS" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Understand utility-first CSS",
+        "Build custom designs without writing raw CSS",
+        "Ship a fully Tailwind-built website",
+        "Keep codebases clean and predictable",
+      ],
+      sections: [
+        {
+          title: "What is Tailwind and how is it different?",
+          cover: "/images/courses/tailwind-1.png",
+          paragraphs: [
+            "Tailwind CSS is a utility-first framework. Unlike Bootstrap, it doesn't ship pre-built components. Instead, it gives you a toolbox of atomic classes so you can build exactly what you want, precisely.",
+          ],
+        },
+        {
+          title: "What are utility classes?",
+          cover: "/images/courses/tailwind-2.png",
+          paragraphs: [
+            "Utility classes are what makes Tailwind powerful. Instead of using predefined classes for buttons or menus, you compose the design from small focused classes.",
+            "You can use arbitrary values — `text-[12px]`, `p-[20px]` — to dial in exact numbers without writing custom CSS.",
+          ],
+        },
+        {
+          title: "What do we learn?",
+          cover: "/images/courses/tailwind-3.png",
+          paragraphs: [
+            "We learn to build the exact style you want from utility classes, not to reuse a library of components. It's project-based from day one — a real website gets built along the way.",
+          ],
+        },
+        {
+          title: "Why is Tailwind so popular?",
+          paragraphs: [
+            "Because it keeps your CSS clean. No more one-off stylesheets. Need to center text? `text-center`. Need padding? `p-4`. The framework does the thinking.",
+          ],
+        },
+        {
+          title: "What's the final project?",
+          cover: "/images/courses/tailwind-4.png",
+          paragraphs: [
+            "A complete real website, entirely built with Tailwind. Each student picks their own theme — personal site, shop, or anything else.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do I need prior experience?",
+          answer:
+            "Just a bit of HTML and CSS to follow along. We start from the basics and build up.",
+        },
+        {
+          id: "faq-2",
+          question: "How is Tailwind different from Bootstrap?",
+          answer:
+            "Bootstrap gives you ready components; Tailwind gives you the tools to build your own. Total control over every pixel.",
+        },
+        {
+          id: "faq-3",
+          question: "How long to finish the final project?",
+          answer:
+            "Depends on your pace, but most students complete it in a few weeks.",
+        },
+      ],
+    },
+    price: 288000,
+    logo: "/images/courses/tailwind-logo.svg",
+    color: ["#06b6d4", "#6d28d9"],
+    rank: 2,
+    capacity: 60,
+    enrolled: 40,
+    prerequisites: ["html-css"],
+    relatedCourses: ["bootstrap", "html-css", "total-web"],
+    learningOutcomes: [
+      "درک کامل utility-first",
+      "ساخت طرح‌های سفارشی بدون CSS خام",
+      "پروژه‌ی کاملاً ساخته‌شده با تیلویند",
+      "کدبیس تمیز و قابل‌پیش‌بینی",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 40 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۲۴ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۲۴" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "Tailwind" },
+      { label: "پیش نیاز", value: "HTML و CSS" },
+      { label: "روش آموزش", value: "پروژه محور" },
+    ],
+    sections: toSections([
+      {
+        title: "Tailwind CSS چیه و چه فرقی با بقیه داره؟",
+        cover: "/images/courses/tailwind-1.png",
+        paragraph: [
+          "Tailwind CSS یه فریم‌ورک سی‌اس‌اس با رویکرد utility-first هست که برخلاف بوت‌استرپ یا بقیه فریم‌ورک‌ها، از کلاس‌های از پیش طراحی شده برای ساختن بخش‌های مختلف سایت استفاده نمی‌کنه. بلکه به شما یک مجموعه از ابزارها (به شکل کلاس) می‌ده تا بتونی خودت هر بخشی رو با دقت زیاد طراحی کنی. Tailwind انعطاف‌پذیری خیلی بیشتری داره، چون شما کنترل کاملی روی همه چیز دارید و می‌تونید سایت‌هایی دقیقاً مطابق با نیاز و سلیقه‌تون بسازید.",
+        ],
+      },
+      {
+        title: "کلاس‌های utility در Tailwind CSS چی هستن؟",
+        cover: "/images/courses/tailwind-2.png",
+        paragraph: [
+          "کلاس‌های utility در Tailwind CSS همون چیزیه که این فریم‌ورک رو خاص و قدرتمند می‌کنه. به جای استفاده از کلاس‌های از پیش تعریف‌شده برای طراحی عناصر مثل دکمه‌ها یا منوها، Tailwind به شما اجازه می‌ده هر بخشی از طراحی رو با کلاس‌های ساده و کاربردی بسازید.",
+          "این کلاس‌ها کوتاه و متمرکز روی یک ویژگی خاص هستن، مثلاً برای تغییر اندازه فونت می‌تونید از text-[12px] استفاده کنید یا برای تنظیم فاصله بین المان‌ها از p-[20px] بهره ببرید.",
+          "ما میتونیم بجای اعداد وارد شده توی این کلاس‌ها هر عددی که دوست داریم قرار بدیم که این انعطاف‌پذیری به شما کمک می‌کنه که طراحی دقیق‌تر و سفارشی‌تری داشته باشید، بدون نیاز به نوشتن کدهای CSS زیاد.",
+        ],
+      },
+      {
+        title: "تو این کلاس چی یاد می‌گیریم؟",
+        cover: "/images/courses/tailwind-3.png",
+        paragraph: [
+          "تو این کلاس، به جای اینکه فقط یاد بگیریم چطور کلاس‌های آماده مثل دکمه‌ها یا منوها رو استفاده کنیم، یاد می‌گیریم که چطور دقیقاً همون استایلی رو که می‌خوایم با استفاده از کلاس‌های utility بسازیم. یعنی دستمون توی طراحی بازه و هر چیزی رو با Tailwind می‌تونیم طراحی کنیم. پروژه‌محور بودن کلاس یعنی از همون نخست داریم برای ساختن یه سایت واقعی کد می‌زنیم.",
+        ],
+      },
+      {
+        title: "چرا Tailwind انقدر محبوبه؟",
+        paragraph: [
+          "خیلی از طراح‌ها و توسعه‌دهنده‌ها Tailwind رو دوست دارن چون کدهای سی‌اس‌اس شما رو تمیز و مرتب نگه می‌داره.",
+          "دیگه لازم نیست برای هر استایل، کدهای سی‌اس‌اس جدا بنویسید؛ همه چیز توی HTML با کلاس‌های utility قابل تنظیمه. مثلاً اگه بخوای یه متن رو وسط چین کنی، فقط کافیه یه کلاس مثل text-center رو اضافه کنی.",
+        ],
+      },
+      {
+        title: "پروژه پایانی چیه؟",
+        cover: "/images/courses/tailwind-4.png",
+        paragraph: [
+          "در پایان این کلاس شما یک سایت واقعی طراحی می‌کنید که تماماً با Tailwind ساخته شده. پروژه‌ی هر شرکت‌کننده میتونه متفاوت باشه. مثلا می‌تونه سایت شخصی، فروشگاهی یا چیزای دیگه‌ای باشن.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "آیا برای شروع این کلاس نیاز به تجربه قبلی دارم؟",
+          acceptedAnswer: {
+            text: "تنها کمی دانش HTML و CSS برای آغاز این کلاس کافیه. ما قراره از پایه شروع کنیم و کم‌کم پیشرفت می‌کنیم تا بتونیم از تمام امکانات Tailwind استفاده کنیم.",
+          },
+        },
+        {
+          name: "Tailwind چه تفاوتی با بوت‌استرپ داره؟",
+          acceptedAnswer: {
+            text: "بوت‌استرپ از کامپوننت‌های آماده استفاده می‌کنه، اما Tailwind به شما آزادی بیشتری می‌ده تا همه چیز رو خودتون بسازید. توی Tailwind، تمرکز روی کلاس‌های utility هست و استایل‌دهی کاملاً تحت کنترل شماست.",
+          },
+        },
+        {
+          name: "چقدر زمان لازم دارم تا پروژه پایانی رو کامل کنم؟",
+          acceptedAnswer: {
+            text: "این کاملاً بستگی به سرعت یادگیری و زمانی که برای تمرین می‌ذارید داره، ولی اکثر شرکت‌کننده‌ها توی چند هفته می‌تونن پروژه پایانی‌شون رو آماده کنن.",
+          },
+        },
+      ],
+    }),
+  },
+
+  // ============================================
+  // 3. Bootstrap
+  // ============================================
+  {
+    slug: "bootstrap",
+    title: "Bootstrap",
+    persianTitle: "بوت‌استرپ",
+    fullTitle: "آموزش طراحی وبسایت با Bootstrap",
+    category: "web",
+    description: "برای ریسپانسیو کردن سریع و استایل‌دهی آماده",
+    longDescription:
+      "با کامپوننت‌های آماده بوت‌استرپ، در کوتاه‌ترین زمان سایت‌های حرفه‌ای و ریسپانسیو بساز.",
+    i18n: {
+      title: "Bootstrap",
+      fullTitle: "Website Design with Bootstrap",
+      description: "Fast responsive layouts with ready-made components",
+      details: [
+        { label: "Course", value: "Bootstrap" },
+        { label: "Prerequisites", value: "HTML & CSS" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Use Bootstrap's component library",
+        "Build responsive layouts fast",
+        "Ship a landing page and a storefront",
+        "Understand grid system and utilities",
+      ],
+      sections: [
+        {
+          title: "Build professional sites without the pain",
+          cover: "/images/courses/bootstrap-1.webp",
+          paragraphs: [
+            "Bootstrap is a powerful CSS framework that lets you build beautiful, responsive sites without wrangling every style by hand.",
+            "In this class you learn to use Bootstrap's ready-made tools to save time and ship polished results.",
+          ],
+        },
+        {
+          title: "How does the class flow?",
+          cover: "/images/courses/bootstrap-2.webp",
+          paragraphs: [
+            "Project-based from the start. You'll build a landing page and other real pages, learning every useful corner of the framework along the way.",
+          ],
+        },
+        {
+          title: "Why learn Bootstrap?",
+          cover: "/images/courses/bootstrap-3.webp",
+          paragraphs: [
+            "Bootstrap handles responsiveness for you. Buttons, cards, menus — all ready to drop in. This class teaches you to use them in real projects, not just read about them.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do I need advanced HTML/CSS?",
+          answer:
+            "No — you just need to read and modify HTML and CSS. Bootstrap does the heavy lifting.",
+        },
+        {
+          id: "faq-2",
+          question: "Is Bootstrap good enough for a professional site?",
+          answer:
+            "Yes. With its grid and component library, professional sites ship faster in Bootstrap than almost anywhere else.",
+        },
+        {
+          id: "faq-3",
+          question: "What are the final projects?",
+          answer:
+            "Each student picks a real project — landing page, clothing shop, personal resume — and builds it over several sessions with the mentor.",
+        },
+      ],
+    },
+    price: 278000,
+    logo: "/images/courses/bootstrap-logo.svg",
+    color: ["#6e44ff", "#b892ff"],
+    rank: 2,
+    capacity: 90,
+    enrolled: 67,
+    prerequisites: ["html-css"],
+    relatedCourses: ["tailwind", "html-css", "total-web"],
+    learningOutcomes: [
+      "کار با کامپوننت‌های بوت‌استرپ",
+      "ساخت سریع چیدمان‌های ریسپانسیو",
+      "پروژه‌ی لندینگ و فروشگاهی",
+      "درک گرید سیستم و ابزارهای کمکی",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 67 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۲۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۲۰" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "Bootstrap" },
+      { label: "پیش نیاز", value: "HTML و CSS" },
+      { label: "روش آموزش", value: "پروژه محور" },
+    ],
+    sections: toSections([
+      {
+        title: "با Bootstrap، بدون دردسر سایت‌های حرفه‌ای بساز!",
+        cover: "/images/courses/bootstrap-1.webp",
+        paragraph: [
+          "اگه دنبال یه راه سریع و راحت برای ساختن سایت‌های خوشگل و حرفه‌ای هستی، کلاس پروژه‌محور Bootstrap دقیقا همون چیزیه که نیاز داری! Bootstrap یه فریم‌ورک CSS خیلی خفنه که بهت کمک می‌کنه بدون اینکه وارد پیچیدگی‌های طراحی بشی، سایت‌هایی واکنش‌گرا (responsive) و مرتب طراحی کنی.",
+          "تو این کلاس یاد می‌گیری چجوری از امکانات آماده‌ی Bootstrap استفاده کنی تا هم تو زمان صرفه‌جویی کنی و هم سایت‌هایی بزنی که حرفه‌ای به نظر بیان.",
+        ],
+      },
+      {
+        title: "این کلاس چجوری قراره پیش بره؟",
+        cover: "/images/courses/bootstrap-2.webp",
+        paragraph: [
+          "این کلاس پروژه‌محوره. یعنی از همون نخست که شروع می‌کنی، دست به کد می‌شی و با چند تا پروژه‌ی واقعی تمرین می‌کنی.",
+          "برای نمونه قراره یه صفحه ی لندینگ (Landing Page) باهم طراحی کنیم و همچنین صفحه های دیگه ای. اینطوری همه ی چیز های به درد بخور این فریم ورک رو باهم دیگه یاد میگیریم.",
+        ],
+      },
+      {
+        title: "چرا Bootstrap رو یاد بگیرم؟",
+        cover: "/images/courses/bootstrap-3.webp",
+        paragraph: [
+          "Bootstrap همه‌چی رو ساده می‌کنه! مثلا اگه می‌خوای سایتت رو تو موبایل، تبلت و کامپیوتر به شکل درست نشون بدی، Bootstrap خودش واکنش‌گرا هست و نیازی نیست خودت همه‌چیز رو دستی تنظیم کنی. یا مثلا دکمه‌ها، کارت‌ها، منوها و خیلی از عناصر دیگه از قبل آماده هستن، فقط کافیه ازشون استفاده کنی.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "یادگیری Bootstrap نیاز به دانش حرفه ای در HTML و CSS داره؟",
+          acceptedAnswer: {
+            text: "نه فقط نیاز داری تا بتونی کد های HTML و CSS رو بفهمی و بتونی ازشون استفاده کنی. Bootstrap خودش بقیه ی کار هارو انجام میده.",
+          },
+        },
+        {
+          name: "آیا Bootstrap برای ساخت یک سایت حرفه ای مناسبه؟",
+          acceptedAnswer: {
+            text: "بله! بوت‌استرپ به خاطر داشتن کامپوننت‌های آماده مثل دکمه‌ها، فرم‌ها و حتی گرید ریسپانسیو، یکی از محبوب‌ترین ابزارها برای ساخت سایت‌های حرفه‌ای و مدرنه.",
+          },
+        },
+        {
+          name: "پروژه‌های پایانی این کلاس چیا هستن؟",
+          acceptedAnswer: {
+            text: "در این کلاس هر شرکت‌کننده یک پروژه واقعی از میان چند موضوع خواهد ساخت که در طول چند جلسه و با کمک مربی انجام خواهد شد. موضوعاتی مانند صفحه ی لندیگ، فروشگاه لباس، رزومه‌ی شخصی و...",
+          },
+        },
+      ],
+    }),
+  },
+
+  // ============================================
+  // 4. Total Web
+  // ============================================
+  {
+    slug: "total-web",
+    title: "Total Web",
+    persianTitle: "طراحی وبسایت جامع",
+    fullTitle: "آموزش طراحی وبسایت تمام عیار",
+    category: "web",
+    description: "اصلی‌ترین تکنولوژی‌های طراحی وبسایت",
+    longDescription:
+      "مسیر کامل فرانت‌اند: از HTML و CSS تا JavaScript و Bootstrap، با تمرکز بر پروژه‌محوری.",
+    i18n: {
+      title: "Total Web",
+      fullTitle: "Complete Website Design",
+      description: "The core technologies of web design, end to end",
+      details: [
+        { label: "Course", value: "Complete Website Design" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Master HTML, CSS, JavaScript, Bootstrap",
+        "Build responsive, modern sites",
+        "Ship a full portfolio project",
+        "Be ready for junior front-end roles",
+      ],
+      sections: [
+        {
+          title: "Introduction",
+          cover: "/images/courses/total-web-1.webp",
+          paragraphs: [
+            "Every business needs a website, and demand for developers is higher than ever. This course takes you from zero to a fully capable front-end developer.",
+          ],
+        },
+        {
+          title: "Core technologies",
+          cover: "/images/courses/total-web-2.webp",
+          paragraphs: [
+            "HTML for structure, CSS for style, JavaScript for behavior, Bootstrap for responsive speed. Together they are the foundation of every modern website.",
+          ],
+        },
+        {
+          title: "Modern, project-based learning",
+          paragraphs: [
+            "No dry theory — you build real projects, face real challenges, and get feedback from mentors and peers.",
+          ],
+        },
+        {
+          title: "Career opportunities",
+          paragraphs: [
+            "Front-end development is one of the highest-demand skills in tech. Freelance or join a company — the path is wide open.",
+          ],
+        },
+        {
+          title: "Front-end focus",
+          cover: "/images/courses/total-web-3.webp",
+          paragraphs: [
+            "The course centers on the front-end — the layer users see and interact with. You'll build beautiful interfaces and smooth experiences.",
+          ],
+        },
+        {
+          title: "The future: skills, income, opportunity",
+          paragraphs: [
+            "By the end you'll have a strong portfolio, real skills, and everything you need to start a career in tech.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Who is this course for?",
+          answer:
+            "Beginners and anyone who wants a solid, structured path into web design.",
+        },
+        {
+          id: "faq-2",
+          question: "Which technologies are taught?",
+          answer: "HTML, CSS, JavaScript, and Bootstrap.",
+        },
+        {
+          id: "faq-3",
+          question: "Can I enter the job market after this?",
+          answer:
+            "Yes — the course focuses on practical skills and real projects. You'll finish with a portfolio ready for applications.",
+        },
+        {
+          id: "faq-4",
+          question: "Are there hands-on projects?",
+          answer: "Yes — several real projects along the way.",
+        },
+        {
+          id: "faq-5",
+          question: "Do we get feedback on code?",
+          answer:
+            "Yes — exercises are graded and reviewed, with individual feedback from the mentor.",
+        },
+      ],
+    },
+    price: 399000,
+    logo: "/images/courses/total-web-logo.png",
+    color: ["#52E5E7", "#130CB7"],
+    rank: 1,
+    capacity: 180,
+    enrolled: 157,
+    prerequisites: [],
+    relatedCourses: ["html-css", "javascript", "tailwind", "bootstrap"],
+    learningOutcomes: [
+      "تسلط بر HTML، CSS، JS و Bootstrap",
+      "ساخت سایت‌های مدرن و ریسپانسیو",
+      "پروژه‌ی کامل نمونه‌کار",
+      "آماده برای نقش‌های جونیور فرانت‌اند",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 157 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۵۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۵۰" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "آموزش طراحی وبسایت تمام عیار" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "پروژه محور" },
+    ],
+    sections: toSections([
+      {
+        title: "پیش درآمدی بر دوره",
+        cover: "/images/courses/total-web-1.webp",
+        paragraph: [
+          "در دنیای دیجیتال امروز، تقریباً هر کسب‌وکاری به یک وبسایت نیاز دارد و تقاضا برای توسعه‌دهندگان وب بیشتر از همیشه است. طراحی وبسایت دیگر یک مهارت لوکس نیست، بلکه یکی از ضروری‌ترین توانایی‌ها برای ورود به دنیای فناوری و کسب درآمد محسوب می‌شود. اگر همیشه دوست داشته‌اید وبسایت‌های زیبا و حرفه‌ای بسازید اما نمی‌دانستید از کجا شروع کنید، این دوره دقیقاً برای شماست!",
+        ],
+      },
+      {
+        title: "آشنایی با تکنولوژی‌های کلیدی",
+        cover: "/images/courses/total-web-2.webp",
+        paragraph: [
+          "در این دوره، شما با HTML، CSS، JavaScript و Bootstrap آشنا خواهید شد. HTML ساختار اصلی صفحات وب را تشکیل می‌دهد، CSS به آن‌ها زیبایی و استایل می‌بخشد، JavaScript امکان تعامل و پویایی را فراهم می‌کند و Bootstrap ابزاری است که طراحی واکنش‌گرا را آسان‌تر و سریع‌تر می‌کند.",
+        ],
+      },
+      {
+        title: "یادگیری به سبک مدرن و پروژه‌محور",
+        paragraph: [
+          "ما در این دوره از روش‌های یادگیری مدرن و پروژه‌محور استفاده می‌کنیم. به جای یادگیری تئوری خسته‌کننده، شما در طول دوره روی پروژه‌های واقعی کار خواهید کرد و با تمرین‌های عملی مهارت‌های خود را تقویت خواهید کرد.",
+        ],
+      },
+      {
+        title: "فرصت‌های شغلی در دنیای طراحی وب",
+        paragraph: [
+          "طراحی وب یکی از پردرآمدترین و پرتقاضاترین مهارت‌های دنیای فناوری است. با یادگیری طراحی وب، می‌توانید هم به‌عنوان فریلنسر پروژه بگیرید و هم در شرکت‌های معتبر مشغول به کار شوید.",
+        ],
+      },
+      {
+        title: "تمرکز بر فرانت‌اند: دنیای رابط‌های کاربری جذاب",
+        cover: "/images/courses/total-web-3.webp",
+        paragraph: [
+          "تمرکز اصلی این دوره بر فرانت‌اند است. فرانت‌اند به بخشی از یک وبسایت گفته می‌شود که کاربران آن را مشاهده و با آن تعامل می‌کنند. در این دوره یاد می‌گیرید چگونه رابط‌های کاربری زیبا و کاربردی طراحی کنید.",
+        ],
+      },
+      {
+        title: "آینده: مهارت، درآمد، و فرصت‌های شغلی",
+        paragraph: [
+          "پس از گذراندن این دوره، شما فقط یک یادگیرنده‌ی تئوری نخواهید بود، بلکه یک طراح وب آماده‌ی ورود به بازار کار خواهید شد. با مهارت‌هایی که کسب می‌کنید، می‌توانید وبسایت‌های حرفه‌ای و مدرن طراحی کنید و به‌عنوان یک فریلنسر پروژه بگیرید یا در شرکت‌های معتبر استخدام شوید.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "این دوره برای چه کسانی مناسب است؟",
+          acceptedAnswer: {
+            text: "این دوره برای شماست! چه مبتدی باشید و چه بخواهید مهارت‌های خود را تقویت کنید.",
+          },
+        },
+        {
+          name: "در این دوره چه تکنولوژی‌هایی آموزش داده می‌شود؟",
+          acceptedAnswer: {
+            text: "شما در این دوره با HTML، CSS، JavaScript و Bootstrap آشنا می‌شوید.",
+          },
+        },
+        {
+          name: "آیا پس از این دوره می‌توانم وارد بازار کار شوم؟",
+          acceptedAnswer: {
+            text: "بله! این دوره علاوه بر آموزش مفاهیم، روی مهارت‌های عملی و پروژه‌های واقعی تمرکز دارد.",
+          },
+        },
+        {
+          name: "آیا پروژه عملی هم در این دوره انجام می‌شود؟",
+          acceptedAnswer: {
+            text: "بله، در طول دوره چندین پروژه واقعی طراحی می‌کنید.",
+          },
+        },
+        {
+          name: "آیا دوره تمرین و بازخورد روی کدها دارد؟",
+          acceptedAnswer: {
+            text: "بله، برای یادگیری بهتر، تمرین‌های متنوعی طراحی شده که شما را برای چالش‌های واقعی آماده می‌کند.",
+          },
+        },
+      ],
+    }),
+    featured: true,
+  },
+
+  // ============================================
+  // 5. JavaScript
+  // ============================================
+  {
+    slug: "javascript",
+    title: "JavaScript",
+    persianTitle: "جاوااسکریپت",
+    fullTitle: "آموزش برنامه نویسی وب با JavaScript",
+    category: "web",
+    description: "زبان برنامه نویسی مخصوص ساخت و طراحی وبسایت",
+    longDescription:
+      "جاوااسکریپت، قلب تپنده‌ی وب. از منطق برنامه‌نویسی تا DOM و تعامل واقعی با کاربر.",
+    i18n: {
+      title: "JavaScript",
+      fullTitle: "Web Programming with JavaScript",
+      description: "The language that makes the web interactive",
+      details: [
+        { label: "Course", value: "JavaScript" },
+        { label: "Prerequisites", value: "HTML & CSS" },
+        { label: "Teaching", value: "Hybrid" },
+      ],
+      learningOutcomes: [
+        "Understand variables, functions, and logic",
+        "Work with the DOM and events",
+        "Build interactive pages",
+        "Prepare for React or other frameworks",
+      ],
+      sections: [
+        {
+          title: "About JavaScript",
+          cover: "/images/courses/javascript-1.jpeg",
+          paragraphs: [
+            "Every website rests on three technologies. Two are HTML and CSS. The third, JavaScript, is an actual programming language — variables, functions, logic, the works.",
+          ],
+        },
+        {
+          title: "Where JavaScript matters",
+          cover: "/images/courses/javascript-2.jpeg",
+          paragraphs: [
+            "JavaScript brings a site to life. It reacts to events, produces results for both client and server, and turns static design into working software.",
+          ],
+        },
+        {
+          title: "A future full of options",
+          cover: "/images/courses/javascript-4.jpeg",
+          paragraphs: [
+            "JavaScript is the entry point to a whole ecosystem. No other language covers front-end, back-end, and mobile the way JS does.",
+          ],
+        },
+        {
+          title: "Strengths",
+          cover: "/images/courses/javascript-3.jpeg",
+          paragraphs: [
+            "A massive community, easy syntax, a perfect starting language, and a strong job market.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "What topics are covered?",
+          answer:
+            "JavaScript for web — DOM, dynamic elements, events, and integration with HTML and CSS.",
+        },
+        {
+          id: "faq-2",
+          question: "Do I need prior experience?",
+          answer: "No — the course assumes zero background.",
+        },
+        {
+          id: "faq-3",
+          question: "Is the class project-based?",
+          answer: "Yes — several projects from simple to advanced.",
+        },
+        {
+          id: "faq-4",
+          question: "Does it cover React or Vue?",
+          answer:
+            "No — this is vanilla JavaScript, so you can learn the fundamentals properly first.",
+        },
+        {
+          id: "faq-5",
+          question: "Who is it for?",
+          answer:
+            "Anyone who wants to become a web developer or strengthen their JS skills.",
+        },
+      ],
+    },
+    price: 295000,
+    logo: "/images/courses/javascript-logo.svg",
+    color: ["#e09b31", "#ebdd4e"],
+    rank: 1,
+    capacity: 120,
+    enrolled: 102,
+    prerequisites: ["html-css"],
+    relatedCourses: ["total-web", "python-beginner"],
+    learningOutcomes: [
+      "متغیرها، توابع و منطق برنامه‌نویسی",
+      "کار با DOM و رویدادها",
+      "ساخت صفحات تعاملی",
+      "آماده برای ری‌اکت و فریم‌ورک‌ها",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 102 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۲ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۲" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "JavaScript" },
+      { label: "پیش نیاز", value: "HTML و CSS" },
+      { label: "روش آموزش", value: "ترکیبی" },
+    ],
+    sections: toSections([
+      {
+        title: "درباره ی جاوااسکریپت",
+        cover: "/images/courses/javascript-1.jpeg",
+        paragraph: [
+          "هر وبسایت با استفاده از سه تکنولوژی اساسی ساخته میشه که هیچ جایگزینی ندارن. یکی HTML، یکی CSS و زبان برنامه نویسی جاوااسکریپت. با یادیگری HTML و CSS نوبت به یادگیری JavaScript میرسه که برخلاف دو تکنولوژی پیشین، یک زبان برنامه نویسیه یعنی از تمام ویژگی های یک زبان برنامه نویسی مانند متغیر ها، فانکشن ها و منطق برخودار است.",
+        ],
+      },
+      {
+        title: "جاوااسکریپت به چه دردی میخوره",
+        cover: "/images/courses/javascript-2.jpeg",
+        paragraph: [
+          "کاربرد جاوااسکریپت از جایی آغاز میشه که سایت ما نیاز به زنده شدن داشته باشه! جاوااسکریپت با استفاده رخداد هایی که در وبسایت اتفاق میفته نتایج گوناگونی رو برای سمت کاربر و همچنین سمت سرور رقم میزنه تا سایت ما بجز یک هنر نمایشی کاربردی هم داشته باشه. مانند یک ماشین حساب ساده.",
+        ],
+      },
+      {
+        title: "آینده ی پر انتخاب",
+        cover: "/images/courses/javascript-4.jpeg",
+        paragraph: [
+          "جاوااسکریپت برای استفاده در ساخت وبسایت یه تکنولوژی همه فن حریفه! منظورم اینه که این زبان برنامه نویسی کلی تکنولوژی های وابسته داره که هر کدومش میتونه بخشی از وبسایت رو بسازه در حالی که هیچ زبان دیگه ای نیست که بتونه اینکار رو بکنه.",
+        ],
+      },
+      {
+        title: "خوبی ها",
+        cover: "/images/courses/javascript-3.jpeg",
+        paragraph: [
+          "جامعه ی بزرگ: جاواسکریپت یک از پرطرفدار ترین زبان های برنامه نویسی است. به این دلیل در تمام هزاران نفر هستند که با استفاده از این زبان برنامه ها و سایت های خودشون رو میسازن که همیشه میتونی در جای جای اینترنت باهاشون ارتباط داشته باشی و ازشون کمک بگیری.",
+          "یادیگری آسون: ساختار جاوااسکریپت بسیار ساده و منظمه که باعث میشه به آسونی هر چه تمام تر این زبان رو یادبگیری و ازش استفاده کنی.",
+          "بهترین نقطه‌ی آغاز: برای تبدیل شدن به یک برنامه نویس حرفه ای باید با چیزی کارت رو شروع کنی که از تمام منطق ها برنامه نویسی بهره مند باشه و جاوااسکریپت هم همینطوره!",
+          "بازارکار عالی: به دلیل کارایی و پتانسیل بالای جاوااسکریپت همیشه بازارکار خوبی برای برنامه نویس های این زبان وجود داره.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "این کلاس چه موضوعاتی رو پوشش می‌دهد؟",
+          acceptedAnswer: {
+            text: "این کلاس روی جاوااسکریپت برای توسعه وب تمرکز دارد، از جمله کار با DOM، ایجاد عناصر پویا، کار با رویدادها و تعامل با HTML و CSS.",
+          },
+        },
+        {
+          name: "آیا برای شرکت در این کلاس نیاز به تجربه قبلی دارم؟",
+          acceptedAnswer: {
+            text: "خیر، این کلاس برای مبتدی‌ها طراحی شده و تمامی مفاهیم از پایه آموزش داده می‌شوند.",
+          },
+        },
+        {
+          name: "آیا این کلاس پروژه محور است؟",
+          acceptedAnswer: {
+            text: "بله، ما چندین پروژه عملی از ساده تا پیشرفته داریم تا مهارت‌های شما به طور کامل توسعه پیدا کند.",
+          },
+        },
+        {
+          name: "آیا این کلاس شامل فریم‌ورک‌هایی مانند React یا Vue.js می‌شود؟",
+          acceptedAnswer: {
+            text: "خیر، این کلاس بر پایه جاوااسکریپت خام (Vanilla JavaScript) است تا شما مفاهیم اصلی را به خوبی درک کنید.",
+          },
+        },
+        {
+          name: "این کلاس برای چه افرادی مناسب است؟",
+          acceptedAnswer: {
+            text: "این کلاس برای کسانی مناسب است که می‌خواهند به یک توسعه‌دهنده وب تبدیل شوند یا جاوااسکریپت را برای تقویت مهارت‌های خود یاد بگیرند.",
+          },
+        },
+      ],
+    }),
+    featured: true,
+  },
+
+  // ============================================
+  // 6. Python Beginner
   // ============================================
   {
     slug: "python-beginner",
-    title: "Python for Beginners",
-    persianTitle: "پایتون برای مبتدیان",
-    fullTitle: "Python — From Zero to Hero",
+    title: "Python - Beginner",
+    persianTitle: "پایتون ابتدایی",
+    fullTitle: "آموزش برنامه نویسی با Python ابتدایی",
     category: "software",
-    description: "اولین زبان برنامه‌نویسی خود را با پایتون یاد بگیرید.",
-    longDescription: "پایتون ساده‌ترین زبان برای شروع برنامه‌نویسی است.",
-    price: 1800000,
-    privatePrice: 3500000,
-    logo: "/images/courses/python.png",
-    color: ["#3b82f6", "#fbbf24"],
-    rank: 3,
-    capacity: 20,
-    enrolled: 15,
+    description: "شروع برنامه نویسی با پایتون مخصوص مبتدی‌ها",
+    longDescription:
+      "پایه‌های پایتون از صفر. متغیرها، حلقه‌ها، توابع و منطق برنامه‌نویسی، همه با مثال‌های کاربردی.",
+    i18n: {
+      title: "Python - Beginner",
+      fullTitle: "Python for Beginners",
+      description: "Start programming with Python — no prior experience needed",
+      details: [
+        { label: "Course", value: "Python - Beginner" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Step by step" },
+      ],
+      learningOutcomes: [
+        "Set up Python and your editor",
+        "Understand variables, data types, and control flow",
+        "Write loops, functions, and small scripts",
+        "Build a final project ready for portfolio",
+      ],
+      sections: [
+        {
+          title: "Python for everyone",
+          cover: "/images/courses/python-1.webp",
+          paragraphs: [
+            "This beginner class is designed for people just stepping into programming, or who want to learn one of the most popular languages from scratch.",
+            "No advanced modules. We focus on core commands, fundamental concepts, and the basic structures you'll use forever.",
+          ],
+        },
+        {
+          title: "What you'll learn",
+          cover: "/images/courses/python-2.webp",
+          paragraphs: [
+            "Starting from zero. Install Python, then move through variables, data types, conditionals, loops, and functions. Build a foundation you can build anything on.",
+          ],
+        },
+        {
+          title: "Who it's for",
+          hints: [
+            "Complete beginners with no background",
+            "Anyone curious about Python but unsure where to start",
+            "Students and adults ready to build their programming foundation",
+          ],
+        },
+        {
+          title: "Your first step",
+          cover: "/images/courses/python-3.webp",
+          paragraphs: [
+            "The course is designed so anyone can enter Python without prior background. You'll cover the essentials thoroughly, and you'll be ready to enter real projects by the end.",
+          ],
+        },
+        {
+          title: "The end of one path, the start of another",
+          paragraphs: [
+            "After this class you'll have a solid Python foundation and a real final project. That's not the finish line — it's the start of everything that follows.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do I need any programming background?",
+          answer:
+            "No — the class starts at zero and explains everything from scratch.",
+        },
+        {
+          id: "faq-2",
+          question: "Will we work with modules and libraries?",
+          answer:
+            "Yes, at a beginner level. The final project touches simple web scraping, so you get hands-on experience.",
+        },
+        {
+          id: "faq-3",
+          question: "Is this class enough, or should I take the advanced one?",
+          answer:
+            "The beginner class covers everything you need to start. If you want deeper projects and libraries, the advanced class is the next step.",
+        },
+      ],
+    },
+    price: 252000,
+    logo: "/images/courses/python-logo.svg",
+    color: ["#1e96fc", "#072ac8"],
+    rank: 1,
+    capacity: 160,
+    enrolled: 147,
     prerequisites: [],
-    relatedCourses: ["python-advanced"],
-    learningOutcomes: ["سینتکس پایه", "ساختار داده", "توابع", "فایل I/O"],
+    relatedCourses: ["python-advanced", "javascript"],
+    learningOutcomes: [
+      "راه‌اندازی محیط پایتون",
+      "متغیرها، انواع داده و کنترل جریان",
+      "حلقه‌ها، توابع و اسکریپت‌های کوچک",
+      "پروژه‌ی پایانی آماده برای نمونه‌کار",
+    ],
     syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 15 },
-      { icon: "clock", label: "ساعت آموزشی", value: 40 },
-      { icon: "calendar", label: "تعداد جلسات", value: 20 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 147 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۲۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۲۰" },
     ],
     details: [
-      { label: "نام دوره", value: "Python for Beginners" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین / حضوری" },
+      { label: "نام کلاس", value: "پایتون ابتدایی" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "مرحله‌ای" },
     ],
-    sections: [],
-    faq: [],
+    sections: toSections([
+      {
+        title: "پایتون برای همه!",
+        cover: "/images/courses/python-1.webp",
+        paragraph: [
+          "کلاس پایتون مبتدی دقیقاً برای افرادی طراحی شده که تازه قدم به دنیای برنامه‌نویسی گذاشته‌اند یا می‌خواهند یکی از محبوب‌ترین زبان‌های برنامه‌نویسی جهان را از پایه یاد بگیرند. در این کلاس خبری از پیچیدگی‌ها و ماژول‌های پیشرفته نیست. ما روی دستورات پایه، مفاهیم اساسی و ساختارهای اولیه پایتون تمرکز می‌کنیم تا شما را برای استفاده‌های آینده آماده کنیم.",
+        ],
+      },
+      {
+        title: "چه چیزهایی در این کلاس یاد می‌گیرید؟",
+        cover: "/images/courses/python-2.webp",
+        paragraph: [
+          "این کلاس از صفر شروع می‌شود. ابتدا محیط برنامه‌نویسی را نصب و تنظیم می‌کنید و سپس با مفاهیمی مانند متغیرها، انواع داده‌ها، دستورات شرطی، حلقه‌ها و توابع آشنا می‌شوید.",
+        ],
+      },
+      {
+        title: "کلاس برای چه کسانی مناسب است؟",
+        hints: [
+          "افرادی که هیچ پیش‌زمینه‌ای از برنامه‌نویسی ندارند.",
+          "کسانی که به یادگیری پایتون علاقه‌مندند ولی نمی‌دانند از کجا شروع کنند.",
+          "دانش‌آموزان، دانشجویان، بزرگسالان و هر کسی که می‌خواهد پایه‌ی برنامه‌نویسی خود را بسازد.",
+        ],
+      },
+      {
+        title: "گام نخست برای برنامه‌نویسان آینده",
+        cover: "/images/courses/python-3.webp",
+        paragraph: [
+          "این کلاس پایتون مبتدی به گونه‌ای طراحی شده که هر کسی بدون نیاز به پیش‌زمینه‌ی برنامه‌نویسی می‌تواند به دنیای شگفت‌انگیز پایتون قدم بگذارد. این کلاس به طور کامل به مبانی و مفاهیم اصلی پایتون می‌پردازد.",
+          "شما در پایان این کلاس به مهارت‌هایی مجهز می‌شوید که کاملاً کاربردی هستند. اگر علاقه‌مند باشید، می‌توانید در کلاس پایتون پیشرفته هم شرکت کنید.",
+        ],
+      },
+      {
+        title: "پایان راه، آغاز یک ماجراجویی جدید!",
+        paragraph: [
+          "بعد از این کلاس، شما نه تنها به مبانی پایتون مسلط می‌شوید، بلکه با انجام پروژه‌ی پایانی، تجربه‌ای عملی کسب خواهید کرد. این تنها آغاز مسیر یادگیری شماست.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "آیا برای شرکت در این کلاس باید دانش قبلی برنامه‌نویسی داشته باشم؟",
+          acceptedAnswer: {
+            text: "خیر! این کلاس از صفر شروع می‌شود و تمامی مفاهیم از پایه توضیح داده می‌شوند. حتی اگر هیچ‌چیزی درباره‌ی برنامه‌نویسی نمی‌دانید، این کلاس مناسب شماست.",
+          },
+        },
+        {
+          name: "آیا در این کلاس با ماژول‌ها و کتابخانه‌ها هم کار می‌کنیم؟",
+          acceptedAnswer: {
+            text: "بله، در سطح مقدماتی با ماژول‌ها و کتابخانه‌های ساده کار خواهیم کرد. به طور مثال، در پروژه‌ی پایانی با ماژول‌های مرتبط با وب اسکرپینگ آشنا می‌شوید.",
+          },
+        },
+        {
+          name: "آیا این کلاس برای من کافی است یا باید کلاس پیشرفته را هم شرکت کنم؟",
+          acceptedAnswer: {
+            text: "این کلاس به طور کامل طراحی شده تا شما بتوانید مهارت‌های پایه‌ای پایتون را یاد بگیرید. اگر علاقه‌مند به مباحث پیشرفته‌تر هستید، کلاس پیشرفته را توصیه می‌کنیم.",
+          },
+        },
+      ],
+    }),
     featured: true,
   },
+
+  // ============================================
+  // 7. Python Advanced
+  // ============================================
   {
     slug: "python-advanced",
-    title: "Python Advanced",
+    title: "Python - Advanced",
     persianTitle: "پایتون پیشرفته",
-    fullTitle: "Python — Advanced Patterns & Async",
+    fullTitle: "آموزش برنامه نویسی با Python پیشرفته",
     category: "software",
-    description:
-      "مفاهیم پیشرفته‌ی پایتون شامل Async، Decorators و Design Patterns.",
+    description: "مکمل کلاس ابتدایی برای حرفه‌ای شدن",
     longDescription:
-      "برای کسانی که می‌خواهند سطح دانش پایتون خود را به بالاترین حد برسانند.",
-    price: 3000000,
-    privatePrice: 6000000,
-    logo: "/images/courses/python-adv.png",
-    color: ["#0ea5e9", "#8b5cf6"],
-    rank: 4,
-    capacity: 15,
-    enrolled: 10,
+      "پروژه‌محور در سه سطح سخت، با آشنایی اولیه با Django و ماشین لرنینگ.",
+    i18n: {
+      title: "Python - Advanced",
+      fullTitle: "Advanced Python",
+      description: "The continuation course — go pro",
+      details: [
+        { label: "Course", value: "Python - Advanced" },
+        { label: "Prerequisites", value: "Python Beginner" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Work with popular libraries — NumPy, Pandas, Matplotlib",
+        "Apply object-oriented principles",
+        "Manage data — read, process, and analyze",
+        "Preview Django or machine learning",
+      ],
+      sections: [
+        {
+          title: "Advanced Python — the next level",
+          cover: "/images/courses/python-adv-1.webp",
+          paragraphs: [
+            "You know Python. Now let's push it — real projects, real libraries, real problems. If you haven't taken the beginner class, we recommend it first.",
+          ],
+        },
+        {
+          title: "Learn by building",
+          cover: "/images/courses/python-adv-2.webp",
+          paragraphs: [
+            "Three project tiers: easy (scripts), medium (data pipelines), pro (a full web scraper). Each level builds on the last.",
+          ],
+        },
+        {
+          title: "What you'll cover",
+          paragraphs: ["The full advanced Python toolkit:"],
+          hints: [
+            "Popular libraries: NumPy, Pandas, Matplotlib",
+            "Object-oriented programming",
+            "Data management — CSV, JSON",
+            "Automation scripting",
+            "Django (web)",
+            "Machine learning basics",
+            "Real, portfolio-ready projects",
+          ],
+        },
+        {
+          title: "Django and machine learning",
+          paragraphs: [
+            "A dedicated chapter lets you pick one track: Django for web or machine learning with scikit-learn. Whichever you choose, you finish with a foundation to grow into.",
+          ],
+        },
+        {
+          title: "Become a Python master",
+          cover: "/images/courses/python-adv-3.webp",
+          paragraphs: [
+            "You'll solve real problems, not exercises. You'll finish able to teach others and take on complex projects with confidence.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Who is this class for?",
+          answer:
+            "Anyone with basic Python who wants to work on advanced topics — data, automation, projects.",
+        },
+        {
+          id: "faq-2",
+          question: "Prerequisites?",
+          answer:
+            "You should know variables, loops, and functions. If not, start with Python Beginner.",
+        },
+        {
+          id: "faq-3",
+          question: "Is there a final project?",
+          answer: "Yes — a full project you can put straight onto your resume.",
+        },
+        {
+          id: "faq-4",
+          question: "Do we cover libraries?",
+          answer: "Yes — Pandas, NumPy, Matplotlib, and more.",
+        },
+        {
+          id: "faq-5",
+          question: "Can I enter ML or web after this?",
+          answer:
+            "Yes — you'll have an initial footing to grow into either field.",
+        },
+        {
+          id: "faq-6",
+          question: "Is the advanced class required?",
+          answer:
+            "Not required — but it's the next step if you want professional projects.",
+        },
+      ],
+    },
+    price: 288000,
+    logo: "/images/courses/python-adv-logo.svg",
+    color: ["#1e96fc", "#072ac8"],
+    rank: 2,
+    capacity: 130,
+    enrolled: 100,
     prerequisites: ["python-beginner"],
     relatedCourses: ["python-beginner"],
-    learningOutcomes: ["Async", "Decorators", "Generators", "Typing"],
+    learningOutcomes: [
+      "کار با NumPy، Pandas و Matplotlib",
+      "اصول شیءگرایی در پایتون",
+      "مدیریت داده و پردازش فایل‌ها",
+      "آشنایی با Django یا ماشین لرنینگ",
+    ],
     syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 10 },
-      { icon: "clock", label: "ساعت آموزشی", value: 50 },
-      { icon: "calendar", label: "تعداد جلسات", value: 25 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 100 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۰" },
     ],
     details: [
-      { label: "نام دوره", value: "Python Advanced" },
-      { label: "پیش‌نیاز", value: "Python Basics" },
-      { label: "روش برگزاری", value: "آنلاین" },
+      { label: "نام کلاس", value: "پایتون پیشرفته" },
+      { label: "پیش نیاز", value: "پایتون ابتدایی" },
+      { label: "روش آموزش", value: "پروژه محور" },
     ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "csharp-pro",
-    title: "C# Mastery",
-    persianTitle: "تسلط بر C#",
-    fullTitle: "C# — Modern .NET Development",
-    category: "software",
-    description: "زبان قدرتمند مایکروسافت برای ساخت اپلیکیشن‌های دسکتاپ و وب.",
-    longDescription: "C# یکی از قدرتمندترین زبان‌های شیءگرا است.",
-    price: 2800000,
-    privatePrice: 5500000,
-    logo: "/images/courses/csharp.png",
-    color: ["#8b5cf6", "#ec4899"],
-    rank: 4,
-    capacity: 20,
-    enrolled: 12,
-    prerequisites: [],
-    relatedCourses: [],
-    learningOutcomes: ["OOP", "LINQ", ".NET", "ASP.NET Core"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 12 },
-      { icon: "clock", label: "ساعت آموزشی", value: 60 },
-      { icon: "calendar", label: "تعداد جلسات", value: 30 },
-    ],
-    details: [
-      { label: "نام دوره", value: "C# Mastery" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین / حضوری" },
-    ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "cpp-pro",
-    title: "C++ Mastery",
-    persianTitle: "تسلط بر C++",
-    fullTitle: "C++ — Systems & Performance",
-    category: "software",
-    description: "زبان سطح پایین برای برنامه‌های پرسرعت و سیستم‌های نهفته.",
-    longDescription: "C++ پرچم‌دار برنامه‌نویسی سیستمی و بازی‌سازی است.",
-    price: 3200000,
-    privatePrice: 6500000,
-    logo: "/images/courses/cpp.png",
-    color: ["#0ea5e9", "#3b82f6"],
-    rank: 4,
-    capacity: 15,
-    enrolled: 8,
-    prerequisites: [],
-    relatedCourses: ["unreal-engine"],
-    learningOutcomes: ["Pointers", "Memory", "STL", "OOP"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 8 },
-      { icon: "clock", label: "ساعت آموزشی", value: 70 },
-      { icon: "calendar", label: "تعداد جلسات", value: 35 },
-    ],
-    details: [
-      { label: "نام دوره", value: "C++ Mastery" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "java-pro",
-    title: "Java Development",
-    persianTitle: "توسعه با جاوا",
-    fullTitle: "Java — Enterprise Backend",
-    category: "software",
-    description: "زبان جاوا برای ساخت اپلیکیشن‌های سازمانی و اندروید.",
-    longDescription: "جاوا هنوز پادشاه اپلیکیشن‌های سازمانی است.",
-    price: 3000000,
-    privatePrice: 6000000,
-    logo: "/images/courses/java.png",
-    color: ["#ef4444", "#f59e0b"],
-    rank: 4,
-    capacity: 20,
-    enrolled: 14,
-    prerequisites: [],
-    relatedCourses: [],
-    learningOutcomes: ["OOP", "Spring Boot", "JPA", "Testing"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 14 },
-      { icon: "clock", label: "ساعت آموزشی", value: 80 },
-      { icon: "calendar", label: "تعداد جلسات", value: 40 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Java Development" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
+    sections: toSections([
+      {
+        title: "یادگیری پیشرفته پایتون: سطح بعدی مهارت‌هایتان",
+        cover: "/images/courses/python-adv-1.webp",
+        paragraph: [
+          "اگر با پایتون آشنا هستید و آماده‌اید که مهارت‌های خود را به سطح بعدی ببرید، این کلاس برای شماست! کلاس پیشرفته‌ی پایتون مخصوص افرادی طراحی شده که می‌خواهند پروژه‌های حرفه‌ای انجام دهند و ماژول‌ها و کتابخانه‌های مختلف را عمیق‌تر بشناسند.",
+        ],
+      },
+      {
+        title: "یادیگیری حرفه با ساخت پروژه های عملی",
+        cover: "/images/courses/python-adv-2.webp",
+        paragraph: [
+          "یکی از جذابیت‌های این کلاس این است که پروژه‌های عملی طراحی شده به سه سطح آسان، میانه و حرفه‌ای تقسیم‌بندی شده‌اند تا تجربه‌ای متناسب با پیشرفت شما فراهم شود. در نهایت، در سطح حرفه‌ای، پروژه‌ای پیشرفته مثل ساخت یک ابزار وب‌اسکرپینگ جامع طراحی می‌کنید.",
+        ],
+      },
+      {
+        title: "چه چیزهایی در این کلاس یاد می‌گیرید؟",
+        paragraph: [
+          "این کلاس یک سفر کامل به دنیای پیشرفته‌ی پایتون است. شما با موضوعاتی همچون:",
+        ],
+        hints: [
+          "کار با کتابخانه‌های محبوب: مانند NumPy و Matplotlib.",
+          "مبانی برنامه‌نویسی شیءگرا (OOP): طراحی کلاس‌ها و شیءها.",
+          "مدیریت داده‌ها: خواندن، پردازش، و تجزیه و تحلیل فایل‌ها.",
+          "اتوماتیک‌سازی کارها: نوشتن اسکریپت‌هایی که کارهای روزمره را خودکار کنند.",
+          "ساخت برنامه های تحت وب: با برسی استفاده از ابزار پرقدرت Django.",
+          "مبانی ماشین لرنینگ: پا گذاری به دنیای هوش مصنوعی.",
+          "ایجاد پروژه‌های واقعی: ساخت پروژه‌هایی که در دنیای واقعی بدردتون میخورن.",
+        ],
+      },
+      {
+        title: "آشنایی اولیه با دنیای Django و ماشین لرنینگ",
+        paragraph: [
+          "در این کلاس، به شما فرصت داده می‌شود تا در یک فصل که با نام 'سکو' شناخته می‌شود، نگاهی کلی اما کاربردی به یکی از دو حوزه‌ی مهم و پیشرفته به انتخاب خود داشته باشید: Django و ماشین لرنینگ در پایتون.",
+        ],
+      },
+      {
+        title: "استاد پایتون شوید: این کلاس آخرین قدم شماست!",
+        cover: "/images/courses/python-adv-3.webp",
+        paragraph: [
+          "اگر همیشه آرزو داشتید که در برنامه‌نویسی پایتون به جایی برسید که بتوانید دیگران را راهنمایی کنید یا پروژه‌های حرفه‌ای و پیچیده را با اعتمادبه‌نفس کامل انجام دهید، این کلاس دقیقاً همان چیزی است که به دنبالش بودید.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "این کلاس برای چه کسانی مناسب است؟",
+          acceptedAnswer: {
+            text: "این کلاس برای افرادی طراحی شده که مبانی پایتون را می‌دانند و آماده‌اند مهارت‌های خود را در زمینه‌های پیشرفته‌تر توسعه دهند.",
+          },
+        },
+        {
+          name: "آیا برای شرکت در این کلاس نیاز به پیش‌نیاز خاصی دارم؟",
+          acceptedAnswer: {
+            text: "بله، آشنایی با مبانی پایتون مثل دستورات پایه، حلقه‌ها و توابع ضروری است.",
+          },
+        },
+        {
+          name: "آیا این کلاس شامل پروژه‌ی نهایی است؟",
+          acceptedAnswer: {
+            text: "بله، در پایان کلاس یک پروژه‌ی جامع انجام می‌دهید که می‌تواند به عنوان یک نمونه کار حرفه‌ای در رزومه‌تان قرار بگیرد.",
+          },
+        },
+        {
+          name: "در این کلاس به ماژول‌ها و کتابخانه‌ها هم پرداخته می‌شود؟",
+          acceptedAnswer: {
+            text: "بله، این کلاس شامل آموزش ماژول‌ها و کتابخانه‌های پرکاربرد مثل Pandas، NumPy، و Matplotlib است.",
+          },
+        },
+        {
+          name: "آیا بعد از این کلاس می‌توانم وارد حوزه‌ی یادگیری ماشین یا توسعه وب شوم؟",
+          acceptedAnswer: {
+            text: "بله، این کلاس شما را برای شروع این مسیرها آماده می‌کند.",
+          },
+        },
+        {
+          name: "آیا شرکت در کلاس پیشرفته ضروری است؟",
+          acceptedAnswer: {
+            text: "اگر می‌خواهید پروژه‌های حرفه‌ای بسازید و به یک توسعه‌دهنده‌ی پایتون پیشرفته تبدیل شوید، این کلاس گام بعدی شماست.",
+          },
+        },
+      ],
+    }),
   },
 
   // ============================================
-  // GAME DEVELOPMENT
+  // 8. C#
   // ============================================
   {
-    slug: "unity-pro",
-    title: "Unity Game Development",
-    persianTitle: "بازی‌سازی با یونیتی",
-    fullTitle: "Unity — Build Real Games",
-    category: "game",
-    description: "ساخت بازی‌های دو بعدی و سه بعدی با موتور یونیتی.",
+    slug: "c-sharp",
+    title: "#C",
+    persianTitle: "سی شارپ",
+    fullTitle: "آموزش برنامه نویسی با زبان #C",
+    category: "software",
+    description: "برنامه نویسی با زبان پرقدرت #C",
     longDescription:
-      "یونیتی محبوب‌ترین موتور بازی‌سازی برای بازی‌سازهای مستقل است.",
-    price: 3500000,
-    privatePrice: 7000000,
-    logo: "/images/courses/unity.png",
-    color: ["#3b82f6", "#8b5cf6"],
+      "زبان شیءگرای مایکروسافت برای ویندوز، وب و بازی‌سازی. از پایه تا پیشرفته.",
+    i18n: {
+      title: "C#",
+      fullTitle: "C# Programming",
+      description: "Programming in a powerful, object-oriented language",
+      details: [
+        { label: "Course", value: "C#" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Hybrid" },
+      ],
+      learningOutcomes: [
+        "Understand C# syntax and OOP",
+        "Build desktop and web apps",
+        "Apply C# in game development",
+        "Prepare for enterprise roles",
+      ],
+      sections: [
+        {
+          title: "What is C#?",
+          cover: "/images/courses/csharp-1.jpeg",
+          paragraphs: [
+            "C# is a high-level, multi-purpose language by Microsoft. Built on C and C++, it suits graphical, web, and distributed systems.",
+          ],
+        },
+        {
+          title: "Why learn C#",
+          cover: "/images/courses/csharp-2.jpeg",
+          paragraphs: [
+            "One language, many doors — Windows apps, web, games, mobile. Deep tooling, strong typing, and a huge ecosystem.",
+          ],
+        },
+        {
+          title: "Course content",
+          paragraphs: [
+            "From syntax to advanced — object-oriented design, async programming, real projects at every step.",
+          ],
+        },
+        {
+          title: "Career outlook",
+          cover: "/images/courses/csharp-4.jpeg",
+          paragraphs: [
+            "High demand across enterprise software, game dev, and web. A solid C# foundation opens many industries.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "What is C#?",
+          answer:
+            "A high-level, multi-purpose language developed by Microsoft.",
+        },
+        {
+          id: "faq-2",
+          question: "Why learn C#?",
+          answer:
+            "It opens web, Windows app, and video game opportunities — with one language.",
+        },
+        {
+          id: "faq-3",
+          question: "How is it different from other languages?",
+          answer:
+            "It combines high-level simplicity with advanced features like object-oriented design and automatic memory management.",
+        },
+        {
+          id: "faq-4",
+          question: "How is the class held?",
+          answer:
+            "Online, group-based. You join live sessions with the teacher and can ask questions anytime.",
+        },
+        {
+          id: "faq-5",
+          question: "How do I enroll?",
+          answer: "Fill the enrollment form on the site and we'll contact you.",
+        },
+      ],
+    },
+    price: 299000,
+    logo: "/images/courses/csharp-logo.png",
+    color: ["#7209b7", "#3a0ca3"],
     rank: 2,
-    capacity: 20,
-    enrolled: 19,
-    prerequisites: ["csharp-pro"],
-    relatedCourses: ["unreal-engine"],
-    learningOutcomes: ["C# Scripting", "Physics", "UI", "Publishing"],
+    capacity: 80,
+    enrolled: 44,
+    prerequisites: [],
+    relatedCourses: ["c-plus-plus", "unity"],
+    learningOutcomes: [
+      "سینتکس #C و شیءگرایی",
+      "ساخت اپلیکیشن ویندوز و وب",
+      "استفاده از #C در بازی‌سازی",
+      "آماده برای نقش‌های Enterprise",
+    ],
     syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 19 },
-      { icon: "clock", label: "ساعت آموزشی", value: 80 },
-      { icon: "calendar", label: "تعداد جلسات", value: 40 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 44 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۵ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۵" },
     ],
     details: [
-      { label: "نام دوره", value: "Unity Game Development" },
-      { label: "پیش‌نیاز", value: "Basic C#" },
-      { label: "روش برگزاری", value: "آنلاین / حضوری" },
+      { label: "نام کلاس", value: "#C" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "ترکیبی" },
     ],
-    sections: [],
-    faq: [],
-    featured: true,
+    sections: toSections([
+      {
+        title: "زبان #C چی هست اصلا؟",
+        cover: "/images/courses/csharp-1.jpeg",
+        paragraph: [
+          "#C یک زبان برنامه‌نویسی سطح بالا و چندمنظوره است که توسط شرکت مایکروسافت توسعه یافته است. این زبان بر پایه زبان‌های C و ++C طراحی شده و برای ایجاد برنامه‌های کاربردی گرافیکی، وب و سیستم‌های توزیع شده مناسب است. ویژگی‌هایی مانند ساده بودن، قابلیت‌های شیءگرایی و ابزارهای پیشرفته‌ی توسعه، #C را به یکی از زبان‌های محبوب برنامه‌نویسان تبدیل کرده است.",
+        ],
+      },
+      {
+        title: "مزایای یادگیری #C",
+        cover: "/images/courses/csharp-2.jpeg",
+        paragraph: [
+          "یادگیری #C به شما این امکان را می‌دهد تا در طیف گسترده‌ای از پروژه‌ها و حوزه‌ها فعالیت کنید. از توسعه اپلیکیشن‌های ویندوز و وب گرفته تا بازی‌های ویدئویی و برنامه‌های موبایل، #C به شما انعطاف‌پذیری و قدرت کافی را برای پیاده‌سازی ایده‌هایتان می‌دهد.",
+        ],
+      },
+      {
+        title: "محتوای کلاس",
+        paragraph: [
+          "در طول این کلاس، شما با مفاهیم پایه و پیشرفته‌ی #C آشنا خواهید شد. از یادگیری نحو پایه‌ای زبان تا مفاهیم پیچیده‌تری مانند شیءگرایی و برنامه‌نویسی غیرهمزمان، همه و همه در این کلاس پوشش داده خواهند شد.",
+        ],
+      },
+      {
+        title: "چشم‌انداز شغلی برنامه‌نویسان #C",
+        cover: "/images/courses/csharp-4.jpeg",
+        paragraph: [
+          "با یادگیری و تسلط بر زبان #C، شما می‌توانید در بسیاری از صنایع و شرکت‌های بزرگ شغلی مناسب پیدا کنید. تقاضا برای برنامه‌نویسان #C به دلیل قابلیت‌های متنوع و کاربردی این زبان همواره بالاست.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "چیست؟ #C",
+          acceptedAnswer: {
+            text: "#C یک زبان برنامه‌نویسی سطح بالا و چندمنظوره است که توسط مایکروسافت توسعه یافته است.",
+          },
+        },
+        {
+          name: "چرا باید #C یاد بگیرم؟",
+          acceptedAnswer: {
+            text: "یادگیری #C به شما امکان فعالیت در پروژه‌ها و حوزه‌های متنوع مانند توسعه وب، اپلیکیشن‌های ویندوز و بازی‌های ویدئویی را می‌دهد.",
+          },
+        },
+        {
+          name: "#C چه تفاوتی با زبان‌های دیگر دارد؟",
+          acceptedAnswer: {
+            text: "#C ترکیبی از سادگی زبان‌های برنامه‌نویسی سطح بالا و قابلیت‌های پیشرفته‌ای مانند شیءگرایی و مدیریت حافظه خودکار را داراست.",
+          },
+        },
+        {
+          name: "کلاس برنامه‌نویسی با #C چگونه برگزار می‌شود؟",
+          acceptedAnswer: {
+            text: "این کلاس به صورت آنلاین و گروهی برگزار میشود. شما می‌توانید در جلسات آنلاین با استاد خود شرکت کرده و در هر زمان سوالات و ابهامات خود را مطرح کنید.",
+          },
+        },
+        {
+          name: "چگونه می‌توانم در این کلاس ثبت‌نام کنم؟",
+          acceptedAnswer: {
+            text: "برای ثبت‌نام در این کلاس، کافی است با کلیک روی دکمه ی ثبت‌نام فرم مربوطه را در وبسایت ما تکمیل کنید و سپس منتظر تماس ما باشید.",
+          },
+        },
+      ],
+    }),
   },
+
+  // ============================================
+  // 9. C++
+  // ============================================
+  {
+    slug: "c-plus-plus",
+    title: "++C",
+    persianTitle: "سی پلاس پلاس",
+    fullTitle: "آموزش برنامه نویسی با زبان ++C",
+    category: "software",
+    description: "برنامه نویسی با زبان پرقدرت ++C",
+    longDescription:
+      "زبان سیستمی و پرسرعت. مسیر کامل از پایه‌ها تا شیءگرایی و مدیریت حافظه.",
+    i18n: {
+      title: "C++",
+      fullTitle: "C++ Programming",
+      description: "A powerful, low-level language for performance",
+      details: [
+        { label: "Course", value: "C++" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Step by step" },
+      ],
+      learningOutcomes: [
+        "Understand C++ syntax and memory",
+        "Apply object-oriented design",
+        "Work with STL and algorithms",
+        "Prepare for game or systems roles",
+      ],
+      sections: [
+        {
+          title: "What is C++?",
+          cover: "/images/courses/cpp-1.jpeg",
+          paragraphs: [
+            "C++ is one of the most powerful and widely used languages in the world, developed by Bjarne Stroustrup in 1985. Its object-oriented features and raw performance make it ideal for operating systems, games, and industrial software.",
+          ],
+        },
+        {
+          title: "Real-world uses",
+          cover: "/images/courses/cpp-2.jpeg",
+          paragraphs: [
+            "Windows, Linux, Unreal Engine, embedded systems in automotive and medical devices — C++ is everywhere performance matters.",
+          ],
+        },
+        {
+          title: "Course content",
+          cover: "/images/courses/cpp-3.jpeg",
+          paragraphs: [
+            "From fundamentals to advanced topics. Each session mixes theory with practice. Covers data structures, algorithms, OOP, and memory management.",
+          ],
+        },
+        {
+          title: "Career outlook",
+          cover: "/images/courses/cpp-4.jpeg",
+          paragraphs: [
+            "System developers, game programmers, and industrial engineers all need C++ skills. Mastery opens large, complex projects.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Who is this class for?",
+          answer:
+            "Anyone interested in learning C++ — from beginners to professionals sharpening their skills.",
+        },
+        {
+          id: "faq-2",
+          question: "What will I be able to do?",
+          answer:
+            "Write complex, efficient C++ programs and contribute to real projects.",
+        },
+        {
+          id: "faq-3",
+          question: "Are there hands-on projects?",
+          answer: "Yes — practical projects throughout the course.",
+        },
+        {
+          id: "faq-4",
+          question: "Is C++ really as hard as they say?",
+          answer:
+            "Not exactly. It's foundational and complete, which means it's broader than most languages — but that's the point.",
+        },
+      ],
+    },
+    price: 288000,
+    logo: "/images/courses/cpp-logo.svg",
+    color: ["#001845", "#0466c8"],
+    rank: 2,
+    capacity: 80,
+    enrolled: 61,
+    prerequisites: [],
+    relatedCourses: ["c-sharp", "unreal-engine"],
+    learningOutcomes: [
+      "سینتکس ++C و مدیریت حافظه",
+      "طراحی شیءگرا",
+      "کار با STL و الگوریتم‌ها",
+      "آماده برای بازی‌سازی و سیستم‌ها",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 61 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۴۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۴۰" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "++C" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "مرحله‌ای" },
+    ],
+    sections: toSections([
+      {
+        title: "آشنایی با زبان برنامه‌نویسی ++C",
+        cover: "/images/courses/cpp-1.jpeg",
+        paragraph: [
+          "زبان برنامه‌نویسی ++C، یکی از پرقدرت‌ترین و پرکاربردترین زبان‌های برنامه‌نویسی در دنیا است که توسط بیارنه استراوستروپ در سال 1985 توسعه یافته است. این زبان به دلیل امکانات پیشرفته‌ی شیءگرایی و عملکرد بسیار بالا، در حوزه‌های مختلفی از جمله توسعه‌ی سیستم‌های عامل، بازی‌های ویدئویی و نرم‌افزارهای صنعتی به کار می‌رود.",
+        ],
+      },
+      {
+        title: "کاربردهای ++C در دنیای واقعی",
+        cover: "/images/courses/cpp-2.jpeg",
+        paragraph: [
+          "++C به دلیل سرعت و کارایی بالایی که دارد، در بسیاری از پروژه‌های پیچیده و بزرگ مورد استفاده قرار می‌گیرد. از سیستم‌عامل‌های معروفی چون ویندوز و لینوکس گرفته تا بازی‌های ویدئویی پرطرفداری مانند Unreal Engine، همه و همه با استفاده از این زبان توسعه یافته‌اند.",
+        ],
+      },
+      {
+        title: "محتوای کلاس",
+        cover: "/images/courses/cpp-3.jpeg",
+        paragraph: [
+          "در این کلاس، شما از پایه‌ای‌ترین مفاهیم برنامه‌نویسی ++C تا پیشرفته‌ترین موضوعات آن را فرا خواهید گرفت. هر جلسه شامل توضیحات نظری و تمرین‌های عملی است که به شما کمک می‌کند تا مفاهیم را به صورت عمیق و کاربردی درک کنید.",
+        ],
+      },
+      {
+        title: "چشم‌انداز شغلی با یادگیری ++C",
+        cover: "/images/courses/cpp-4.jpeg",
+        paragraph: [
+          "یادگیری ++C به شما این امکان را می‌دهد که در بسیاری از صنایع مختلف شغل پیدا کنید. از توسعه‌دهندگان نرم‌افزارهای سیستمی گرفته تا بازی‌سازان و برنامه‌نویسان صنعتی، همه به مهارت‌های شما نیاز دارند.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "کلاس برنامه‌نویسی ++C برای چه کسانی مناسب است؟",
+          acceptedAnswer: {
+            text: "این کلاس برای تمامی افرادی که علاقه‌مند به یادگیری زبان برنامه‌نویسی ++C هستند مناسب است. از مبتدیان تا برنامه‌نویسان حرفه‌ای که می‌خواهند مهارت‌های خود را بهبود بخشند.",
+          },
+        },
+        {
+          name: "پس از پایان کلاس چه مهارت‌هایی کسب خواهم کرد؟",
+          acceptedAnswer: {
+            text: "پس از پایان این کلاس، شما قادر خواهید بود برنامه‌های پیچیده و کارآمدی با استفاده از زبان ++C بنویسید و در پروژه‌های واقعی شرکت کنید.",
+          },
+        },
+        {
+          name: "آیا این کلاس شامل پروژه‌های عملی است؟",
+          acceptedAnswer: {
+            text: "بله، در طول کلاس شما با پروژه‌های عملی و تمرین‌های کاربردی روبرو خواهید شد که به شما کمک می‌کنند تا مفاهیم را به صورت عملی یاد بگیرید.",
+          },
+        },
+        {
+          name: "زبان ++C همونطور که میگن خیلی سخته؟",
+          acceptedAnswer: {
+            text: "نه دقیقا، این گفته به دلیل اینه که این زبان بسیار بنیادین و کامله و نسبت به زبان های دیگر پرکار تره.",
+          },
+        },
+      ],
+    }),
+  },
+
+  // ============================================
+  // 10. Java
+  // ============================================
+  {
+    slug: "java",
+    title: "Java",
+    persianTitle: "جاوا",
+    fullTitle: "آموزش برنامه نویسی اندروید با زبان Java",
+    category: "software",
+    description: "برنامه نویسی با Java (ربطی به JavaScript نداره!)",
+    longDescription:
+      "جاوا، زبان شیءگرای سازمانی و اندروید. با JVM همه‌جا اجرا می‌شود.",
+    i18n: {
+      title: "Java",
+      fullTitle: "Android App Development with Java",
+      description: "Program in Java — enterprise, Android, everywhere",
+      details: [
+        { label: "Course", value: "Java" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Understand Java and OOP",
+        "Build Android apps",
+        "Work with the JVM ecosystem",
+        "Prepare for enterprise or security roles",
+      ],
+      sections: [
+        {
+          title: "What is Java?",
+          cover: "/images/courses/java-1.webp",
+          paragraphs: [
+            "Java is an object-oriented language introduced by Sun Microsystems in 1995, now developed by Oracle. Runs anywhere the JVM runs — one language, every platform.",
+            "Used across web apps, mobile (especially Android), enterprise systems, and IoT devices.",
+          ],
+        },
+        {
+          title: "Shape your career with Java",
+          paragraphs: [
+            "Java remains one of the most powerful, in-demand languages. This online class is project-based and takes you from beginner to professional Java developer.",
+          ],
+        },
+        {
+          title: "Android focus",
+          cover: "/images/courses/java-2.webp",
+          paragraphs: [
+            "The class emphasizes Android development. You'll learn Java fundamentals and how to build professional Android apps, from UI to lifecycle management.",
+          ],
+        },
+        {
+          title: "Career opportunities",
+          cover: "/images/courses/java-3.webp",
+          paragraphs: [
+            "Java developers are in demand everywhere. With projects on your resume, you'll stand out.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Is this only for Android devs?",
+          answer:
+            "No — the class covers fundamental and advanced Java that's useful in web, enterprise, and Android.",
+        },
+        {
+          id: "faq-2",
+          question: "Are there hands-on projects?",
+          answer: "Yes — the class is project-based from the start.",
+        },
+        {
+          id: "faq-3",
+          question: "What will I know by the end?",
+          answer:
+            "Enough Java to work as an Android developer or use Java in networking and related fields.",
+        },
+      ],
+    },
+    price: 299000,
+    logo: "/images/courses/java-logo.svg",
+    color: ["#4c334d", "#7c2e41"],
+    rank: 11,
+    capacity: 70,
+    enrolled: 59,
+    prerequisites: [],
+    relatedCourses: ["c-sharp", "c-plus-plus"],
+    learningOutcomes: [
+      "جاوا و شیءگرایی",
+      "ساخت اپلیکیشن اندروید",
+      "کار با اکوسیستم JVM",
+      "آماده برای Enterprise یا امنیت",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 59 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۸ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۸" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "Java" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "پروژه محور" },
+    ],
+    sections: toSections([
+      {
+        title: "جاوا چیست؟",
+        cover: "/images/courses/java-1.webp",
+        paragraph: [
+          "جاوا یک زبان برنامه‌نویسی شیء‌گرا و چندمنظوره است که نخستین بار توسط شرکت Sun Microsystems در سال ۱۹۹۵ معرفی شد و بعدها توسط Oracle توسعه یافت. یکی از ویژگی‌های برجسته جاوا، قابلیت اجرای آن بر روی هر سیستم‌عاملی است که از Java Virtual Machine (JVM) پشتیبانی می‌کند.",
+          "این زبان به دلیل پایداری، امنیت و مقیاس‌پذیری، در حوزه‌های مختلفی از جمله توسعه اپلیکیشن‌های وب، برنامه‌های موبایل (به‌ویژه اندروید)، سیستم‌های سازمانی و حتی دستگاه‌های اینترنت اشیا (IoT) مورد استفاده قرار می‌گیرد.",
+        ],
+      },
+      {
+        title: "مسیر حرفه‌ای خود را با جاوا شکل دهید",
+        paragraph: [
+          "در دنیای برنامه‌نویسی امروز، جاوا همچنان به عنوان یکی از قدرتمندترین و پرکاربردترین زبان‌های برنامه‌نویسی مطرح است. کلاس آنلاین ما بر اساس تجربه‌های واقعی و پروژه‌های عملی طراحی شده است تا شما را از یک مبتدی به یک توسعه‌دهنده حرفه‌ای جاوا تبدیل کند.",
+        ],
+      },
+      {
+        title: "یادگیری جاوا با تمرکز بر توسعه اندروید",
+        cover: "/images/courses/java-2.webp",
+        paragraph: [
+          "یکی از ویژگی‌های خاص این کلاس، تمرکز ویژه بر توسعه اپلیکیشن‌های اندروید است. جاوا به عنوان زبان اصلی توسعه اندروید همچنان نقش کلیدی دارد.",
+          "در این کلاس، شما نه تنها اصول پایه‌ای جاوا را یاد خواهید گرفت، بلکه چگونگی استفاده از این زبان برای ساخت اپلیکیشن‌های اندروید را نیز فرا خواهید گرفت.",
+        ],
+      },
+      {
+        title: "فرصت شغلی منحصربه‌فرد با جاوا",
+        cover: "/images/courses/java-3.webp",
+        paragraph: [
+          "بازار کار برای توسعه‌دهندگان جاوا همچنان در حال رشد است. شرکت‌های بزرگ و کوچک همیشه به دنبال افرادی هستند که توانایی کار با جاوا را دارند.",
+          "این زبان به دلیل کاربرد گسترده‌اش، از اپلیکیشن‌های موبایل گرفته تا سیستم‌های بزرگ و مقیاس‌پذیر سازمانی، یک مهارت ضروری برای ورود به صنعت فناوری است.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "این کلاس فقط برای توسعه‌دهندگان اندرویده؟",
+          acceptedAnswer: {
+            text: "خیر، اگرچه بخش مهمی از کلاس به توسعه اندروید با جاوا اختصاص دارد، اما کلاس شامل آموزش‌های پایه‌ای و پیشرفته جاوا است که می‌تواند در توسعه وب، برنامه‌های سازمانی و سایر کاربردهای جاوا نیز مفید باشد.",
+          },
+        },
+        {
+          name: "این کلاس شامل پروژه های عملی هم میشه؟",
+          acceptedAnswer: {
+            text: "بله، این کلاس کاملاً پروژه‌محور است و در هر مرحله تمرینات و پروژه‌های واقعی انجام خواهید داد.",
+          },
+        },
+        {
+          name: "بعد از پایان کلاس، چه مهارت‌هایی خواهم داشت؟",
+          acceptedAnswer: {
+            text: "شما با گذروندن این کلاس تسلط کافی به مفاهیم جاوا پیدا خواهید کرد که میتونید با استفاده این مهارت به توسعه دهنده ی اندروید تبدیل بشید یا حتی از این زبان برای ورود به دنیای امنیت شبکه یا زمینه های مرتبط با جاوا استفاده کنید.",
+          },
+        },
+      ],
+    }),
+  },
+
+  // ============================================
+  // 11. Unity
+  // ============================================
+  {
+    slug: "unity",
+    title: "Unity 6",
+    persianTitle: "یونیتی ۶",
+    fullTitle: "آموزش بازی سازی با موتور Unity 6",
+    category: "game",
+    description: "ساخت بازی با موتور بازی سازی Unity 6",
+    longDescription:
+      "محبوب‌ترین موتور بازی‌سازی مستقل. ۲بعدی و ۳بعدی، موبایل و کنسول و دسکتاپ.",
+    i18n: {
+      title: "Unity 6",
+      fullTitle: "Game Development with Unity 6",
+      description: "Build games with Unity — 2D, 3D, mobile, console",
+      details: [
+        { label: "Course", value: "Unity 6" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Master the Unity editor",
+        "Script in C#",
+        "Build 2D and 3D games",
+        "Publish across platforms",
+      ],
+      sections: [
+        {
+          title: "Unity and game development",
+          cover: "/images/courses/unity-1.webp",
+          paragraphs: [
+            "Unity is one of the world's most popular game engines — 2D and 3D, professional and indie. Turn ideas into real games fast.",
+          ],
+        },
+        {
+          title: "What you learn",
+          cover: "/images/courses/unity-2.webp",
+          paragraphs: [
+            "Scenes, objects, C# scripting, lighting, physics. Character creation, animation, and control — everything to build a complete game.",
+          ],
+        },
+        {
+          title: "Why Unity?",
+          cover: "/images/courses/unity-3.webp",
+          paragraphs: [
+            "Publish on mobile, console, PC. A huge community of tutorials and support. Beginner-friendly and professional-grade.",
+          ],
+        },
+        {
+          title: "End of class, start of your game-dev path",
+          cover: "/images/courses/unity-4.webp",
+          paragraphs: [
+            "You finish with a complete professional project — a portfolio that opens doors into the industry.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do I need prior coding experience?",
+          answer:
+            "No, but C# familiarity helps — you'll learn faster and can go deeper.",
+        },
+        {
+          id: "faq-2",
+          question: "Do I need a powerful computer?",
+          answer: "A 4-core CPU, 8GB RAM, and a modest GPU is enough to start.",
+        },
+        {
+          id: "faq-3",
+          question: "Is support included?",
+          answer: "Yes — online support throughout the class.",
+        },
+        {
+          id: "faq-4",
+          question: "Is this class enough for the job market?",
+          answer:
+            "Yes — the project-based approach prepares you for real game studio work.",
+        },
+      ],
+    },
+    price: 349000,
+    logo: "/images/courses/unity-logo.svg",
+    color: ["#222c37", "#222c37"],
+    rank: 2,
+    capacity: 80,
+    enrolled: 70,
+    prerequisites: [],
+    relatedCourses: ["c-sharp", "unreal-engine"],
+    learningOutcomes: [
+      "تسلط بر ادیتور Unity",
+      "اسکریپت‌نویسی با #C",
+      "ساخت بازی ۲بعدی و ۳بعدی",
+      "انتشار در پلتفرم‌های مختلف",
+    ],
+    syllabus: [],
+    specs: [
+      { icon: "users", label: "شرکت‌کنندگان", value: 70 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۲ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۲" },
+    ],
+    details: [
+      { label: "نام کلاس", value: "Unity 6" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "پروژه محور" },
+    ],
+    sections: toSections([
+      {
+        title: "Unity و دنیای بازی‌سازی",
+        cover: "/images/courses/unity-1.webp",
+        paragraph: [
+          "Unity یکی از محبوب‌ترین و پرکاربردترین موتورهای بازی‌سازی در جهان است که به برنامه‌نویسان و طراحان این امکان را می‌دهد تا بازی‌های دوبعدی و سه‌بعدی حرفه‌ای را ایجاد کنند.",
+          "با استفاده از Unity، شما می‌توانید ایده‌های خلاقانه خود را به‌سرعت به یک بازی واقعی تبدیل کنید.",
+        ],
+      },
+      {
+        title: "چه چیزی در کلاس Unity یاد می‌گیریم؟",
+        cover: "/images/courses/unity-2.webp",
+        paragraph: [
+          "این کلاس به صورت کامل شما را با اصول و مبانی کار با Unity آشنا می‌کند. مباحثی همچون نحوه ایجاد صحنه، مدیریت اشیا، کدنویسی در محیط #C، تنظیمات نورپردازی و فیزیک بازی‌ها پوشش داده می‌شود.",
+        ],
+      },
+      {
+        title: "چرا Unity را انتخاب کنیم؟",
+        cover: "/images/courses/unity-3.webp",
+        paragraph: [
+          "یکی از ویژگی‌های برتر Unity این است که این موتور بازی‌سازی به شما امکان انتشار بازی‌ها در پلتفرم‌های مختلف از جمله موبایل، کنسول و کامپیوترهای شخصی را می‌دهد.",
+        ],
+      },
+      {
+        title: "پایان کلاس و آغاز مسیر بازی‌سازی شما",
+        cover: "/images/courses/unity-4.webp",
+        paragraph: [
+          "در پایان این کلاس، شما نه‌تنها با مهارت‌های مختلف بازی‌سازی در Unity آشنا شده‌اید، بلکه پروژه‌ای کامل و حرفه‌ای در دست دارید که می‌تواند نمونه‌ی کاری قوی برای ورود به دنیای حرفه‌ای باشد.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "آیا نیاز به دانش قبلی برنامه‌نویسی دارم؟",
+          acceptedAnswer: {
+            text: "با اینکه ما در این کلاس از تکنولوژی Blue Print استفاده میکنیم، آشنایی با زبان برنامه نویسی #C میتونه کمک کننده باشه!",
+          },
+        },
+        {
+          name: "آیا برای این کلاس به کامپیوتر قدرتمندی نیاز دارم؟",
+          acceptedAnswer: {
+            text: "برای شروع کار با Unity و یادگیری مبانی بازی‌سازی، به یک سیستم خیلی قدرتمند نیاز ندارید. یک کامپیوتر با مشخصات متوسط کفایت می‌کند.",
+          },
+        },
+        {
+          name: "آیا این کلاس شامل پشتیبانی و رفع اشکال می‌شود؟",
+          acceptedAnswer: {
+            text: "بله، در طول کلاس شما از پشتیبانی آنلاین بهره‌مند می‌شوید.",
+          },
+        },
+        {
+          name: "آیا این کلاس برای بازار کار کافی است؟",
+          acceptedAnswer: {
+            text: "بله، این کلاس با رویکرد پروژه‌محور طراحی شده و شما را برای ورود به دنیای بازی‌سازی آماده می‌کند.",
+          },
+        },
+      ],
+    }),
+  },
+
+  // ============================================
+  // 12. Unreal Engine
+  // ============================================
   {
     slug: "unreal-engine",
-    title: "Unreal Engine 5",
-    persianTitle: "آنریل انجین ۵",
-    fullTitle: "Unreal Engine — AAA Game Development",
+    title: "Unreal Engine",
+    persianTitle: "آنریل انجین",
+    fullTitle: "آموزش بازی سازی با موتور Unreal Engine",
     category: "game",
-    description: "ساخت بازی‌های گرافیکی پیشرفته با Unreal Engine.",
-    longDescription:
-      "Unreal Engine برای ساخت بازی‌های AAA و واقع‌گرایانه استفاده می‌شود.",
-    price: 4000000,
-    privatePrice: 8000000,
-    logo: "/images/courses/unreal.png",
-    color: ["#0f172a", "#3b82f6"],
-    rank: 3,
-    capacity: 15,
-    enrolled: 7,
-    prerequisites: ["cpp-pro"],
-    relatedCourses: ["unity-pro"],
-    learningOutcomes: ["Blueprints", "C++", "Nanite", "Lumen"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 7 },
-      { icon: "clock", label: "ساعت آموزشی", value: 100 },
-      { icon: "calendar", label: "تعداد جلسات", value: 50 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Unreal Engine 5" },
-      { label: "پیش‌نیاز", value: "Basic C++" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "scratch-junior",
-    title: "Scratch for Kids",
-    persianTitle: "اسکرچ برای کودکان",
-    fullTitle: "Scratch — Programming for Ages 8-14",
-    category: "game",
-    description: "اولین قدم برنامه‌نویسی برای کودکان با Scratch.",
-    longDescription: "Scratch زبان بصری برای آموزش برنامه‌نویسی به کودکان است.",
-    price: 1200000,
-    privatePrice: 2400000,
-    logo: "/images/courses/scratch.png",
-    color: ["#fbbf24", "#f97316"],
-    rank: 3,
-    capacity: 15,
-    enrolled: 11,
+    description: "ساخت بازی با موتور بازی سازی Unreal Engine",
+    longDescription: "گرافیک AAA با Blueprints، بدون نیاز به برنامه‌نویسی.",
+    i18n: {
+      title: "Unreal Engine",
+      fullTitle: "Game Development with Unreal Engine",
+      description: "AAA graphics with a visual scripting approach",
+      details: [
+        { label: "Course", value: "Unreal Engine" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Project-based" },
+      ],
+      learningOutcomes: [
+        "Navigate the Unreal editor",
+        "Script with Blueprints",
+        "Design environments and lighting",
+        "Ship a 3D game",
+      ],
+      sections: [
+        {
+          title: "About the class",
+          cover: "/images/courses/unreal-1.webp",
+          paragraphs: [
+            "Learn Unreal Engine practically. We use Blueprints — a visual scripting system — so no coding is required. By the end, you'll build your own 3D projects.",
+          ],
+        },
+        {
+          title: "What is Unreal Engine?",
+          paragraphs: [
+            "A game engine built by Epic Games. Powerful rendering, advanced physics, and a rich visual environment — used for games, film, and architecture.",
+            "In this class we use Blueprints — a graphical interface — so you can build projects without writing code.",
+          ],
+        },
+        {
+          title: "What it's good for",
+          cover: "/images/courses/unreal-2.webp",
+          paragraphs: [
+            "For people who love game creation but don't want to code. Also for architecture, film, and simulation.",
+          ],
+        },
+        {
+          title: "Class applications",
+          cover: "/images/courses/unreal-3.webp",
+          hints: [
+            "Build high-quality 2D and 3D games",
+            "Create interactive cinematic animations",
+            "Architectural visualization and engineering simulations",
+            "Interactive advertising and VFX for cinema",
+          ],
+        },
+        {
+          title: "The future of Unreal",
+          cover: "/images/courses/unreal-4.webp",
+          paragraphs: [
+            "Unreal Engine's future is bright. Gaming, film, advertising — its rendering power and flexibility keep it central to many industries.",
+          ],
+        },
+        {
+          title: "Class roadmap",
+          paragraphs: [
+            "Introduction to the Unreal editor.",
+            "First 3D project — ground, sky, objects.",
+            "Materials and lighting.",
+            "Characters, animation, and movement.",
+            "A small game with Blueprints.",
+            "Rendering and optimization.",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do I need coding experience?",
+          answer:
+            "No — we use Blueprints, a visual system that doesn't require writing code.",
+        },
+        {
+          id: "faq-2",
+          question: "What level is this for?",
+          answer: "All levels — beginner to experienced.",
+        },
+        {
+          id: "faq-3",
+          question: "Is it only for games?",
+          answer:
+            "No — also useful for animation, architecture, and engineering.",
+        },
+        {
+          id: "faq-4",
+          question: "What can I do after?",
+          answer:
+            "Build 3D games, realistic animations, or enter architectural visualization.",
+        },
+      ],
+    },
+    price: 399000,
+    logo: "/images/courses/unreal-logo.svg",
+    color: ["#2b2d42", "#8d99ae"],
+    rank: 2,
+    capacity: 100,
+    enrolled: 70,
     prerequisites: [],
-    relatedCourses: ["unity-pro"],
-    learningOutcomes: ["Block Coding", "Logic", "Game Design"],
+    relatedCourses: ["c-plus-plus", "unity"],
+    learningOutcomes: [
+      "کار با ادیتور آنریل",
+      "اسکریپت‌نویسی با Blueprints",
+      "طراحی محیط و نورپردازی",
+      "ساخت بازی ۳بعدی",
+    ],
     syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 11 },
-      { icon: "clock", label: "ساعت آموزشی", value: 24 },
-      { icon: "calendar", label: "تعداد جلسات", value: 12 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 70 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۳۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۳۰" },
     ],
     details: [
-      { label: "نام دوره", value: "Scratch for Kids" },
-      { label: "پیش‌نیاز", value: "بدون پیش‌نیاز" },
-      { label: "روش برگزاری", value: "آنلاین" },
+      { label: "نام کلاس", value: "Unreal Engine" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "پروژه محور" },
     ],
-    sections: [],
-    faq: [],
+    sections: toSections([
+      {
+        title: "درباره کلاس",
+        cover: "/images/courses/unreal-1.webp",
+        paragraph: [
+          "این کلاس به شما کمک می‌کنه به شکل کاربردی Unreal Engine رو یاد بگیرید. توی این کلاس از Blueprints استفاده می‌کنیم، یعنی بدون نیاز به برنامه‌نویسی، با یک رابط بصری می‌تونید پروژه‌های سه‌بعدی و بازی‌های خودتون رو بسازید.",
+        ],
+      },
+      {
+        title: "معرفی Unreal Engine",
+        paragraph: [
+          "Unreal Engine یه موتور بازی‌سازی معروفه که توسط Epic Games ساخته شده. باهاش می‌تونید بازی‌های سه‌بعدی فوق‌العاده واقعی بسازید و حتی توی فیلم‌سازی و معماری هم ازش استفاده کنید.",
+          "ویژگی‌های خیلی خوبی مثل رندرینگ قوی، فیزیک پیشرفته و محیط بصری قدرتمندی داره که کار رو برای ساخت پروژه‌های بزرگ راحت می‌کنه.",
+        ],
+      },
+      {
+        title: "به چه دردی می‌خوره؟",
+        cover: "/images/courses/unreal-2.webp",
+        paragraph: [
+          "Unreal Engine بیشتر به درد کسایی می‌خوره که به بازی‌سازی علاقه دارن و می‌خوان بدون نیاز به برنامه‌نویسی، بازی‌های سه‌بعدی حرفه‌ای بسازن. همینطور کسایی که توی حوزه‌هایی مثل معماری، فیلم‌سازی یا شبیه‌سازی کار می‌کنن.",
+        ],
+      },
+      {
+        title: "کاربردهای کلاس",
+        cover: "/images/courses/unreal-3.webp",
+        hints: [
+          "ساخت بازی‌های سه‌بعدی و دوبعدی با کیفیت بالا",
+          "خلق انیمیشن‌های تعاملی برای پروژه‌های فیلم‌سازی",
+          "طراحی و مدلسازی معماری و شبیه‌سازی پروژه‌های مهندسی",
+          "استفاده در تولید محتوای تعاملی و جلوه‌های بصری برای تبلیغات یا سینما",
+        ],
+      },
+      {
+        title: "آینده Unreal Engine",
+        cover: "/images/courses/unreal-4.webp",
+        paragraph: [
+          "آینده Unreal Engine بسیار روشنه. با رشد صنعت گیمینگ و افزایش پروژه‌های سینمایی و تبلیغاتی که از این موتور استفاده می‌کنن، این ابزار همچنان محبوب و پرکاربرد خواهد بود.",
+        ],
+      },
+      {
+        title: "مسیر کلاس",
+        paragraph: [
+          "آشنایی با محیط کاربری Unreal Engine: توی این بخش یاد می‌گیری چطور با محیط نرم‌افزار کار کنی و ابزارهای مهم رو بشناسی.",
+          "ساخت نخستین پروژه (محیط سه‌بعدی ساده): اینجا نخستین محیط سه‌بعدی خودتو می‌سازی.",
+          "کار با متریال‌ها و نورپردازی: متریال‌های مختلف به پروژه اضافه می‌کنی و یاد می‌گیری چطور نورپردازی جذاب انجام بدی.",
+          "افزودن انیمیشن و حرکت به کاراکترها: کاراکترها رو توی محیط زنده می‌کنی.",
+          "ساخت بازی ساده با قابلیت‌های پایه با Blueprints: یه بازی کوچیک می‌سازی.",
+          "رندرینگ و بهینه‌سازی پروژه: یاد می‌گیری چطور پروژه‌ت رو رندر کنی و بهینه‌سازی کنی.",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "آیا برای یادگیری این کلاس باید برنامه‌نویسی بلد باشم؟",
+          acceptedAnswer: {
+            text: "نه، توی این کلاس از Blueprints استفاده می‌کنیم که یه سیستم گرافیکی هست و نیازی به نوشتن کد نداره.",
+          },
+        },
+        {
+          name: "کلاس مناسب چه سطحی از افراد است؟",
+          acceptedAnswer: {
+            text: "برای تمام سطوح مناسبه، چه مبتدی باشی و چه قبلاً بازی‌سازی کار کرده باشی.",
+          },
+        },
+        {
+          name: "آیا این کلاس فقط برای بازی‌سازی است؟",
+          acceptedAnswer: {
+            text: "نه، این کلاس علاوه بر بازی‌سازی برای ساخت انیمیشن، شبیه‌سازی‌های معماری و پروژه‌های مهندسی هم کاربرد داره.",
+          },
+        },
+        {
+          name: "بعد از این کلاس چه کارهایی می‌تونم انجام بدم؟",
+          acceptedAnswer: {
+            text: "می‌تونی بازی‌های سه‌بعدی بسازی، انیمیشن‌های واقع‌گرایانه ایجاد کنی یا حتی وارد پروژه‌های معماری بشی.",
+          },
+        },
+      ],
+    }),
   },
 
-  // Two extra slots to reach 16
+  // ============================================
+  // 13. Scratch Junior
+  // ============================================
   {
-    slug: "react-pro",
-    title: "React Pro",
-    persianTitle: "ری‌اکت حرفه‌ای",
-    fullTitle: "React — Modern Frontend Framework",
-    category: "web",
-    description: "ساخت اپلیکیشن‌های مدرن با React و اکوسیستم آن.",
-    longDescription: "React محبوب‌ترین کتابخانه‌ی فرانت‌اند در دنیاست.",
-    price: 3500000,
-    privatePrice: 7000000,
-    logo: "/images/courses/react.png",
-    color: ["#06b6d4", "#0ea5e9"],
+    slug: "scratch-junior",
+    title: "Scratch Junior",
+    persianTitle: "اسکرچ جونیور",
+    fullTitle: "آموزش بازی سازی با Scratch Junior",
+    category: "game",
+    description: "ساخت بازی برای کودکان با موتور بازی سازی Scratch Junior",
+    longDescription:
+      "اولین تجربه‌ی برنامه‌نویسی برای کودکان ۵ تا ۷ سال، با بلوک‌های گرافیکی و سرگرم‌کننده.",
+    i18n: {
+      title: "Scratch Junior",
+      fullTitle: "Game Creation with Scratch Junior",
+      description: "A first programming experience for ages 5-7",
+      details: [
+        { label: "Course", value: "Scratch Junior" },
+        { label: "Prerequisites", value: "None" },
+        { label: "Teaching", value: "Mixed" },
+      ],
+      learningOutcomes: [
+        "Understand block-based programming",
+        "Build simple games and animations",
+        "Express creativity through code",
+        "Have fun with technology",
+      ],
+      sections: [
+        {
+          title: "About the class",
+          cover: "/images/courses/scratchjr-1.webp",
+          paragraphs: [
+            "A comprehensive, simple introduction to Scratch Junior. The goal: learn programming basics while creating fun, engaging projects.",
+          ],
+        },
+        {
+          title: "What is Scratch Junior?",
+          cover: "/images/courses/scratchjr-2.webp",
+          paragraphs: [
+            "A programming environment using graphical blocks. Children can build stories, games, and animations without reading or writing code.",
+          ],
+        },
+        {
+          title: "Class path",
+          cover: "/images/courses/scratchjr-3.webp",
+          hints: [
+            "Scratch Junior basics and environment",
+            "Materials introduction",
+            "Building the first game",
+          ],
+        },
+      ],
+      faq: [
+        {
+          id: "faq-1",
+          question: "Do kids need reading/writing skills?",
+          answer:
+            "No — Scratch Junior relies on images and symbols. Kids who can't read yet can still build games with our guidance.",
+        },
+        {
+          id: "faq-2",
+          question: "Is it suitable for kids with no coding experience?",
+          answer:
+            "Absolutely. Scratch Junior is designed exactly for kids new to programming.",
+        },
+        {
+          id: "faq-3",
+          question: "What age range?",
+          answer: "Best for ages 5-7, but older beginners enjoy it too.",
+        },
+        {
+          id: "faq-4",
+          question: "Do parents need to be present?",
+          answer:
+            "Optional — kids can manage after a little guidance, but parents are welcome to help.",
+        },
+        {
+          id: "faq-5",
+          question: "Do kids actually build games?",
+          answer: "Yes — kids build their own games and animations by the end.",
+        },
+      ],
+    },
+    price: 245000,
+    logo: "/images/courses/scratch-logo.png",
+    color: ["#ff9100", "#ffb600"],
     rank: 2,
-    capacity: 20,
-    enrolled: 17,
-    prerequisites: ["javascript-pro"],
-    relatedCourses: ["total-web"],
-    learningOutcomes: ["Hooks", "Router", "State", "Testing"],
+    capacity: 120,
+    enrolled: 98,
+    prerequisites: [],
+    relatedCourses: ["unity", "unreal-engine"],
+    learningOutcomes: [
+      "درک برنامه‌نویسی بلوکی",
+      "ساخت بازی و انیمیشن ساده",
+      "بیان خلاقیت با کد",
+      "لذت بردن از فناوری",
+    ],
     syllabus: [],
     specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 17 },
-      { icon: "clock", label: "ساعت آموزشی", value: 60 },
-      { icon: "calendar", label: "تعداد جلسات", value: 30 },
+      { icon: "users", label: "شرکت‌کنندگان", value: 98 },
+      { icon: "clock", label: "زمان کل کلاس", value: "۲۰ ساعت" },
+      { icon: "calendar", label: "جلسات", value: "۲۰" },
     ],
     details: [
-      { label: "نام دوره", value: "React Pro" },
-      { label: "پیش‌نیاز", value: "JavaScript" },
-      { label: "روش برگزاری", value: "آنلاین" },
+      { label: "نام کلاس", value: "Scratch Junior" },
+      { label: "پیش نیاز", value: "ندارد" },
+      { label: "روش آموزش", value: "ترکیبی" },
     ],
-    sections: [],
-    faq: [],
-  },
-  {
-    slug: "node-backend",
-    title: "Node.js Backend",
-    persianTitle: "بک‌اند با Node.js",
-    fullTitle: "Node.js — Modern Backend Development",
-    category: "software",
-    description: "ساخت API و سرورهای مدرن با Node.js.",
-    longDescription: "Node.js اجازه می‌دهد با JavaScript سمت سرور هم بنویسید.",
-    price: 3000000,
-    privatePrice: 6000000,
-    logo: "/images/courses/node.png",
-    color: ["#10b981", "#3b82f6"],
-    rank: 3,
-    capacity: 20,
-    enrolled: 13,
-    prerequisites: ["javascript-pro"],
-    relatedCourses: ["total-web"],
-    learningOutcomes: ["Express", "REST", "JWT", "MongoDB"],
-    syllabus: [],
-    specs: [
-      { icon: "users", label: "شرکت‌کنندگان", value: 13 },
-      { icon: "clock", label: "ساعت آموزشی", value: 50 },
-      { icon: "calendar", label: "تعداد جلسات", value: 25 },
-    ],
-    details: [
-      { label: "نام دوره", value: "Node.js Backend" },
-      { label: "پیش‌نیاز", value: "JavaScript" },
-      { label: "روش برگزاری", value: "آنلاین" },
-    ],
-    sections: [],
-    faq: [],
+    sections: toSections([
+      {
+        title: "درباره کلاس",
+        cover: "/images/courses/scratch-1.webp",
+        paragraph: [
+          "این کلاس آموزشی به صورت جامع و ساده نحوه کار با Scratch Junior را آموزش می‌دهد. هدف از این کلاس، یادگیری اصول برنامه‌نویسی به‌همراه خلق پروژه‌های جذاب و سرگرم‌کننده است.",
+        ],
+      },
+      {
+        title: "معرفی Scratch Junior",
+        cover: "/images/courses/scratch-2.webp",
+        paragraph: [
+          "Scratch Junior یک محیط بازی سازی و برنامه نویسی است که با استفاده از بلوک‌های گرافیکی، به کاربران اجازه می‌دهد داستان‌ها، بازی‌ها و انیمیشن‌های خود را بسازند. این نرم‌افزار با هدف آموزش اصول اولیه بازی‌سازی و برنامه‌نویسی طراحی شده است.",
+        ],
+      },
+      {
+        title: "مسیر کلاس",
+        cover: "/images/courses/scratch-3.webp",
+        hints: [
+          "مبانی اولیه و آشنایی با محیط Scratch Junior",
+          "معرفی منابع متریال",
+          "شروع ساخت نخستین بازی",
+        ],
+      },
+    ]),
+    faq: toFaq({
+      mainEntity: [
+        {
+          name: "بچه‌ها برای شرکت در این کلاس باید خواندن و نوشتن بلد باشند؟",
+          acceptedAnswer: {
+            text: "نه، اصلاً نیازی نیست! Scratch Junior به شکلی طراحی شده که بیشتر به کمک تصاویر و نشانه‌های ساده کار می‌کند.",
+          },
+        },
+        {
+          name: "آیا Scratch Junior برای بچه‌هایی که چیزی از کدنویسی نمی‌دونن مناسبه؟",
+          acceptedAnswer: {
+            text: "بله، قطعاً! Scratch Junior مخصوصاً برای بچه‌های کوچکی که تازه می‌خوان وارد دنیای کدنویسی بشن ساخته شده.",
+          },
+        },
+        {
+          name: "این کلاس برای چه سنی مناسبه؟",
+          acceptedAnswer: {
+            text: "Scratch Junior برای بچه‌های ۵ تا ۷ ساله و حتی کمتر هم خیلی خوبه.",
+          },
+        },
+        {
+          name: "آیا والدین هم باید کنار بچه‌ها باشن؟",
+          acceptedAnswer: {
+            text: "اگه دوست دارید در این مسیر کنار بچه‌ها باشید، می‌تونید کمک کنید! اما Scratch Junior به شکلی طراحی شده که بچه‌ها با کمی راهنمایی اولیه می‌تونن خودشون به‌خوبی از پس کارها بربیان.",
+          },
+        },
+        {
+          name: "بچه‌ها با این کلاس واقعاً بازی می‌سازن؟",
+          acceptedAnswer: {
+            text: "بله، بچه‌ها با مطالب تدریس شده پروژه های ویژه ی خودشون رو میسازن و میتونن اون رو به دیگران هم بدن تا بتونن باهاشون بازی کنن.",
+          },
+        },
+      ],
+    }),
   },
 ];
 
@@ -579,10 +2382,37 @@ export const getFeaturedCourses = (): Course[] =>
 export const getTopCourses = (count = 3): Course[] =>
   [...courses].sort((a, b) => a.rank - b.rank).slice(0, count);
 
-export const getRelatedCourses = (course: Course, count = 3): Course[] =>
-  course.relatedCourses
+/**
+ * Related courses: hand-picked slugs first, then auto-fill from the same
+ * category, then by rank. Always returns `count` items (or fewer if the
+ * catalog is smaller).
+ */
+export const getRelatedCourses = (course: Course, count = 3): Course[] => {
+  const picked = course.relatedCourses
     .map((slug) => getCourseBySlug(slug))
-    .filter((c): c is Course => Boolean(c))
-    .slice(0, count);
+    .filter((c): c is Course => Boolean(c));
 
-import type { CourseCategory } from "@/types";
+  if (picked.length >= count) return picked.slice(0, count);
+
+  const seen = new Set([course.slug, ...picked.map((c) => c.slug)]);
+
+  const sameCategory = courses
+    .filter((c) => c.category === course.category && !seen.has(c.slug))
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, count - picked.length);
+
+  sameCategory.forEach((c) => {
+    picked.push(c);
+    seen.add(c.slug);
+  });
+
+  if (picked.length < count) {
+    const fallback = [...courses]
+      .filter((c) => !seen.has(c.slug))
+      .sort((a, b) => a.rank - b.rank)
+      .slice(0, count - picked.length);
+    picked.push(...fallback);
+  }
+
+  return picked.slice(0, count);
+};

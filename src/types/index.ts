@@ -3,7 +3,22 @@
  *
  * Single source of truth for every shape that flows through the app.
  * Data files, features, and lib helpers all import from here.
+ *
+ * Course and Blog now carry bilingual strings for every user-facing
+ * field. Persian is the primary language; English and French fall
+ * back to English when a translation is absent.
  */
+
+// ============================================
+// BILINGUAL HELPER
+// ============================================
+
+/** A field that exists in more than one language */
+export type LocalizedString = {
+  fa: string;
+  en: string;
+  fr?: string;
+};
 
 // ============================================
 // COURSES
@@ -46,28 +61,54 @@ export interface Course {
   category: CourseCategory;
   description: string;
   longDescription: string;
+
+  /** English translations used when the language is "en" or "fr" */
+  i18n?: {
+    title: string;
+    fullTitle: string;
+    description: string;
+    details: CourseDetail[];
+    sections: ArticleSection[];
+    faq: FAQItem[];
+    learningOutcomes: string[];
+  };
+
+  /** Single price — privatePrice from the legacy data */
   price: number;
-  privatePrice: number;
   originalPrice?: number;
+
   logo: string;
+  /** Gradient endpoints used for the hero blur and card accents */
   color: [string, string];
   rank: number;
+
+  /** Max seats; -1 means unlimited */
   capacity: number;
+  /** Seats taken */
   enrolled: number;
+
   specs: CourseSpec[];
   details: CourseDetail[];
   sections: ArticleSection[];
   faq: FAQItem[];
+
   prerequisites: string[];
   relatedCourses: string[];
   learningOutcomes: string[];
   syllabus: { week: number; title: string; topics: string[] }[];
+
   featured?: boolean;
 }
 
 // ============================================
 // BLOGS
 // ============================================
+
+export interface BlogAuthor {
+  name: string;
+  avatar?: string;
+  role: string;
+}
 
 export interface Blog {
   slug: string;
@@ -79,6 +120,16 @@ export interface Blog {
   readTime: number;
   category: string;
   tags: string[];
+
+  i18n?: {
+    title: string;
+    excerpt: string;
+    category: string;
+    tags: string[];
+    sections: ArticleSection[];
+    faq: FAQItem[];
+  };
+
   sections: ArticleSection[];
   faq?: FAQItem[];
   featured?: boolean;
@@ -89,30 +140,35 @@ export interface Blog {
   };
 }
 
-export interface BlogAuthor {
-  name: string;
-  avatar?: string;
-  role: string;
-}
-
 // ============================================
 // POLICY / RULES
 // ============================================
-
 export interface Rule {
   slug: string;
   title: string;
   subtitle: string;
+  category: "course" | "site";
   validFrom: string;
   cover?: string;
   sections: ArticleSection[];
   order: number;
+
+  i18n: {
+    title: string;
+    subtitle: string;
+    sections: ArticleSection[];
+  };
 }
 
 export interface CharterItem {
   id: string;
   title: string;
   body: string;
+}
+
+export interface CharterBill {
+  title: string;
+  paragraphs: string[];
 }
 
 // ============================================

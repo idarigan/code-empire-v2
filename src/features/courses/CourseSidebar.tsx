@@ -115,33 +115,13 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
 
       {/* Pricing */}
       <Card glow="secondary">
-        <div className="flex flex-col gap-3 mb-4">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-[var(--color-text-secondary)]">
-              {t("courses.price")}
-            </span>
-            <span className="font-heading font-bold text-base text-[var(--color-primary)]">
-              {formatPrice(course.price, "fa")}
-            </span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-[var(--color-text-secondary)]">
-              {t("courses.privatePrice")}
-            </span>
-            <span className="font-heading font-bold text-base text-[var(--color-secondary)]">
-              {formatPrice(course.privatePrice, "fa")}
-            </span>
-          </div>
-          {course.originalPrice && (
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("common.oldest")}
-              </span>
-              <span className="text-xs text-[var(--color-text-tertiary)] line-through font-mono">
-                {formatPrice(course.originalPrice, "fa")}
-              </span>
-            </div>
-          )}
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-sm text-[var(--color-text-secondary)]">
+            {t("courses.price")}
+          </span>
+          <span className="font-heading font-bold text-lg text-[var(--color-primary)]">
+            {formatPrice(course.price, "fa")}
+          </span>
         </div>
 
         <div className="flex flex-col gap-2">

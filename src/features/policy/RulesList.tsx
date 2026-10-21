@@ -2,6 +2,7 @@
  * Code Empire — Rules list
  *
  * Full list of rules. Each links to its single-rule page.
+ * Picks Persian or English fields based on the active language.
  */
 
 import { Link } from "react-router-dom";
@@ -12,8 +13,13 @@ import { Icons } from "@/lib/icons";
 
 export function RulesList() {
   const { t, language } = useI18n();
-  const rules = getSortedRules();
   const locale = language || "fa";
+
+  const rules = getSortedRules().map((rule) =>
+    locale === "fa"
+      ? rule
+      : { ...rule, title: rule.i18n.title, subtitle: rule.i18n.subtitle },
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

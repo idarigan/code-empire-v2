@@ -2,18 +2,24 @@
  * Code Empire — Rules bill
  *
  * Six-card grid representing the Code Empire charter.
- * Each card is numbered and uses the accent color.
+ * Accepts an optional `items` prop so the parent page can pass
+ * English translations; falls back to the Persian default.
  */
 
 import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
 import { charterBill } from "@/data/policy";
+import type { CharterItem } from "@/types";
 
-export function RulesBill() {
+interface RulesBillProps {
+  items?: CharterItem[];
+}
+
+export function RulesBill({ items = charterBill }: RulesBillProps) {
   const { t } = useI18n();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {charterBill.map((item, i) => (
+      {items.map((item, i) => (
         <ScrollReveal key={item.id} animation="fade-up" delay={i * 60}>
           <Card glow="accent" float className="h-full">
             <div className="flex items-start justify-between mb-3">
