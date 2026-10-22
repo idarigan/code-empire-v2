@@ -1,24 +1,13 @@
 /**
  * Code Empire — Team grid
  *
- * Three team cards from constants using Dara UI CharacterCard.
- * Desktop uses horizontal layout, mobile stacks vertically.
+ * Three team cards from the team data file.
  */
 
-import {
-  CharacterCard,
-  Card,
-  Avatar,
-  Badge,
-  ScrollReveal,
-  useI18n,
-} from "dara-ui";
-import { teamMembers } from "@/data/constants";
-import { Icons } from "@/lib/icons";
+import { CharacterCard, ScrollReveal } from "dara-ui";
+import { teamMembers } from "@/data/team";
 
 export function TeamGrid() {
-  const { t } = useI18n();
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {teamMembers.map((member, i) => (
@@ -28,11 +17,7 @@ export function TeamGrid() {
             subtitle={member.role}
             quote={member.bio}
             portrait={member.photo}
-            traits={[
-              member.socials?.github ? "GitHub" : "",
-              member.socials?.linkedin ? "LinkedIn" : "",
-              member.socials?.twitter ? "Twitter" : "",
-            ].filter(Boolean)}
+            traits={[]}
             glow={member.glow ?? "primary"}
             layout="vertical"
           />

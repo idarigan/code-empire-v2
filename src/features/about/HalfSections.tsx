@@ -1,42 +1,25 @@
 /**
  * Code Empire — About half sections
  *
- * Three alternating image/text blocks: about, mission, why us.
- * Each block uses Dara UI Card + ScrollReveal for entrance.
+ * Alternating image/text blocks from about.halfSections.
+ * Picks Persian or English copy based on the active language.
  */
 
 import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
+import { about } from "@/data/constants";
 import { Icons } from "@/lib/icons";
 
 export function HalfSections() {
-  const { t } = useI18n();
+  const { language } = useI18n();
+  const locale = language || "fa";
 
-  const items = [
-    {
-      eyebrow: t("about.title"),
-      title: t("about.title"),
-      body: t("about.subtitle"),
-      image: "/images/about/1.jpg",
-      glow: "primary" as const,
-      icon: <Icons.building className="h-5 w-5" />,
-    },
-    {
-      eyebrow: t("about.mission"),
-      title: t("about.mission"),
-      body: t("home.finalCTADesc"),
-      image: "/images/about/2.jpg",
-      glow: "secondary" as const,
-      icon: <Icons.target className="h-5 w-5" />,
-    },
-    {
-      eyebrow: t("home.whyUs"),
-      title: t("home.whyUs"),
-      body: t("home.heroSubtitle"),
-      image: "/images/about/3.jpg",
-      glow: "accent" as const,
-      icon: <Icons.crown className="h-5 w-5" />,
-    },
-  ];
+  const items = about.halfSections.map((section) => ({
+    title: locale === "fa" ? section.title : section.i18n.title,
+    description:
+      locale === "fa" ? section.description : section.i18n.description,
+    cover: section.cover,
+    glow: section.glow,
+  }));
 
   return (
     <div className="flex flex-col gap-12">
@@ -55,7 +38,7 @@ export function HalfSections() {
             >
               <Card padding="none" glow={item.glow} className="overflow-hidden">
                 <img
-                  src={item.image}
+                  src={item.cover}
                   alt={item.title}
                   className="w-full aspect-[4/3] object-cover"
                   loading="lazy"
@@ -69,15 +52,15 @@ export function HalfSections() {
                   glow
                 >
                   <span className="inline-flex items-center gap-1">
-                    {item.icon}
-                    {item.eyebrow}
+                    <Icons.info className="h-3.5 w-3.5" />
+                    {item.title}
                   </span>
                 </Badge>
                 <h2 className="font-heading text-2xl md:text-3xl font-bold text-gradient-primary">
                   {item.title}
                 </h2>
                 <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                  {item.body}
+                  {item.description}
                 </p>
               </div>
             </div>

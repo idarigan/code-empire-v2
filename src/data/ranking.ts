@@ -1,8 +1,8 @@
 /**
  * Code Empire — Student leaderboard
  *
- * Placeholder rankings. Replace with real student data.
- * Tiers follow the Code Empire progression system.
+ * Placeholder data. Replace names / courses / tiers with real
+ * leaderboard entries when the backend or admin panel exists.
  */
 
 import type { RankedStudent } from "@/types";
@@ -10,64 +10,64 @@ import type { RankedStudent } from "@/types";
 export const ranking: RankedStudent[] = [
   {
     name: "علی رضایی",
-    avatar: "/images/students/1.jpg",
-    course: "Total Web Development",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Ali",
+    course: "Total Web",
     isLearning: false,
     tier: "Javidan",
     glow: "accent",
   },
   {
     name: "مریم حسینی",
-    avatar: "/images/students/2.jpg",
-    course: "React Pro",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Maryam",
+    course: "JavaScript",
     isLearning: false,
     tier: "Danshour-e Nokhbeh",
     glow: "secondary",
   },
   {
     name: "حسین نوری",
-    avatar: "/images/students/3.jpg",
-    course: "Unity Game Development",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Hossein",
+    course: "Unity 6",
     isLearning: true,
     tier: "Kadzan-e Nokhbeh",
     glow: "primary",
   },
   {
     name: "زهرا محمدی",
-    avatar: "/images/students/4.jpg",
-    course: "Python Advanced",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Zahra",
+    course: "Python - Advanced",
     isLearning: true,
     tier: "Danshour",
     glow: "primary",
   },
   {
     name: "امیر تهرانی",
-    avatar: "/images/students/5.jpg",
-    course: "JavaScript Pro",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Amir",
+    course: "JavaScript",
     isLearning: true,
     tier: "Danshour",
     glow: "primary",
   },
   {
     name: "نگار کریمی",
-    avatar: "/images/students/6.jpg",
-    course: "C# Mastery",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Negaar",
+    course: "C#",
     isLearning: true,
     tier: "Aghazgar",
     glow: "primary",
   },
   {
     name: "پویا صادقی",
-    avatar: "/images/students/7.jpg",
-    course: "HTML & CSS Fundamentals",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Pooya",
+    course: "HTML & CSS",
     isLearning: true,
     tier: "Aghazgar",
     glow: "primary",
   },
   {
     name: "سارا فتحی",
-    avatar: "/images/students/8.jpg",
-    course: "Tailwind CSS Mastery",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Sara",
+    course: "Tailwind",
     isLearning: false,
     tier: "Danshour-e Nokhbeh",
     glow: "secondary",

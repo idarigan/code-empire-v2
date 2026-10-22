@@ -1,42 +1,43 @@
 /**
- * Code Empire — Student testimonials
+ * Code Empire — Customer reviews
  *
- * Placeholder reviews. Replace with real testimonials.
+ * Four real reviews from students, collaborators, and partners.
+ * Avatars use DiceBear rings-style SVGs — no external assets needed.
  */
 
 import type { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
-    name: "محمد اکبری",
-    job: "توسعه‌دهنده فرانت‌اند در دیجی‌کالا",
-    avatar: "/images/testimonials/1.jpg",
+    name: "محمد‌امین شربلو",
+    job: "دانشجو",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Nolan",
     quote:
-      "تجربه‌ی یادگیری در Code Empire کاملاً متفاوت بود. از صفر شروع کردم و الان در یک شرکت بزرگ مشغول به کارم.",
+      "بنده به عنوان دانشجوی رشته کامپیوتر در یک‌سری مقالات امپراتوری کد همکاری داشتم و این واقعا برام کاری مهم و جالب بود.",
     rating: 5,
   },
   {
-    name: "فاطمه یوسفی",
-    job: "بازی‌ساز مستقل",
-    avatar: "/images/testimonials/2.jpg",
+    name: "امیر ارسلان پایدار",
+    job: "گیتاریست",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Leah",
     quote:
-      "کلاس‌های بازی‌سازی بسیار کاربردی بود و به من کمک کرد اولین بازی خودم رو منتشر کنم.",
+      "بنده به عنوان یک گیتاریست و آموزگار گیتار از همکاری خودم و تیمم با آکادمی آنلاین امپراتوری کد برای ساخت موزیک‌های کوتاه اختصاصی خیلی خوشحال شدیم و واقعا تجربه لذت‌بخشی بود. به نظرم امپراتوری کد تیمی پویا و پرانرژی است.",
     rating: 5,
   },
   {
-    name: "رضا حیدری",
-    job: "مهندس نرم‌افزار در اسنپ",
-    avatar: "/images/testimonials/3.jpg",
+    name: "محمدحسین رئیسی",
+    job: "دانشجو",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Luis",
     quote:
-      "پشتیبانی و پیگیری اساتید واقعاً بی‌نظیر است. هر سوالی داشتم سریع جواب گرفتم.",
+      "من فقط چندتا مشورت و همکاری ساده درباره کارهای دانشگاهم باهاشون داشتم ولی واقعا به اندازه یک پروژه بزرگ برام لذت بخش بود. به امید همکاری‌های بیشتر...",
     rating: 5,
   },
   {
-    name: "الهام نوری",
-    job: "دانشجوی علوم کامپیوتر",
-    avatar: "/images/testimonials/4.jpg",
+    name: "امیرحسین امینی",
+    job: "دانشجو",
+    avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Avery",
     quote:
-      "محیط آموزشی، منابع و نحوه‌ی تدریس همه در سطح بالایی هستن. شدیداً پیشنهاد می‌کنم.",
+      "من به شخصه کلاس‌ها، مقالات و تم وبسایت امپراتوری کد خیلی برام جالب بود. بنده به عنوان دانشجوی رشته انیمیشن خیلی دوست دارم که در طراحی کاراکتر و هنر بازی‌سازی پیشرفت کنم.",
     rating: 5,
   },
 ];

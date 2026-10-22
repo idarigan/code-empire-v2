@@ -1,46 +1,27 @@
 /**
  * Code Empire — About numbers
  *
- * Reuses the radial StatsWidget with the four site numbers.
+ * Radial StatsWidget built from about.numbers.
+ * Labels switch to English when locale is not "fa".
  */
 
 import { StatsWidget, ScrollReveal, useI18n } from "dara-ui";
-import { siteStats } from "@/data/constants";
+import { about } from "@/data/constants";
 import { SectionHeader } from "@/features/home/SectionHeader";
 
 export function Numbers() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+  const locale = language || "fa";
 
-  const stats = [
-    {
-      label: "Mentors",
-      value: siteStats.mentors,
-      max: 50,
-      color: "primary" as const,
-      trend: 0,
-    },
-    {
-      label: "Students",
-      value: siteStats.students,
-      max: 1000,
-      color: "secondary" as const,
-      trend: 12,
-    },
-    {
-      label: "Hours",
-      value: siteStats.hours / 1000,
-      max: 150,
-      color: "accent" as const,
-      trend: 8,
-    },
-    {
-      label: "Consultations",
-      value: siteStats.consultations,
-      max: 500,
-      color: "success" as const,
-      trend: 15,
-    },
-  ];
+  const palette = ["primary", "secondary", "accent", "success"] as const;
+
+  const stats = about.numbers.map((n, i) => ({
+    label: locale === "fa" ? n.title : n.titleEn,
+    value: n.number,
+    max: n.number * 1.2,
+    color: palette[i % palette.length],
+    trend: 0,
+  }));
 
   return (
     <div>
