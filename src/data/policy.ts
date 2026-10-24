@@ -3,10 +3,9 @@
  *
  * Six course-related policies from the previous site, plus the general
  * charter bill. Every Persian field has an English counterpart in the
- * `i18n` block so pages can switch languages without a second file.
  */
 
-import type { Rule, CharterItem, CharterBill } from "@/types";
+import type { Rule, CharterItem } from "@/types";
 
 // ============================================
 // Helpers
@@ -45,52 +44,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2025-03-01",
     order: 1,
-    i18n: {
-      title: "Makeup Classes",
-      subtitle: "Conditions, scheduling, cost and rules for makeup sessions",
-      sections: [
-        {
-          title: "Conditions",
-          paragraphs: ["A makeup class is held in only two cases:"],
-          hints: [
-            "When the original session was cancelled on time (by 23:59 the day before).",
-            "When an emergency (power outage, sudden system failure or internet problems) is reported no later than 2 hours after the session started.",
-          ],
-        },
-        {
-          paragraphs: [
-            "In any other case, the session is considered consumed and no makeup will be arranged.",
-          ],
-        },
-        {
-          title: "Scheduling",
-          paragraphs: [
-            "The length of a makeup class matches the original session. Scheduling is coordinated between the teacher and the student, and the exact time is confirmed by support.",
-          ],
-        },
-        {
-          title: "Attendance",
-          paragraphs: [
-            "Attendance at the makeup class is mandatory. If the student is absent without a valid reason, that session is consumed and no further makeup will be arranged.",
-            "Cancellation of a makeup class follows the same rules (by 23:59 the day before, or up to 2 hours after in emergencies).",
-          ],
-        },
-        {
-          title: "Assignments",
-          paragraphs: [
-            "The student is responsible for completing and submitting the assignments of the original session even if the next session becomes a makeup.",
-            "Questions and review are available in both original and makeup sessions.",
-          ],
-        },
-        {
-          title: "Cost",
-          paragraphs: [
-            "If a makeup class is held due to Code Empire's mistake or cancellation, the student pays nothing.",
-            "If the makeup is requested by or caused by the student's absence, its cost is calculated at the current session rate (i.e. full session price).",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "شرایط برگزاری",
@@ -145,44 +98,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2024-10-01",
     order: 2,
-    i18n: {
-      title: "Teacher Replacement",
-      subtitle: "Conditions, notification and quality continuity",
-      sections: [
-        {
-          title: "Conditions",
-          paragraphs: [
-            "Replacing a teacher happens only in case of unforeseen issues such as illness or inability to teach.",
-            "The decision is made with management consultation and based on the new teacher's qualifications.",
-          ],
-        },
-        {
-          title: "Notification",
-          paragraphs: [
-            "Students are informed at least 24 hours in advance. The change is announced officially via email or SMS.",
-          ],
-        },
-        {
-          title: "Introducing the new teacher",
-          paragraphs: [
-            "For a permanent replacement, an introduction session is held to align on expectations and goals. Students can ask questions and learn more about the new teacher.",
-            "For a temporary replacement, no separate intro is held — only 10 minutes of class time is allocated for introductions.",
-          ],
-        },
-        {
-          title: "Quality continuity",
-          paragraphs: [
-            "The new teacher is expected to keep the syllabus as close as possible to the previous teacher's so students' learning curve stays smooth.",
-            "Where needed, the new teacher may use alternative teaching methods to catch up.",
-          ],
-        },
-        {
-          paragraphs: [
-            "At Code Empire, every event and program is planned with care. We guarantee this to you.",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "شرایط جایگزین استاد",
@@ -229,45 +144,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2025-03-01",
     order: 3,
-    i18n: {
-      title: "Leaving a Course",
-      subtitle: "Rules for temporary leave, full withdrawal and return",
-      sections: [
-        {
-          title: "Overview",
-          paragraphs: [
-            "Code Empire students may leave a course for any reason. Each situation has its own rules.",
-          ],
-        },
-        {
-          title: "Temporary leave",
-          paragraphs: [
-            "Any student can leave for a defined period at no cost. Note that slots for long periods may be reassigned and new dates must be scheduled.",
-          ],
-        },
-        {
-          title: "Returning after full withdrawal",
-          paragraphs: [
-            "Students who fully withdraw may return without starting over, and don't pay for completed sessions again.",
-            "Rank is preserved — you resume at the tier you had and can continue climbing.",
-            "Ranks stay active even after graduation; your position in Code Empire is permanent.",
-          ],
-        },
-        {
-          title: "Refunds",
-          paragraphs: [
-            "Amounts paid are returned per the fee table, minus the sessions already held.",
-            "For periodic payments, outstanding balances are settled first; the remainder is refunded.",
-          ],
-        },
-        {
-          title: "Refund destination",
-          paragraphs: [
-            "Within 72 hours of confirming full withdrawal, the student must provide an IBAN in their name (or their guardian's) to support. Otherwise refunds may be delayed.",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "اساس‌نامه ترک کلاس‌ها و مسائل آن",
@@ -315,45 +191,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2025-03-01",
     order: 4,
-    i18n: {
-      title: "Payment Methods",
-      subtitle: "Lump sum, per-session, and installment options",
-      sections: [
-        {
-          title: "Options",
-          paragraphs: [
-            "By default, tuition is paid in full upfront. All payments are direct — each student settles with their support person, who also handles any refunds.",
-            "For students who prefer to spread costs, Code Empire offers two alternatives:",
-            "Per-session: pay a portion before each session (at least one day in advance).",
-            "Installments: agree with management to split tuition into defined parts.",
-            "Read the 'Final amount changes' section carefully.",
-          ],
-          hints: [
-            "Note: upfront payers get preferred-customer status and exclusive discounts.",
-          ],
-        },
-        {
-          title: "How payments work",
-          paragraphs: [
-            "All payments are direct and fully coordinated. Your support person collects the fee and manages payments (and refunds) throughout the course.",
-            "Payment reminders are handled by support. Students pay the scheduled amount on time — otherwise upcoming sessions are not reserved.",
-          ],
-        },
-        {
-          title: "Final amount changes",
-          paragraphs: [
-            "If the tuition is split into more than 2 installments, the total increases by 2% per installment. Example: a 4,000,000 Toman course split into 5 parts costs 3% more, i.e. 4,240,000 Toman.",
-            "The extra amount is also payable periodically.",
-          ],
-        },
-        {
-          title: "Payment schedule",
-          paragraphs: [
-            "Students are free to choose the number and timing of installments. Code Empire doesn't restrict them.",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "روش های پرداخت بهای کلاس",
@@ -401,48 +238,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2025-03-01",
     order: 5,
-    i18n: {
-      title: "Student Ranks",
-      subtitle: "Five tiers from Aghazgar to Javidan, and the criteria",
-      sections: [
-        {
-          title: "Ranks",
-          paragraphs: [
-            "Students earn ranks based on their achievements. From top to bottom:",
-          ],
-          hints: [
-            "Javidan",
-            "Danshour-e Nokhbeh",
-            "Kadzan-e Nokhbeh",
-            "Danshour",
-            "Aghazgar",
-          ],
-        },
-        {
-          title: "Rewards and events",
-          paragraphs: [
-            "Code Empire hosts events for all students, and each rank unlocks a different position and perks.",
-            "Javidan holders receive an exclusive emblem and gifts. Other ranks have their own rewards, varying by rank and event.",
-          ],
-        },
-        {
-          title: "Criteria",
-          paragraphs: [
-            "The main criterion is how students complete their first course and the skills they gain.",
-            "Aghazgar: every student starts here. Reflects the beginning of the journey.",
-            "Danshour: earned after completing the first course and being approved by the mentor.",
-            "Kadzan-e Nokhbeh: earned by finishing the learning path with strong results.",
-            "Danshour-e Nokhbeh: a higher tier requiring skill beyond the classroom — a big project, multiple courses, or outstanding scores.",
-            "Javidan: the highest and most valuable rank, matching the mentor's own skill level. Every student has their own path to it. Many Javidan holders stay with Code Empire after graduating and help build the future.",
-          ],
-        },
-        {
-          paragraphs: [
-            "Every student, regardless of rank, receives the highest quality of education and service. What matters is how you use the opportunity.",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "رده‌بندی",
@@ -487,41 +282,6 @@ export const rules: Rule[] = [
     category: "course",
     validFrom: "2025-03-01",
     order: 6,
-    i18n: {
-      title: "Absence and Cancellation",
-      subtitle: "Rules for cancellations, absence and makeup sessions",
-      sections: [
-        {
-          title: "Cancellations",
-          paragraphs: [
-            "A session may be cancelled only by 23:59 the day before. Later cancellations are considered consumed, with no recovery.",
-            "In emergencies (power outage, sudden system failure or internet problems) that prevented earlier notice, students may report a cancellation up to 2 hours after the session starts. This must be reported to support and, once approved, the session can be recovered.",
-          ],
-        },
-        {
-          title: "Absence",
-          paragraphs: [
-            "A student is marked absent if they don't show up within 15 minutes of the session start (e.g. session at 12:00 — join Google Meet by 12:15 at the latest).",
-            "Absences count as held sessions and are consumed. Please join on time.",
-          ],
-        },
-        {
-          title: "Makeup sessions",
-          paragraphs: [
-            "Students can request makeup sessions through support. Makeup is only offered for sessions cancelled on time, or for emergencies reported within 2 hours of the start (later than that, no makeup is scheduled).",
-            "Cost is calculated at the current session rate. Unexcused delays or absences get no makeup.",
-          ],
-        },
-        {
-          title: "Additional notes",
-          hints: [
-            "All cancellations and makeup requests must go through the official Code Empire Telegram support account to be recorded.",
-            "Final decisions are based on the reports in the system.",
-            "For any ambiguity or special case, contact support for guidance.",
-          ],
-        },
-      ],
-    },
     sections: toSections([
       {
         title: "کنسلی جلسات",
@@ -585,44 +345,6 @@ export const charterBill: CharterItem[] = [
     id: "5",
     title: "۶) حل اختلاف",
     body: "اختلاف و مشکلات جدی: در صورت بروز هرگونه اختلاف میان کاربران و کارکنان امپراتوری کد، با ما تماس گرفته تا مسئله به‌صورت دوستانه برطرف شود. در صورت عدم توافق، موضوع به مراجع قانونی ارجاع خواهد شد.",
-  },
-];
-
-// English translation of the charter bill, kept inline to avoid a second file
-export const charterBillI18n: CharterBill[] = [
-  {
-    title: "1) General Rules",
-    paragraphs: [
-      "Users and proper use of the site: Users of the Code Empire website include everyone who uses its services and content. Users must use the site legally and ethically, and avoid unauthorized use or damage.",
-    ],
-  },
-  {
-    title: "2) Rights and Responsibilities",
-    paragraphs: [
-      "Intellectual property: All content on the site — articles, images and other resources — is under Code Empire's intellectual property. Copying without permission is prohibited.",
-      "Content responsibility: We try to provide excellent, useful content, but using it is the user's responsibility. Code Empire is not liable for any damage caused by misuse.",
-      "Commitment to quality: We do our best to deliver quality services. If you have complaints, please submit them for review.",
-      "Free consultation: Our advisors provide free consultation to all users based on the latest data and methods.",
-    ],
-  },
-  {
-    title: "4) Privacy",
-    paragraphs: [
-      "Data collection: We may collect information such as name, email, and related details. This is used solely to improve services and communicate with users.",
-      "All necessary steps for data security have been taken, and we remain vigilant.",
-    ],
-  },
-  {
-    title: "5) Changes to the Rules",
-    paragraphs: [
-      "Right to change: Code Empire reserves the right to make minor changes to these rules. Users should review this section periodically to stay informed. We will also notify you.",
-    ],
-  },
-  {
-    title: "6) Dispute Resolution",
-    paragraphs: [
-      "Serious disputes: If any dispute arises between users and Code Empire staff, contact us so we can resolve it amicably. If unresolved, the matter is referred to legal authorities.",
-    ],
   },
 ];
 

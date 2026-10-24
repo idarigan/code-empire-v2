@@ -6,7 +6,7 @@
  */
 
 import { useMemo } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Card, Badge, Button, ScrollReveal, useI18n } from "dara-ui";
 import { getRuleBySlug, getSortedRules } from "@/data/policy";
 import { CourseArticle } from "@/features/courses/CourseArticle";
@@ -14,24 +14,16 @@ import { formatDate } from "@/lib/format";
 import { Icons } from "@/lib/icons";
 
 export default function SingleRulePage() {
-  const { slug = "" } = useParams();
-  const { t, language } = useI18n();
+  const { t } = useI18n();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const locale = language || "fa";
 
-  const rule = getRuleBySlug(slug);
+  const rule = slug ? getRuleBySlug(slug) : undefined;
 
-  // The sidebar list stays in the current language.
   const otherRules = useMemo(() => {
     if (!rule) return [];
-    return getSortedRules()
-      .filter((r) => r.slug !== rule.slug)
-      .map((r) =>
-        locale === "fa"
-          ? r
-          : { ...r, title: r.i18n.title, subtitle: r.i18n.subtitle },
-      );
-  }, [rule, locale]);
+    return getSortedRules().filter((r) => r.slug !== rule.slug);
+  }, [rule]);
 
   // Not found
   if (!rule) {
@@ -60,10 +52,9 @@ export default function SingleRulePage() {
     );
   }
 
-  // Pick the right title / subtitle / sections based on language
-  const title = locale === "fa" ? rule.title : rule.i18n.title;
-  const subtitle = locale === "fa" ? rule.subtitle : rule.i18n.subtitle;
-  const sections = locale === "fa" ? rule.sections : rule.i18n.sections;
+  const title = rule.title;
+  const subtitle = rule.subtitle;
+  const sections = rule.sections;
 
   return (
     <>
@@ -96,7 +87,7 @@ export default function SingleRulePage() {
             <div className="flex flex-col gap-3 max-w-3xl">
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge variant="warning" size="sm" glow>
-                  {t("policy.validFrom")} {formatDate(rule.validFrom, locale)}
+                  {t("policy.validFrom")} {formatDate(rule.validFrom)}
                 </Badge>
                 <Badge variant="secondary" size="sm" outline>
                   {rule.category === "course"

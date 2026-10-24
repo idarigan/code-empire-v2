@@ -17,7 +17,7 @@ import {
   PageLoaderProvider,
 } from "dara-ui";
 import { ProfileProvider, ProgressProvider, UIProvider } from "@/contexts";
-import { translations } from "@/translations";
+import { fa } from "../../translations";
 
 // ============================================
 // Theme registry
@@ -43,7 +43,8 @@ const THEMES = [
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ToastProvider>
-      <I18nProvider translations={translations} defaultLanguage="fa">
+      <I18nProvider translations={{ fa }} defaultLanguage="fa">
+        {" "}
         <ThemeProvider defaultTheme="empire-night" themes={THEMES}>
           <UIProvider>
             <ProfileProvider>

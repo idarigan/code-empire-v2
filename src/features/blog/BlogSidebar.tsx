@@ -18,8 +18,7 @@ interface BlogSidebarProps {
 }
 
 export function BlogSidebar({ author, currentSlug }: BlogSidebarProps) {
-  const { t, language } = useI18n();
-  const locale = language || "fa";
+  const { t } = useI18n();
 
   const latest = getLatestBlogs(4).filter((b) => b.slug !== currentSlug);
   const categories = getBlogCategories();
@@ -72,9 +71,9 @@ export function BlogSidebar({ author, currentSlug }: BlogSidebarProps) {
                     {post.title}
                   </span>
                   <span className="flex items-center gap-2 text-[10px] font-mono text-[var(--color-text-tertiary)]">
-                    {formatDate(post.date, locale)}
+                    {formatDate(post.date)}
                     <span>·</span>
-                    {formatReadTime(post.readTime, locale)}
+                    {formatReadTime(post.readTime)}
                   </span>
                 </Link>
               </li>

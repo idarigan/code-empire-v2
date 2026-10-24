@@ -2,21 +2,16 @@
  * Code Empire — About half sections
  *
  * Alternating image/text blocks from about.halfSections.
- * Picks Persian or English copy based on the active language.
  */
 
-import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
+import { Card, Badge, ScrollReveal } from "dara-ui";
 import { about } from "@/data/constants";
 import { Icons } from "@/lib/icons";
 
 export function HalfSections() {
-  const { language } = useI18n();
-  const locale = language || "fa";
-
   const items = about.halfSections.map((section) => ({
-    title: locale === "fa" ? section.title : section.i18n.title,
-    description:
-      locale === "fa" ? section.description : section.i18n.description,
+    title: section.title,
+    description: section.description,
     cover: section.cover,
     glow: section.glow,
   }));

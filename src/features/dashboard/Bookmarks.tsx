@@ -18,8 +18,7 @@ import { Icons } from "@/lib/icons";
 type TabValue = "courses" | "blogs";
 
 export default function Bookmarks() {
-  const { t, language } = useI18n();
-  const locale = language || "fa";
+  const { t } = useI18n();
   const navigate = useNavigate();
   const { bookmarks, toggleBookmark } = useProgress();
   const [tab, setTab] = useState<TabValue>("courses");
@@ -105,7 +104,7 @@ export default function Bookmarks() {
                         {course!.description}
                       </p>
                       <p className="text-xs font-mono text-[var(--color-primary)] mt-2">
-                        {formatPrice(course!.price, locale)}
+                        {formatPrice(course!.price)}
                       </p>
                     </div>
                   </div>
@@ -178,8 +177,8 @@ export default function Bookmarks() {
                         <Badge variant="secondary" size="sm" outline>
                           {blog!.category}
                         </Badge>
-                        <span>{formatDate(blog!.date, locale)}</span>
-                        <span>{formatReadTime(blog!.readTime, locale)}</span>
+                        <span>{formatDate(blog!.date)}</span>
+                        <span>{formatReadTime(blog!.readTime)}</span>
                       </div>
                     </div>
                   </div>

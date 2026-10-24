@@ -45,7 +45,7 @@ export function CourseCard({
       <ProductCard
         title={course.persianTitle}
         description={course.description}
-        price={formatPrice(course.price, "fa")}
+        price={formatPrice(course.price)}
         image={course.logo}
         category={
           course.category === "web"

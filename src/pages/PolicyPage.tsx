@@ -6,27 +6,15 @@
  */
 
 import { Card, ScrollReveal, useI18n } from "dara-ui";
-import { charterBill, charterBillI18n } from "@/data/policy";
+import { charterBill } from "@/data/policy";
 import { RulesBill } from "@/features/policy/RulesBill";
 import { RulesList } from "@/features/policy/RulesList";
 import { SectionHeader } from "@/features/home/SectionHeader";
 import { Icons } from "@/lib/icons";
 
 export default function PolicyPage() {
-  const { t, language } = useI18n();
-  const locale = language || "fa";
-
-  // Pick the right charter based on current language.
-  // charterBillI18n stores paragraphs as an array; the RulesBill component
-  // expects a single `body` string, so we join them for the UI.
-  const displayCharter =
-    locale === "fa"
-      ? charterBill
-      : charterBillI18n.map((item, i) => ({
-          id: String(i + 1),
-          title: item.title,
-          body: item.paragraphs.join(" "),
-        }));
+  const { t } = useI18n();
+  const displayCharter = charterBill;
 
   return (
     <>

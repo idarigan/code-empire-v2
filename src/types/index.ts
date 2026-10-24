@@ -10,17 +10,6 @@
  */
 
 // ============================================
-// BILINGUAL HELPER
-// ============================================
-
-/** A field that exists in more than one language */
-export type LocalizedString = {
-  fa: string;
-  en: string;
-  fr?: string;
-};
-
-// ============================================
 // COURSES
 // ============================================
 
@@ -61,17 +50,6 @@ export interface Course {
   category: CourseCategory;
   description: string;
   longDescription: string;
-
-  /** English translations used when the language is "en" or "fr" */
-  i18n?: {
-    title: string;
-    fullTitle: string;
-    description: string;
-    details: CourseDetail[];
-    sections: ArticleSection[];
-    faq: FAQItem[];
-    learningOutcomes: string[];
-  };
 
   /** Single price — privatePrice from the legacy data */
   price: number;
@@ -121,15 +99,6 @@ export interface Blog {
   category: string;
   tags: string[];
 
-  i18n?: {
-    title: string;
-    excerpt: string;
-    category: string;
-    tags: string[];
-    sections: ArticleSection[];
-    faq: FAQItem[];
-  };
-
   sections: ArticleSection[];
   faq?: FAQItem[];
   featured?: boolean;
@@ -152,12 +121,6 @@ export interface Rule {
   cover?: string;
   sections: ArticleSection[];
   order: number;
-
-  i18n: {
-    title: string;
-    subtitle: string;
-    sections: ArticleSection[];
-  };
 }
 
 export interface CharterItem {

@@ -28,13 +28,12 @@ export function CertificatePreview({
   level,
   date,
 }: CertificatePreviewProps) {
-  const { t, language } = useI18n();
+  const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isRendering, setIsRendering] = useState(true);
 
   const isoDate = date ?? new Date().toISOString();
-  const locale = language || "fa";
-  const formattedDate = formatDate(isoDate, locale);
+  const formattedDate = formatDate(isoDate);
 
   useEffect(() => {
     const container = containerRef.current;

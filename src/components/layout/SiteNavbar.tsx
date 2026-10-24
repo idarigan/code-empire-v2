@@ -3,7 +3,6 @@
  *
  * Wraps Dara UI's Navbar with:
  * - primary nav links from constants
- * - theme + language switchers (icon-only)
  * - search button that opens the command palette
  * - dashboard link when the user has a profile
  */
@@ -15,7 +14,6 @@ import { Button } from "dara-ui";
 import { primaryNavLinks } from "@/data/constants";
 import { useUI } from "@/contexts";
 import { useProfile } from "@/contexts";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Icons } from "@/lib/icons";
 
@@ -57,9 +55,6 @@ export function SiteNavbar() {
         showSearch
         searchPlaceholder={t("common.search")}
         onSearch={handleSearch}
-        showLanguageChanger
-        languageChanger={<LanguageSwitcher compact />}
-        languageChangerMobile={<LanguageSwitcher compact />}
         showThemeChanger
         themeChanger={<ThemeSwitcher compact />}
         themeChangerMobile={<ThemeSwitcher compact />}

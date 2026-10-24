@@ -1,7 +1,7 @@
 /**
  * Code Empire — Settings
  *
- * Profile edit, preferences (theme, language, notifications, sound),
+ * Profile edit, preferences (theme, notifications, sound),
  * clear local data.
  */
 
@@ -14,7 +14,6 @@ import {
   Modal,
   useI18n,
   useToast,
-  LanguageChanger,
   ThemeChanger,
 } from "dara-ui";
 import { useProfile, useProgress } from "@/contexts";
@@ -124,12 +123,6 @@ export default function Settings() {
                 {t("themeChanger.title")}
               </label>
               <ThemeChanger />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.title")}
-              </label>
-              <LanguageChanger />
             </div>
           </div>
         </div>

@@ -12,30 +12,23 @@ import { faIR } from "date-fns/locale";
 // ============================================
 
 const numberFormatter = new Intl.NumberFormat("fa-IR");
-const numberFormatterEn = new Intl.NumberFormat("en-US");
 
-export const formatNumber = (value: number, locale = "fa"): string =>
-  locale === "fa"
-    ? numberFormatter.format(value)
-    : numberFormatterEn.format(value);
+export const formatNumber = (value: number): string =>
+  numberFormatter.format(value);
 
 // ============================================
 // Currency (Toman)
 // ============================================
 
-export const formatPrice = (value: number, locale = "fa"): string => {
-  const formatted = formatNumber(value, locale);
-  return locale === "fa" ? `${formatted} تومان` : `${formatted} T`;
-};
+export const formatPrice = (value: number): string =>
+  `${formatNumber(value)} تومان`;
 
 // ============================================
 // Percent
 // ============================================
 
-export const formatPercent = (value: number, locale = "fa"): string => {
-  const formatted = formatNumber(Math.round(value), locale);
-  return `${formatted}٪`;
-};
+export const formatPercent = (value: number): string =>
+  `${formatNumber(Math.round(value))}٪`;
 
 // ============================================
 // Dates
@@ -56,60 +49,34 @@ const PERSIAN_MONTHS = [
   "اسفند",
 ] as const;
 
-const GREGORIAN_MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-] as const;
-
-/**
- * Format a date for the given locale.
- * Uses the Persian calendar when locale === "fa" via Intl.DateTimeFormat.
- */
-export const formatDate = (input: string | Date, locale = "fa"): string => {
+export const formatDate = (input: string | Date): string => {
   const date = typeof input === "string" ? new Date(input) : input;
   if (Number.isNaN(date.getTime())) return "";
 
-  if (locale === "fa") {
-    try {
-      const parts = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-      }).formatToParts(date);
+  try {
+    const parts = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    }).formatToParts(date);
 
-      const day = parts.find((p) => p.type === "day")?.value ?? "";
-      const month = Number(parts.find((p) => p.type === "month")?.value ?? "1");
-      const year = parts.find((p) => p.type === "year")?.value ?? "";
+    const day = parts.find((p) => p.type === "day")?.value ?? "";
+    const month = Number(parts.find((p) => p.type === "month")?.value ?? "1");
+    const year = parts.find((p) => p.type === "year")?.value ?? "";
 
-      return `${day} ${PERSIAN_MONTHS[month - 1] ?? ""} ${year}`;
-    } catch {
-      return formatDateFns(date, "yyyy/MM/dd", { locale: faIR });
-    }
+    return `${day} ${PERSIAN_MONTHS[month - 1] ?? ""} ${year}`;
+  } catch {
+    return formatDateFns(date, "yyyy/MM/dd", { locale: faIR });
   }
-
-  const day = date.getDate();
-  const month = GREGORIAN_MONTHS[date.getMonth()];
-  const year = date.getFullYear();
-  return `${month} ${day}, ${year}`;
 };
 
-export const formatRelative = (input: string | Date, locale = "fa"): string => {
+export const formatRelative = (input: string): string => {
   const date = typeof input === "string" ? new Date(input) : input;
   if (Number.isNaN(date.getTime())) return "";
 
   return formatDistanceToNow(date, {
     addSuffix: true,
-    locale: locale === "fa" ? faIR : undefined,
+    locale: faIR,
   });
 };
 
@@ -117,8 +84,8 @@ export const formatRelative = (input: string | Date, locale = "fa"): string => {
 // Read time
 // ============================================
 
-export const formatReadTime = (minutes: number, locale = "fa"): string =>
-  locale === "fa" ? `${formatNumber(minutes, "fa")} دقیقه` : `${minutes} min`;
+export const formatReadTime = (minutes: number): string =>
+  `${formatNumber(minutes)} دقیقه`;
 
 // ============================================
 // File size

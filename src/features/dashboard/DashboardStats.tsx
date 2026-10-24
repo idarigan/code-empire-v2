@@ -17,25 +17,25 @@ export function DashboardStats() {
     {
       icon: <Icons.bookOpen className="h-5 w-5" />,
       label: t("dashboard.courses"),
-      value: formatNumber(enrollments.length, "fa"),
+      value: formatNumber(enrollments.length),
       glow: "primary" as const,
     },
     {
       icon: <Icons.bookmark className="h-5 w-5" />,
       label: t("dashboard.bookmarks"),
-      value: formatNumber(bookmarks.length, "fa"),
+      value: formatNumber(bookmarks.length),
       glow: "secondary" as const,
     },
     {
       icon: <Icons.zap className="h-5 w-5" />,
       label: t("dashboard.xp"),
-      value: formatNumber(xp, "fa"),
+      value: formatNumber(xp),
       glow: "accent" as const,
     },
     {
       icon: <Icons.chart className="h-5 w-5" />,
       label: t("dashboard.overallProgress"),
-      value: formatPercent(overallProgress, "fa"),
+      value: formatPercent(overallProgress),
       glow: "primary" as const,
     },
   ];

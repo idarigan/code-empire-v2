@@ -45,10 +45,10 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                {t("dashboard.level")} {formatNumber(level, "fa")}
+                {t("dashboard.level")} {formatNumber(level)}
               </p>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                {formatNumber(xp, "fa")} {t("dashboard.xp")}
+                {formatNumber(xp)} {t("dashboard.xp")}
               </p>
             </div>
           </div>
@@ -79,8 +79,7 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
             </div>
             {tier.nextXP && (
               <p className="text-[10px] font-mono text-[var(--color-text-tertiary)] mt-1">
-                {formatNumber(xpToNext, "fa")} {t("dashboard.xp")}{" "}
-                {t("common.next")}
+                {formatNumber(xpToNext)} {t("dashboard.xp")} {t("common.next")}
               </p>
             )}
           </div>

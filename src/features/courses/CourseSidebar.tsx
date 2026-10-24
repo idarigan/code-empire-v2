@@ -120,7 +120,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
             {t("courses.price")}
           </span>
           <span className="font-heading font-bold text-lg text-[var(--color-primary)]">
-            {formatPrice(course.price, "fa")}
+            {formatPrice(course.price)}
           </span>
         </div>
 

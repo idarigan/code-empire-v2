@@ -55,7 +55,7 @@ export default function ProgressPage() {
                 {t("dashboard.overallProgress")}
               </span>
               <span className="text-sm font-mono text-[var(--color-primary)]">
-                {formatPercent(overallProgress, "fa")}
+                {formatPercent(overallProgress)}
               </span>
             </div>
             <Progress

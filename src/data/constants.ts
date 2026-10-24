@@ -2,7 +2,6 @@
  * Code Empire — Site-wide constants
  *
  * Nav, footer, socials, home/about/guide copy, CTAs, contact info.
- * Every Persian string has an English counterpart under `i18n` so
  * pages can switch languages without a second data file.
  */
 
@@ -130,22 +129,12 @@ export const home = {
     description:
       "آکادمی آنلاین امپراتوری کد با هدف ارتقای مهارت‌های برنامه‌نویسی، طراحی وب و بازی‌سازی تأسیس شده است. ما متعهدیم مسیری الهام‌بخش و ارزشمند برای تمام کسانی ایجاد کنیم که به دنبال آینده‌ای متفاوت هستند؛ آینده‌ای بر پایه مهارت‌های حرفه‌ای، درآمد پایدار و زندگی راحت در دنیای فناوری.",
     cover: "/images/home/what-we-are.png",
-    i18n: {
-      title: "Code Empire — Your Path Forward",
-      description:
-        "Code Empire is an online academy built to elevate programming, web design and game development skills. We're committed to creating an inspiring, valuable path for anyone who wants a different future — one built on professional skills, stable income, and a comfortable life in tech.",
-    },
   },
   newWays: {
     title: "یادگیری نوین و بی‌همتا",
     description:
       "در امپراتوری کد، آموزش فقط تئوری نیست؛ ما با روش‌های به‌روز و تجربه‌محور، مسیر یادگیری را برای شما زنده می‌کنیم. از برنامه‌نویسی تا طراحی وب و بازی‌سازی، اینجا جایی است که مهارت می‌سازید، خلاقیت‌تان را پرورش می‌دهید و آینده‌ای واقعی در دنیای کد رقم می‌زنید.",
     cover: "/images/home/our-ways.png",
-    i18n: {
-      title: "Modern, Unrivaled Learning",
-      description:
-        "At Code Empire, learning isn't just theory. Our up-to-date, experience-driven methods make the journey come alive — from programming to web design to game development. This is where you build skills, nurture creativity, and shape a real future in the world of code.",
-    },
   },
   finalCta: {
     title: "همین حالا مسیرت رو آغاز کن!",
@@ -177,11 +166,6 @@ export const about = {
         "امپراتوری کد فقط یک آکادمی نیست؛ یک حرکت برای ساختن آینده است. ما اینجاییم تا یادگیری برنامه‌نویسی، طراحی وب و بازی سازی رو برای هر کسی که می‌خواد مسیرش رو شروع کنه ساده، جذاب و کارآمد کنیم.",
       cover: "/images/about/about.png",
       glow: "primary" as const,
-      i18n: {
-        title: "About Code Empire",
-        description:
-          "Code Empire isn't just an academy — it's a movement to build the future. We make learning programming, web design, and game development simple, engaging, and effective for anyone ready to start their path.",
-      },
     },
     {
       title: "ماموریت این امپراتوری",
@@ -189,11 +173,6 @@ export const about = {
         "ما باور داریم آینده‌ی شغلی هرکسی می‌تونه با مهارت ساخته بشه. ماموریت ما ایجاد مسیری روشن برای یادگیری مهارت‌های دیجیتال از وب و برنامه‌نویسی تا هوش مصنوعی و بازی‌سازی، با روشی ساده و الهام‌بخش هست.",
       cover: "/images/about/mission.png",
       glow: "secondary" as const,
-      i18n: {
-        title: "Our Mission",
-        description:
-          "We believe anyone's career future can be built on skill. Our mission is a clear path to digital skills — web, programming, AI and game development — with a simple, inspiring method.",
-      },
     },
     {
       title: "چرا امپراتوری کد؟",
@@ -201,27 +180,20 @@ export const about = {
         "امپراتوری کد جاییه که آموزش فقط درس دادن نیست؛ اینجا شما با پروژه‌های واقعی یاد می‌گیرید، در کنار مربی‌هایی که همیشه کنارتون هستن. ما یادگیری رو ساده، کاربردی و الهام‌بخش می‌کنیم تا سریع‌تر به مسیر شغلی مطمئن و آینده‌ای حرفه‌ای برسید.",
       cover: "/images/about/why-us.png",
       glow: "accent" as const,
-      i18n: {
-        title: "Why Code Empire?",
-        description:
-          "Code Empire isn't just teaching — you learn through real projects, alongside mentors who are always there. We make learning simple, practical, and inspiring so you reach a reliable career and a professional future faster.",
-      },
     },
   ],
   numbers: [
-    { number: 30, suffix: "", title: "مربی مجرب", titleEn: "Mentors" },
-    { number: 800, suffix: "+", title: "دانش آموخته", titleEn: "Graduates" },
+    { number: 30, suffix: "", title: "مربی مجرب" },
+    { number: 800, suffix: "+", title: "دانش آموخته" },
     {
       number: 100,
       suffix: "K",
       title: "هزار ساعت آموزش",
-      titleEn: "Hours of training",
     },
     {
       number: 300,
       suffix: "",
       title: "ساعت مشاوره",
-      titleEn: "Consultation hours",
     },
   ],
 };
@@ -236,11 +208,6 @@ export const guide = {
     description:
       "در امپراتوری کد، یادگیری برنامه‌نویسی محدود به یک قالب نیست. ما باور داریم هرکس باید بتونه مسیر آموزشی خودش رو با توجه به شرایط و سبک زندگی انتخاب کنه. به همین دلیل، سه نوع کلاس طراحی کرده‌ایم که هرکدام انعطاف، کیفیت و راحتی را در اولویت قرار می‌دهند تا شما بدون دغدغه، تنها روی یادگیری تمرکز کنید.",
     cover: "/images/guide/intro.png",
-    i18n: {
-      title: "Code Empire — Flexible Programming Education",
-      description:
-        "At Code Empire, learning isn't locked into one format. We believe everyone should be able to shape their path around their circumstances and lifestyle. That's why we've designed three class types — each prioritizing flexibility, quality, and comfort — so you can focus purely on learning.",
-    },
   },
   types: [
     {
@@ -255,17 +222,6 @@ export const guide = {
         "سریع‌تر و عمیق‌تر",
       ],
       glow: "primary" as const,
-      i18n: {
-        title: "Private Online Class",
-        description:
-          "Held on Google Meet — a fully dedicated space with just you and the mentor. Focus without distraction, tasks tailored to your level and goal, and continuous feedback along the way.",
-        features: [
-          "Google Meet",
-          "Dedicated, distraction-free",
-          "Continuous feedback",
-          "Faster, deeper learning",
-        ],
-      },
     },
     {
       title: "کلاس خصوصی آفلاین",
@@ -279,17 +235,6 @@ export const guide = {
         "جلسات رفع اشکال",
       ],
       glow: "secondary" as const,
-      i18n: {
-        title: "Private Offline Class",
-        description:
-          "For those who value maximum flexibility. Receive recorded sessions via Telegram or WhatsApp and learn whenever you're focused and ready. Q&A and exercise review sessions guarantee the same quality.",
-        features: [
-          "Recorded sessions",
-          "Telegram or WhatsApp",
-          "Learn anytime",
-          "Q&A sessions",
-        ],
-      },
     },
     {
       title: "کلاس گروهی آنلاین",
@@ -303,17 +248,6 @@ export const guide = {
         "طبق برنامه آکادمی",
       ],
       glow: "accent" as const,
-      i18n: {
-        title: "Group Online Class",
-        description:
-          "Held on Google Meet like private classes, but designed for learning alongside others — where you get collective motivation and can draw on peers' questions and experiences.",
-        features: [
-          "Google Meet",
-          "Collective motivation",
-          "Teamwork & idea exchange",
-          "According to academy schedule",
-        ],
-      },
     },
   ],
   method: {

@@ -1,7 +1,7 @@
 /**
  * Code Empire — Sitemap generator
  *
- * Runs at build time. Parses slugs from data files using regex
+ * Runs at build time. Parses slugs from data files with regex
  * (avoids needing ts-node in the build). Writes public/sitemap.xml.
  */
 
@@ -45,7 +45,7 @@ const ruleSlugs = extractSlugs(
 );
 
 // ============================================
-// Build URLs
+// URL table
 // ============================================
 
 const today = new Date().toISOString().split("T")[0];
@@ -81,7 +81,7 @@ const urls = [
 ];
 
 // ============================================
-// XML
+// XML output
 // ============================================
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,8 +1,11 @@
 # Code Empire — robots.txt
+
 User-agent: *
 Allow: /
 Disallow: /dashboard
-Disallow: /dashboard/*
+Disallow: /dashboard/
 
-# Sitemap
+# Crawl-delay is honored by some crawlers, ignored by Google
+Crawl-delay: 1
+
 Sitemap: https://code-empire-v2.vercel.app/sitemap.xml

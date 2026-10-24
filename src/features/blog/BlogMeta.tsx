@@ -23,9 +23,6 @@ export function BlogMeta({
   readTime,
   compact = false,
 }: BlogMetaProps) {
-  const { language } = useI18n();
-  const locale = language || "fa";
-
   return (
     <div
       className={`flex items-center gap-3 ${
@@ -40,11 +37,11 @@ export function BlogMeta({
       </span>
       <span className="flex items-center gap-1">
         <Icons.calendar className="h-3 w-3" />
-        {formatDate(date, locale)}
+        {formatDate(date)}
       </span>
       <span className="flex items-center gap-1">
         <Icons.clock className="h-3 w-3" />
-        {formatReadTime(readTime, locale)}
+        {formatReadTime(readTime)}
       </span>
     </div>
   );

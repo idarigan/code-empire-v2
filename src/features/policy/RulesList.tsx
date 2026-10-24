@@ -12,14 +12,8 @@ import { formatDate } from "@/lib/format";
 import { Icons } from "@/lib/icons";
 
 export function RulesList() {
-  const { t, language } = useI18n();
-  const locale = language || "fa";
-
-  const rules = getSortedRules().map((rule) =>
-    locale === "fa"
-      ? rule
-      : { ...rule, title: rule.i18n.title, subtitle: rule.i18n.subtitle },
-  );
+  const { t } = useI18n();
+  const rules = getSortedRules();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -39,7 +33,7 @@ export function RulesList() {
             </p>
             <div className="flex items-center justify-between mt-auto pt-3 border-t border-[var(--color-border-secondary)]">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("policy.validFrom")} {formatDate(rule.validFrom, locale)}
+                {t("policy.validFrom")} {formatDate(rule.validFrom)}
               </span>
               <Link to={`/policy/${rule.slug}`}>
                 <Button

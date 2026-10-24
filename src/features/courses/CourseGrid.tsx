@@ -61,7 +61,7 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
             <ProductCard
               title={course.persianTitle}
               description={course.description}
-              price={formatPrice(course.price, "fa")}
+              price={formatPrice(course.price)}
               image={course.logo}
               category={
                 course.category === "web"
