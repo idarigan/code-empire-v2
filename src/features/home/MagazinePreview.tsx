@@ -1,8 +1,5 @@
 /**
  * Code Empire — Magazine preview
- *
- * Four latest blogs from the data layer.
- * Each card links to the blog post.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -20,7 +17,7 @@ export function MagazinePreview() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Magazine"
+          eyebrow={t("home.magazineEyebrow")}
           title={t("home.magazinePreview")}
           subtitle={t("blog.subtitle")}
           align="start"
@@ -42,15 +39,17 @@ export function MagazinePreview() {
           {blogs.map((blog, i) => (
             <ScrollReveal key={blog.slug} animation="fade-up" delay={i * 80}>
               <BlogCard
-                title={blog.title}
-                excerpt={blog.excerpt}
+                title={t(`blogPost.${blog.slug}.title`)}
+                excerpt={t(`blogPost.${blog.slug}.excerpt`)}
                 coverImage={blog.coverImage}
                 author={blog.author.name}
                 authorAvatar={blog.author.avatar}
                 date={blog.date}
                 readTime={blog.readTime}
-                category={blog.category}
-                tags={blog.tags}
+                category={t(`blogPost.${blog.slug}.category`)}
+                tags={Array.from({ length: blog.tagCount }, (_, j) =>
+                  t(`blogPost.${blog.slug}.tag.${j}`),
+                )}
                 link={`/blog/${blog.slug}`}
                 glow={
                   i % 3 === 0 ? "primary" : i % 3 === 1 ? "secondary" : "accent"

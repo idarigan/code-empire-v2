@@ -1,7 +1,5 @@
 /**
  * Code Empire — Course progress card
- *
- * Compact card showing enrolled course, progress, and continue action.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -30,14 +28,14 @@ export function CourseProgressCard({ slug }: { slug: string }) {
         <div className="w-14 h-14 rounded-[var(--radius-md)] overflow-hidden bg-[var(--color-bg-tertiary)] flex-shrink-0">
           <img
             src={course.logo}
-            alt={course.persianTitle}
+            alt={t(`course.${course.slug}.title`)}
             className="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="font-heading font-bold text-sm text-[var(--color-text-primary)] truncate">
-            {course.persianTitle}
+            {t(`course.${course.slug}.title`)}
           </h3>
           <div className="flex items-center gap-2 mt-1">
             {complete ? (

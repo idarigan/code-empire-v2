@@ -1,8 +1,5 @@
 /**
  * Code Empire — Rules list
- *
- * Full list of rules. Each links to its single-rule page.
- * Picks Persian or English fields based on the active language.
  */
 
 import { Link } from "react-router-dom";
@@ -22,14 +19,14 @@ export function RulesList() {
           <Card variant="solid" className="h-full flex flex-col">
             <div className="flex items-start justify-between mb-2">
               <h3 className="font-heading font-bold text-base text-[var(--color-text-primary)]">
-                {rule.title}
+                {t(`rule.${rule.slug}.title`)}
               </h3>
               <Badge variant="secondary" size="sm" outline>
                 #{rule.order}
               </Badge>
             </div>
             <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-3 flex-1">
-              {rule.subtitle}
+              {t(`rule.${rule.slug}.subtitle`)}
             </p>
             <div className="flex items-center justify-between mt-auto pt-3 border-t border-[var(--color-border-secondary)]">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">

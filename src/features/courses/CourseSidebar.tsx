@@ -1,9 +1,5 @@
 /**
  * Code Empire — Course sidebar
- *
- * Sticky right column on the single-course page:
- * capacity card, specs row, details list, pricing, enrollment buttons.
- * Both enrollment buttons route to /courses/register with query params.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -42,7 +38,6 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
 
   return (
     <aside className="flex flex-col gap-5 sticky top-24 self-start">
-      {/* Capacity */}
       <Card glow={capacityVariant === "danger" ? "accent" : "primary"}>
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-text-tertiary)]">
@@ -63,13 +58,12 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         </p>
       </Card>
 
-      {/* Specs */}
       <div className="grid grid-cols-3 gap-2">
         {course.specs.map((spec) => {
           const Icon = Icons[spec.icon as keyof typeof Icons] ?? Icons.info;
           return (
             <Card
-              key={spec.label}
+              key={spec.icon}
               variant="solid"
               padding="sm"
               className="text-center"
@@ -78,7 +72,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
                 <Icon className="h-4 w-4" />
               </div>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mb-0.5 truncate">
-                {spec.label}
+                {t(`course.${course.slug}.specLabel.${spec.icon}`)}
               </p>
               <p className="text-sm font-heading font-bold text-[var(--color-text-primary)] truncate">
                 {spec.value}
@@ -88,7 +82,6 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         })}
       </div>
 
-      {/* Details */}
       <Card variant="solid">
         <h3 className="font-heading font-bold text-sm mb-3 text-[var(--color-text-primary)]">
           {t("courses.details")}
@@ -96,24 +89,23 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         <ul className="flex flex-col gap-2.5">
           {course.details.map((detail) => (
             <li
-              key={detail.label}
+              key={detail.key}
               className="flex items-start justify-between gap-3 text-sm border-b border-[var(--color-border-secondary)] pb-2 last:border-b-0 last:pb-0"
             >
               <span className="text-[var(--color-text-tertiary)] font-mono text-xs flex-shrink-0">
-                {detail.label}
+                {t(`course.${course.slug}.detailLabel.${detail.key}`)}
               </span>
               <span
                 className="text-[var(--color-text-primary)] text-end truncate"
                 dir="auto"
               >
-                {detail.value}
+                {t(`course.${course.slug}.detailValue.${detail.key}`)}
               </span>
             </li>
           ))}
         </ul>
       </Card>
 
-      {/* Pricing */}
       <Card glow="secondary">
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-[var(--color-text-secondary)]">
@@ -146,11 +138,10 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         </div>
       </Card>
 
-      {/* Hint */}
       <Card variant="outline" padding="sm">
         <div className="flex items-start gap-2 text-xs text-[var(--color-text-tertiary)]">
           <Icons.info className="h-4 w-4 flex-shrink-0 text-[var(--color-accent)]" />
-          <p className="leading-relaxed">{t("register.successDesc")}</p>
+          <p className="leading-relaxed">{t("courses.supportTitle")}</p>
         </div>
       </Card>
     </aside>

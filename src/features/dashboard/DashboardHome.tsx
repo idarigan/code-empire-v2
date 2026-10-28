@@ -1,7 +1,5 @@
 /**
  * Code Empire — Dashboard home
- *
- * Welcome + stats row + XP card + enrolled courses + latest certificate.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -25,14 +23,12 @@ export default function DashboardHome() {
     .map((e) => e.slug)
     .filter((slug) => isComplete(slug));
 
-  // Latest completed course certificate (if any)
   const latestCompleted = completedSlugs[0]
     ? getCourseBySlug(completedSlugs[0])
     : null;
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Welcome */}
       <ScrollReveal animation="fade-up">
         <Card
           glow="primary"
@@ -43,8 +39,7 @@ export default function DashboardHome() {
               {t("dashboard.home")}
             </p>
             <h1 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] truncate">
-              {t("dashboard.welcome")},{" "}
-              {profile?.name ?? t("dashboard.profile")}
+              {t("dashboard.welcome") + ", " + (profile?.name ?? "")}
             </h1>
           </div>
           <div className="flex gap-2 flex-shrink-0">
@@ -60,13 +55,10 @@ export default function DashboardHome() {
         </Card>
       </ScrollReveal>
 
-      {/* Stats */}
       <DashboardStats />
 
-      {/* XP card */}
       <XPLevelCard />
 
-      {/* My courses */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
@@ -81,7 +73,7 @@ export default function DashboardHome() {
               }
               onClick={() => navigate("/dashboard/courses")}
             >
-              {t("common.viewAll")}
+              {t("dashboard.viewAll")}
             </Button>
           )}
         </div>
@@ -97,7 +89,7 @@ export default function DashboardHome() {
               size="sm"
               onClick={() => navigate("/courses")}
             >
-              {t("nav.courses")}
+              {t("dashboard.courses")}
             </Button>
           </Card>
         ) : (
@@ -109,7 +101,6 @@ export default function DashboardHome() {
         )}
       </div>
 
-      {/* Latest certificate */}
       {latestCompleted && (
         <div>
           <div className="flex items-center justify-between mb-3">
@@ -124,12 +115,12 @@ export default function DashboardHome() {
               }
               onClick={() => navigate("/dashboard/certificates")}
             >
-              {t("common.viewAll")}
+              {t("dashboard.viewAll")}
             </Button>
           </div>
           <CertificatePreview
             studentName={profile?.name ?? t("dashboard.profile")}
-            courseName={latestCompleted.persianTitle}
+            courseName={t(`course.${latestCompleted.slug}.title`)}
             level="Javidan"
           />
         </div>

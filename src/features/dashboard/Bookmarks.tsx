@@ -1,13 +1,10 @@
 /**
  * Code Empire — Bookmarks
- *
- * Two tabs: saved courses + saved blogs.
- * Toggling a bookmark from here removes it from the list.
  */
 
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Tabs, Badge, Avatar, useI18n } from "dara-ui";
+import { Card, Button, Tabs, Badge, useI18n } from "dara-ui";
 import type { TabItem } from "dara-ui";
 import { useProgress } from "@/contexts";
 import { getCourseBySlug } from "@/data/courses";
@@ -43,12 +40,12 @@ export default function Bookmarks() {
 
   const items: TabItem[] = [
     {
-      label: `${t("nav.courses")} (${courseBookmarks.length})`,
+      label: `${t("dashboard.bookmarkCourses")} (${courseBookmarks.length})`,
       value: "courses",
       content: null,
     },
     {
-      label: `${t("nav.blog")} (${blogBookmarks.length})`,
+      label: `${t("dashboard.bookmarkBlogs")} (${blogBookmarks.length})`,
       value: "blogs",
       content: null,
     },
@@ -73,14 +70,14 @@ export default function Bookmarks() {
             <Card variant="outline" className="text-center py-16">
               <Icons.bookmark className="h-12 w-12 mx-auto text-[var(--color-text-tertiary)] mb-3" />
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                {t("dashboard.noBookmarks")}
+                {t("dashboard.bookmarkEmpty")}
               </p>
               <Button
                 variant="primary"
                 size="sm"
                 onClick={() => navigate("/courses")}
               >
-                {t("nav.courses")}
+                {t("dashboard.bookmarkCourses")}
               </Button>
             </Card>
           ) : (
@@ -91,17 +88,17 @@ export default function Bookmarks() {
                     <div className="w-16 h-16 rounded-[var(--radius-md)] overflow-hidden bg-[var(--color-bg-tertiary)] flex-shrink-0">
                       <img
                         src={course!.logo}
-                        alt={course!.persianTitle}
+                        alt={t(`course.${course!.slug}.title`)}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-heading font-bold text-sm truncate">
-                        {course!.persianTitle}
+                        {t(`course.${course!.slug}.title`)}
                       </h3>
                       <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 mt-1">
-                        {course!.description}
+                        {t(`course.${course!.slug}.description`)}
                       </p>
                       <p className="text-xs font-mono text-[var(--color-primary)] mt-2">
                         {formatPrice(course!.price)}
@@ -125,12 +122,12 @@ export default function Bookmarks() {
                           id: course!.slug,
                           type: "course",
                           slug: course!.slug,
-                          title: course!.persianTitle,
+                          title: t(`course.${course!.slug}.title`),
                         })
                       }
                       leftIcon={<Icons.trash className="h-3.5 w-3.5" />}
                     >
-                      {t("common.delete")}
+                      {t("dashboard.removeBookmark")}
                     </Button>
                   </div>
                 </Card>
@@ -146,14 +143,14 @@ export default function Bookmarks() {
             <Card variant="outline" className="text-center py-16">
               <Icons.bookmark className="h-12 w-12 mx-auto text-[var(--color-text-tertiary)] mb-3" />
               <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-                {t("dashboard.noBookmarks")}
+                {t("dashboard.bookmarkEmpty")}
               </p>
               <Button
                 variant="primary"
                 size="sm"
                 onClick={() => navigate("/blog")}
               >
-                {t("nav.blog")}
+                {t("dashboard.bookmarkBlogs")}
               </Button>
             </Card>
           ) : (
@@ -164,18 +161,18 @@ export default function Bookmarks() {
                     <div className="w-16 h-16 rounded-[var(--radius-md)] overflow-hidden bg-[var(--color-bg-tertiary)] flex-shrink-0">
                       <img
                         src={blog!.coverImage}
-                        alt={blog!.title}
+                        alt={t(`blogPost.${blog!.slug}.title`)}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-heading font-bold text-sm line-clamp-2">
-                        {blog!.title}
+                        {t(`blogPost.${blog!.slug}.title`)}
                       </h3>
                       <div className="flex items-center gap-2 mt-1 text-[10px] text-[var(--color-text-tertiary)] font-mono">
                         <Badge variant="secondary" size="sm" outline>
-                          {blog!.category}
+                          {t(`blogPost.${blog!.slug}.category`)}
                         </Badge>
                         <span>{formatDate(blog!.date)}</span>
                         <span>{formatReadTime(blog!.readTime)}</span>
@@ -199,12 +196,12 @@ export default function Bookmarks() {
                           id: blog!.slug,
                           type: "blog",
                           slug: blog!.slug,
-                          title: blog!.title,
+                          title: t(`blogPost.${blog!.slug}.title`),
                         })
                       }
                       leftIcon={<Icons.trash className="h-3.5 w-3.5" />}
                     >
-                      {t("common.delete")}
+                      {t("dashboard.removeBookmark")}
                     </Button>
                   </div>
                 </Card>

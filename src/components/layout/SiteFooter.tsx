@@ -1,7 +1,5 @@
 /**
  * Code Empire — Site footer
- *
- * Four-column layout from constants + social rail + newsletter mini-form.
  */
 
 import { Link } from "react-router-dom";
@@ -27,24 +25,23 @@ export function SiteFooter() {
     })),
   }));
 
-  // Inject a fourth column: quick contact
   columns.push({
     title: t("footer.quickContact"),
     content: (
       <div className="flex flex-col gap-2 text-sm text-[var(--color-text-secondary)]">
         <a
-          href={`tel:${contactInfo.phone}`}
+          href={`tel:${contactInfo.phoneRaw}`}
           className="hover:text-[var(--color-primary)] transition-colors"
         >
-          {contactInfo.phone}
+          {t("contactInfo.phone")}
         </a>
         <a
-          href={`mailto:${contactInfo.email}`}
+          href={`mailto:${t("contactInfo.email")}`}
           className="hover:text-[var(--color-primary)] transition-colors"
         >
-          {contactInfo.email}
+          {t("contactInfo.email")}
         </a>
-        <span>{contactInfo.hours}</span>
+        <span>{t("contactInfo.hours")}</span>
       </div>
     ),
   });
@@ -65,7 +62,7 @@ export function SiteFooter() {
             CODE EMPIRE
           </span>
         }
-        tagline={t("home.heroSubtitle")}
+        tagline={t("footer.tagline")}
         columns={columns}
         social={
           <div className="flex flex-col gap-4 w-full">
@@ -78,19 +75,21 @@ export function SiteFooter() {
         bottomBar={
           <div className="flex items-center justify-between flex-wrap gap-3 w-full">
             <span>
-              © {new Date().getFullYear()} — {t("footer.copyright")}
+              {t("footer.copyrightPrefix").replace(
+                "{year}",
+                new Date().getFullYear().toString(),
+              )}
             </span>
             <Link
               to="/policy"
               className="text-[var(--color-primary)] hover:underline"
             >
-              {t("nav.policy")}
+              {t("footer.policy")}
             </Link>
           </div>
         }
       />
 
-      {/* Floating social rail — Dara UI's SocialMedia */}
       <SocialMedia
         links={socialLinks.map((s) => ({
           platform: s.platform,

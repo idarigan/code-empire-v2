@@ -1,7 +1,5 @@
 /**
  * Code Empire — Final CTA
- *
- * Closing section with two paths: browse courses, or reach out on Telegram.
  */
 
 import { useNavigate } from "react-router-dom";

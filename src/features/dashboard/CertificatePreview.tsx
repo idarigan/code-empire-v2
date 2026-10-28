@@ -85,7 +85,7 @@ export function CertificatePreview({
         <div className="flex items-center gap-2">
           <Icons.award className="h-5 w-5 text-[var(--color-accent)]" />
           <h3 className="font-heading font-bold text-sm">
-            {t("dashboard.certificates")}
+            {t("dashboard.certificateTitle")}
           </h3>
         </div>
         {level && (
@@ -101,7 +101,7 @@ export function CertificatePreview({
       >
         {isRendering && (
           <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-            {t("common.loading")}
+            {t("dashboard.certificateLoading")}
           </p>
         )}
       </div>
@@ -122,7 +122,7 @@ export function CertificatePreview({
           leftIcon={<Icons.eye className="h-3.5 w-3.5" />}
           onClick={handleOpen}
         >
-          {t("common.viewAll")}
+          {t("dashboard.openAll")}
         </Button>
       </div>
     </Card>

@@ -1,8 +1,5 @@
 /**
  * Code Empire — Single blog post
- *
- * Hero banner, breadcrumb, meta bar, cover image, article, sidebar.
- * Related posts at the bottom.
  */
 
 import { useMemo } from "react";
@@ -15,6 +12,7 @@ import { BlogSidebar } from "@/features/blog/BlogSidebar";
 import { BlogGrid } from "@/features/blog/BlogGrid";
 import { SectionHeader } from "@/features/home/SectionHeader";
 import { Icons } from "@/lib/icons";
+import type { ArticleSection } from "@/types";
 
 export default function SingleBlogPage() {
   const { slug = "" } = useParams();
@@ -50,15 +48,51 @@ export default function SingleBlogPage() {
     );
   }
 
-  const faqItems = (blog.faq ?? []).map((item) => ({
-    id: item.id,
-    title: item.question,
-    content: <p>{item.answer}</p>,
+  const sections: ArticleSection[] = Array.from(
+    { length: blog.sectionCount },
+    (_, i) => {
+      const title = t(`blogPost.${blog.slug}.section.${i}.title`);
+      const paragraphs: string[] = [];
+      const hints: string[] = [];
+      let j = 0;
+      while (true) {
+        const pKey = `blogPost.${blog.slug}.section.${i}.paragraph.${j}`;
+        const pVal = t(pKey);
+        if (pVal === pKey) break;
+        paragraphs.push(pVal);
+        j++;
+      }
+      j = 0;
+      while (true) {
+        const hKey = `blogPost.${blog.slug}.section.${i}.hint.${j}`;
+        const hVal = t(hKey);
+        if (hVal === hKey) break;
+        hints.push(hVal);
+        j++;
+      }
+      return {
+        title:
+          title === `blogPost.${blog.slug}.section.${i}.title`
+            ? undefined
+            : title,
+        paragraphs: paragraphs.length > 0 ? paragraphs : undefined,
+        hints: hints.length > 0 ? hints : undefined,
+      };
+    },
+  );
+
+  const faqItems = Array.from({ length: blog.faqCount }, (_, i) => ({
+    id: `faq-${i}`,
+    title: t(`blogPost.${blog.slug}.faq.${i}.question`),
+    content: <p>{t(`blogPost.${blog.slug}.faq.${i}.answer`)}</p>,
   }));
+
+  const tagItems = Array.from({ length: blog.tagCount }, (_, i) =>
+    t(`blogPost.${blog.slug}.tag.${i}`),
+  );
 
   return (
     <>
-      {/* Hero */}
       <section className="relative pt-20 pb-8 overflow-hidden">
         <div
           className="absolute inset-0 opacity-25"
@@ -90,20 +124,20 @@ export default function SingleBlogPage() {
             </button>
             <Icons.chevronLeft className="h-3 w-3 rtl:-scale-x-100" />
             <span className="text-[var(--color-text-secondary)] truncate">
-              {blog.title}
+              {t(`blogPost.${blog.slug}.title`)}
             </span>
           </div>
 
           <ScrollReveal animation="fade-up">
             <div className="flex flex-col gap-4 max-w-3xl">
               <Badge variant="primary" glow>
-                {blog.category}
+                {t(`blogPost.${blog.slug}.category`)}
               </Badge>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-gradient-hero leading-tight">
-                {blog.title}
+                {t(`blogPost.${blog.slug}.title`)}
               </h1>
               <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed">
-                {blog.excerpt}
+                {t(`blogPost.${blog.slug}.excerpt`)}
               </p>
               <BlogMeta
                 author={blog.author}
@@ -115,7 +149,6 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
-      {/* Cover image */}
       <section className="pb-8">
         <div className="section-container">
           <ScrollReveal animation="zoom-in">
@@ -126,7 +159,7 @@ export default function SingleBlogPage() {
             >
               <img
                 src={blog.coverImage}
-                alt={blog.title}
+                alt={t(`blogPost.${blog.slug}.title`)}
                 className="w-full aspect-video object-cover"
                 loading="lazy"
               />
@@ -135,16 +168,15 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
-      {/* Main + sidebar */}
       <section className="section pt-4">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
             <div className="min-w-0">
-              <CourseArticle sections={blog.sections} />
+              <CourseArticle sections={sections} />
 
-              {blog.tags.length > 0 && (
+              {tagItems.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-[var(--color-border-secondary)]">
-                  {blog.tags.map((tag) => (
+                  {tagItems.map((tag) => (
                     <Badge key={tag} variant="secondary" size="sm" outline>
                       #{tag}
                     </Badge>
@@ -155,7 +187,7 @@ export default function SingleBlogPage() {
               {faqItems.length > 0 && (
                 <div className="mt-12">
                   <SectionHeader
-                    eyebrow="FAQ"
+                    eyebrow={t("blog.faqEyebrow")}
                     title={t("courses.faq")}
                     align="start"
                   />
@@ -169,12 +201,11 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
-      {/* Related */}
       {related.length > 0 && (
         <section className="section">
           <div className="section-container">
             <SectionHeader
-              eyebrow="Related"
+              eyebrow={t("blog.relatedEyebrow")}
               title={t("blog.relatedPosts")}
               align="start"
             />

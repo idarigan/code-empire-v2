@@ -1,10 +1,5 @@
 /**
  * Code Empire — Course registration form
- *
- * Zod-validated form. On success:
- * 1. Persist enrollment locally (IndexedDB)
- * 2. Send EmailJS to the register template
- * 3. Show a success card with the chosen course
  */
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
@@ -15,8 +10,8 @@ import {
   Button,
   Checkbox,
   Dropdown,
-  useI18n,
   useToast,
+  useI18n,
 } from "dara-ui";
 import { courses, getCourseBySlug } from "@/data/courses";
 import { sendRegister } from "@/lib/emailjs";
@@ -62,7 +57,6 @@ export function RegistrationForm() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Re-sync when the query param changes (user clicked a different course)
   useEffect(() => {
     if (initialSlug) {
       setForm((prev) => ({ ...prev, courseSlug: initialSlug }));
@@ -73,9 +67,9 @@ export function RegistrationForm() {
     () =>
       courses.map((c) => ({
         value: c.slug,
-        label: c.persianTitle,
+        label: t(`course.${c.slug}.title`),
       })),
-    [],
+    [t],
   );
 
   const selectedCourse = getCourseBySlug(form.courseSlug);
@@ -112,13 +106,13 @@ export function RegistrationForm() {
           lastName: form.lastName,
           email: form.email,
           phone: form.phone,
-          courseTitle: selectedCourse.persianTitle,
+          courseTitle: t(`course.${selectedCourse.slug}.title`),
           courseSlug: selectedCourse.slug,
         }),
       ]);
 
       toast.success(t("register.success"));
-      setSuccess(selectedCourse.persianTitle);
+      setSuccess(t(`course.${selectedCourse.slug}.title`));
       setForm({ ...EMPTY });
     } catch {
       toast.error(t("form.failed"));
@@ -126,10 +120,6 @@ export function RegistrationForm() {
       setSubmitting(false);
     }
   };
-
-  // ============================================
-  // Success state
-  // ============================================
 
   if (success) {
     return (
@@ -165,10 +155,6 @@ export function RegistrationForm() {
       </Card>
     );
   }
-
-  // ============================================
-  // Form
-  // ============================================
 
   return (
     <Card glow="primary" className="max-w-2xl mx-auto">
@@ -222,7 +208,7 @@ export function RegistrationForm() {
           onChange={(v) => setField("courseSlug", v)}
           placeholder={t("register.selectCourse")}
           searchable
-          searchPlaceholder={t("common.search")}
+          searchPlaceholder={t("command.placeholder")}
           fullWidth
           error={Boolean(errors.courseSlug)}
           errorMessage={errors.courseSlug}
@@ -250,7 +236,7 @@ export function RegistrationForm() {
           loading={submitting}
           leftIcon={<Icons.rocket className="h-4 w-4" />}
         >
-          {submitting ? t("form.sending") : t("register.submit")}
+          {submitting ? t("register.submitting") : t("register.submit")}
         </Button>
       </form>
     </Card>

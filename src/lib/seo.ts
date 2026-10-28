@@ -1,13 +1,12 @@
 /**
  * Code Empire — Document head helpers
- *
- * Imperative document.title and meta tag updates.
- * Avoids react-helmet to keep the bundle lean.
  */
+
+import { translations, DEFAULT_LOCALE } from "@/translations";
 
 const SITE_NAME = "Code Empire";
 const DEFAULT_DESCRIPTION =
-  "آکادمی برنامه‌نویسی فارسی — یادگیری از صفر تا پیشرفته";
+  translations[DEFAULT_LOCALE]["siteMeta.description"];
 
 interface SEOOptions {
   title?: string;
@@ -58,10 +57,6 @@ export function setSEO({
   ensureMeta("name", "twitter:title").content = fullTitle;
   ensureMeta("name", "twitter:description").content = description;
 }
-
-// ============================================
-// JSON-LD structured data
-// ============================================
 
 export function setJSONLD(id: string, data: Record<string, unknown>): void {
   let el = document.getElementById(id) as HTMLScriptElement | null;

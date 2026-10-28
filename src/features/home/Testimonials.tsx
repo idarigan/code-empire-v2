@@ -1,8 +1,5 @@
 /**
  * Code Empire — Testimonials carousel
- *
- * Splide carousel of student reviews.
- * Each slide is a Card with Avatar, name, role and quote.
  */
 
 import { Splide, SplideSlide } from "@trg69/react-splide";
@@ -19,7 +16,7 @@ export function Testimonials() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Testimonials"
+          eyebrow={t("testimonials.eyebrow")}
           title={t("home.testimonials")}
           subtitle={t("home.heroSubtitle")}
         />
@@ -39,21 +36,21 @@ export function Testimonials() {
           aria-label={t("home.testimonials")}
         >
           {testimonials.map((review) => (
-            <SplideSlide key={review.name}>
+            <SplideSlide key={review.slug}>
               <Card glow="primary" className="h-full flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <Avatar
                     src={review.avatar}
-                    fallbackText={review.name}
+                    fallbackText={t(`testimonial.${review.slug}.name`)}
                     size="lg"
                     glow="primary"
                   />
                   <div className="min-w-0">
                     <h4 className="font-heading font-bold text-sm truncate">
-                      {review.name}
+                      {t(`testimonial.${review.slug}.name`)}
                     </h4>
                     <p className="text-xs text-[var(--color-text-tertiary)] truncate">
-                      {review.job}
+                      {t(`testimonial.${review.slug}.job`)}
                     </p>
                   </div>
                 </div>
@@ -66,7 +63,7 @@ export function Testimonials() {
 
                 <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">
                   <Icons.quote className="h-4 w-4 inline-block me-1 opacity-50" />
-                  {review.quote}
+                  {t(`testimonial.${review.slug}.quote`)}
                 </p>
 
                 {review.videoUrl && (

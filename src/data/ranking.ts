@@ -1,73 +1,70 @@
 /**
  * Code Empire — Student leaderboard
- *
- * Placeholder data. Replace names / courses / tiers with real
- * leaderboard entries when the backend or admin panel exists.
  */
 
 import type { RankedStudent } from "@/types";
 
 export const ranking: RankedStudent[] = [
   {
-    name: "علی رضایی",
+    slug: "0",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Ali",
-    course: "Total Web",
+    courseSlug: "total-web",
     isLearning: false,
     tier: "Javidan",
     glow: "accent",
   },
   {
-    name: "مریم حسینی",
+    slug: "1",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Maryam",
-    course: "JavaScript",
+    courseSlug: "javascript",
     isLearning: false,
     tier: "Danshour-e Nokhbeh",
     glow: "secondary",
   },
   {
-    name: "حسین نوری",
+    slug: "2",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Hossein",
-    course: "Unity 6",
+    courseSlug: "unity",
     isLearning: true,
     tier: "Kadzan-e Nokhbeh",
     glow: "primary",
   },
   {
-    name: "زهرا محمدی",
+    slug: "3",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Zahra",
-    course: "Python - Advanced",
+    courseSlug: "python-advanced",
     isLearning: true,
     tier: "Danshour",
     glow: "primary",
   },
   {
-    name: "امیر تهرانی",
+    slug: "4",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Amir",
-    course: "JavaScript",
+    courseSlug: "javascript",
     isLearning: true,
     tier: "Danshour",
     glow: "primary",
   },
   {
-    name: "نگار کریمی",
+    slug: "5",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Negaar",
-    course: "C#",
+    courseSlug: "c-sharp",
     isLearning: true,
     tier: "Aghazgar",
     glow: "primary",
   },
   {
-    name: "پویا صادقی",
+    slug: "6",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Pooya",
-    course: "HTML & CSS",
+    courseSlug: "html-css",
     isLearning: true,
     tier: "Aghazgar",
     glow: "primary",
   },
   {
-    name: "سارا فتحی",
+    slug: "7",
     avatar: "https://api.dicebear.com/9.x/rings/svg?seed=Sara",
-    course: "Tailwind",
+    courseSlug: "tailwind",
     isLearning: false,
     tier: "Danshour-e Nokhbeh",
     glow: "secondary",

@@ -1,8 +1,5 @@
 /**
  * Code Empire — Course card
- *
- * Single wrapper around Dara UI's ProductCard so all course grids
- * share the same price formatting, capacity logic, and navigation.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -43,17 +40,11 @@ export function CourseCard({
   return (
     <div className="relative">
       <ProductCard
-        title={course.persianTitle}
-        description={course.description}
+        title={t(`course.${course.slug}.title`)}
+        description={t(`course.${course.slug}.description`)}
         price={formatPrice(course.price)}
         image={course.logo}
-        category={
-          course.category === "web"
-            ? t("courses.web")
-            : course.category === "software"
-              ? t("courses.software")
-              : t("courses.game")
-        }
+        category={t(`courses.${course.category}`)}
         layout={layout}
         glow={glow}
         onAddToCart={() => navigate(`/courses/${course.slug}`)}

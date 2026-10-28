@@ -1,8 +1,5 @@
 /**
  * Code Empire — Student leaderboard
- *
- * Top students table with rank, avatar, tier badge, and course.
- * Tier Javidan gets the gold glow.
  */
 
 import { Card, Avatar, Badge, useI18n } from "dara-ui";
@@ -36,26 +33,26 @@ export function Leaderboard() {
           <thead>
             <tr className="border-b border-[var(--color-border-primary)] bg-[var(--color-bg-tertiary)]/50">
               <th className="px-3 py-3 text-start font-mono text-xs uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                #
+                {t("leaderboard.rank")}
               </th>
               <th className="px-3 py-3 text-start font-mono text-xs uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                {t("dashboard.profile")}
+                {t("leaderboard.profile")}
               </th>
               <th className="px-3 py-3 text-start font-mono text-xs uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                {t("courses.category")}
+                {t("leaderboard.category")}
               </th>
               <th className="px-3 py-3 text-start font-mono text-xs uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                {t("dashboard.level")}
+                {t("leaderboard.tier")}
               </th>
               <th className="px-3 py-3 text-start font-mono text-xs uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                {t("courses.title")}
+                {t("leaderboard.course")}
               </th>
             </tr>
           </thead>
           <tbody>
             {ranking.map((student, i) => (
               <tr
-                key={student.name}
+                key={student.slug}
                 className="border-b border-[var(--color-border-secondary)] last:border-b-0 hover:bg-[var(--color-bg-elevated)]/30 transition-colors"
               >
                 <td className="px-3 py-3 font-mono text-xs text-[var(--color-text-tertiary)]">
@@ -65,12 +62,12 @@ export function Leaderboard() {
                   <div className="flex items-center gap-2">
                     <Avatar
                       src={student.avatar}
-                      fallbackText={student.name}
+                      fallbackText={t(`ranking.${student.slug}.name`)}
                       size="sm"
                       glow={student.glow}
                     />
                     <span className="text-[var(--color-text-primary)] truncate">
-                      {student.name}
+                      {t(`ranking.${student.slug}.name`)}
                     </span>
                   </div>
                 </td>
@@ -80,7 +77,9 @@ export function Leaderboard() {
                     size="sm"
                     outline
                   >
-                    {student.isLearning ? "درحال یادگیری" : "پایان یادگیری"}
+                    {student.isLearning
+                      ? t("leaderboard.learning")
+                      : t("leaderboard.finished")}
                   </Badge>
                 </td>
                 <td className="px-3 py-3">
@@ -89,12 +88,11 @@ export function Leaderboard() {
                     size="sm"
                     glow={student.tier === "Javidan"}
                   >
-                    {" "}
-                    {student.tier}
+                    {t(`tier.${student.tier}`)}
                   </Badge>
                 </td>
                 <td className="px-3 py-3 text-[var(--color-text-secondary)] truncate">
-                  {student.course}
+                  {t(`ranking.${student.slug}.course`)}
                 </td>
               </tr>
             ))}

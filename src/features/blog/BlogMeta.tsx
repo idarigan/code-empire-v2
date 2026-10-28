@@ -5,7 +5,7 @@
  * the single post hero, and the sidebar's "latest posts" list.
  */
 
-import { Avatar, useI18n } from "dara-ui";
+import { Avatar } from "dara-ui";
 import type { BlogAuthor } from "@/types";
 import { formatDate, formatReadTime } from "@/lib/format";
 import { Icons } from "@/lib/icons";

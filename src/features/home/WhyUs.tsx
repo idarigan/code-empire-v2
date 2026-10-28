@@ -15,26 +15,26 @@ export function WhyUs() {
   const items = [
     {
       icon: <Icons.zap className="h-6 w-6" />,
-      title: t("home.whyUs"),
-      desc: t("home.heroType3"),
+      title: t("home.whyUsItem1Title"),
+      desc: t("home.whyUsItem1Desc"),
       glow: "primary" as const,
     },
     {
       icon: <Icons.shieldCheck className="h-6 w-6" />,
-      title: t("home.whyUs"),
-      desc: t("home.heroType1"),
+      title: t("home.whyUsItem2Title"),
+      desc: t("home.whyUsItem2Desc"),
       glow: "secondary" as const,
     },
     {
       icon: <Icons.messageCircle className="h-6 w-6" />,
-      title: t("home.whyUs"),
-      desc: t("home.heroType2"),
+      title: t("home.whyUsItem3Title"),
+      desc: t("home.whyUsItem3Desc"),
       glow: "accent" as const,
     },
     {
       icon: <Icons.award className="h-6 w-6" />,
-      title: t("home.whyUs"),
-      desc: t("home.viewGuide"),
+      title: t("home.whyUsItem4Title"),
+      desc: t("home.whyUsItem4Desc"),
       glow: "primary" as const,
     },
   ];
@@ -43,7 +43,7 @@ export function WhyUs() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Why Us"
+          eyebrow={t("home.whyUsEyebrow")}
           title={t("home.whyUs")}
           subtitle={t("home.heroSubtitle")}
         />

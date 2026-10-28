@@ -1,8 +1,5 @@
 /**
  * Code Empire — Single rule page
- *
- * Hero with validity date, article sections, sidebar with other rules.
- * Reads Persian by default and switches to English for en/fr locales.
  */
 
 import { useMemo } from "react";
@@ -12,6 +9,7 @@ import { getRuleBySlug, getSortedRules } from "@/data/policy";
 import { CourseArticle } from "@/features/courses/CourseArticle";
 import { formatDate } from "@/lib/format";
 import { Icons } from "@/lib/icons";
+import type { ArticleSection } from "@/types";
 
 export default function SingleRulePage() {
   const { t } = useI18n();
@@ -25,7 +23,6 @@ export default function SingleRulePage() {
     return getSortedRules().filter((r) => r.slug !== rule.slug);
   }, [rule]);
 
-  // Not found
   if (!rule) {
     return (
       <section className="section">
@@ -52,13 +49,43 @@ export default function SingleRulePage() {
     );
   }
 
-  const title = rule.title;
-  const subtitle = rule.subtitle;
-  const sections = rule.sections;
+  const sections: ArticleSection[] = Array.from(
+    { length: rule.sectionCount },
+    (_, i) => {
+      const titleKey = `rule.${rule.slug}.section.${i}.title`;
+      const titleVal = t(titleKey);
+      const title = titleVal === titleKey ? undefined : titleVal;
+
+      const paragraphs: string[] = [];
+      let j = 0;
+      while (true) {
+        const pKey = `rule.${rule.slug}.section.${i}.paragraph.${j}`;
+        const pVal = t(pKey);
+        if (pVal === pKey) break;
+        paragraphs.push(pVal);
+        j++;
+      }
+
+      const hints: string[] = [];
+      j = 0;
+      while (true) {
+        const hKey = `rule.${rule.slug}.section.${i}.hint.${j}`;
+        const hVal = t(hKey);
+        if (hVal === hKey) break;
+        hints.push(hVal);
+        j++;
+      }
+
+      return {
+        title,
+        paragraphs: paragraphs.length > 0 ? paragraphs : undefined,
+        hints: hints.length > 0 ? hints : undefined,
+      };
+    },
+  );
 
   return (
     <>
-      {/* Hero */}
       <section className="section pt-8 pb-4">
         <div className="section-container">
           <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] font-mono mb-4 flex-wrap">
@@ -79,7 +106,7 @@ export default function SingleRulePage() {
             </button>
             <Icons.chevronLeft className="h-3 w-3 rtl:-scale-x-100" />
             <span className="text-[var(--color-text-secondary)] truncate">
-              {title}
+              {t(`rule.${rule.slug}.title`)}
             </span>
           </div>
 
@@ -96,17 +123,16 @@ export default function SingleRulePage() {
                 </Badge>
               </div>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-gradient-hero">
-                {title}
+                {t(`rule.${rule.slug}.title`)}
               </h1>
               <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed">
-                {subtitle}
+                {t(`rule.${rule.slug}.subtitle`)}
               </p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Body + sidebar */}
       <section className="section pt-4">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
@@ -129,7 +155,7 @@ export default function SingleRulePage() {
                       <Icons.fileText className="h-4 w-4 flex-shrink-0 text-[var(--color-primary)] mt-0.5" />
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">
-                          {other.title}
+                          {t(`rule.${other.slug}.title`)}
                         </p>
                         <p className="text-[10px] font-mono text-[var(--color-text-tertiary)] mt-0.5">
                           #{other.order}

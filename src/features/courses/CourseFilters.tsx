@@ -25,7 +25,7 @@ export function CourseFilters({
   const { t } = useI18n();
 
   const items: TabItem[] = [
-    { label: t("common.all"), value: "all", content: null },
+    { label: t("courses.all"), value: "all", content: null },
     { label: t("courses.web"), value: "web", content: null },
     { label: t("courses.software"), value: "software", content: null },
     { label: t("courses.game"), value: "game", content: null },
@@ -43,7 +43,7 @@ export function CourseFilters({
       </div>
       <Input
         type="search"
-        placeholder={t("common.search")}
+        placeholder={t("courses.searchPlaceholder")}
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         leftIcon={<Icons.search className="h-4 w-4" />}

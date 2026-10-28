@@ -1,7 +1,5 @@
 /**
  * Code Empire — Learning guide page
- *
- * Explains class types, teaching method, session structure.
  */
 
 import { Card, Accordion, Button, ScrollReveal, useI18n } from "dara-ui";
@@ -73,7 +71,10 @@ export default function GuidePage() {
 
       <section className="section">
         <div className="section-container max-w-3xl">
-          <SectionHeader eyebrow="FAQ" title={t("courses.faq")} />
+          <SectionHeader
+            eyebrow={t("guide.faqEyebrow")}
+            title={t("courses.faq")}
+          />
           <Accordion items={faq} multiple={false} />
         </div>
       </section>

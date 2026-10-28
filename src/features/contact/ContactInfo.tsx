@@ -1,7 +1,5 @@
 /**
  * Code Empire — Contact info cards
- *
- * Four cards with icon, label, and value from constants.
  */
 
 import { Card, ScrollReveal, useI18n } from "dara-ui";
@@ -14,28 +12,28 @@ export function ContactInfo() {
   const items = [
     {
       icon: <Icons.phone className="h-5 w-5" />,
-      label: t("contact.phone"),
-      value: contactInfo.phone,
-      href: `tel:${contactInfo.phone}`,
+      label: t("contact.phoneLabel"),
+      value: t("contactInfo.phone"),
+      href: `tel:${contactInfo.phoneRaw}`,
       glow: "primary" as const,
     },
     {
       icon: <Icons.clock className="h-5 w-5" />,
-      label: t("guide.sessionStructure"),
-      value: contactInfo.hours,
+      label: t("contact.hours"),
+      value: t("contactInfo.hours"),
       glow: "secondary" as const,
     },
     {
       icon: <Icons.mail className="h-5 w-5" />,
-      label: t("contact.email"),
-      value: contactInfo.email,
-      href: `mailto:${contactInfo.email}`,
+      label: t("contact.emailLabel"),
+      value: t("contactInfo.email"),
+      href: `mailto:${t("contactInfo.email")}`,
       glow: "accent" as const,
     },
     {
       icon: <Icons.mapPin className="h-5 w-5" />,
-      label: t("contact.info"),
-      value: contactInfo.address,
+      label: t("contact.addressLabel"),
+      value: t("contactInfo.address"),
       glow: "primary" as const,
     },
   ];

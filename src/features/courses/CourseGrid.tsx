@@ -1,8 +1,5 @@
 /**
  * Code Empire — Course grid
- *
- * Responsive grid of CourseCard. Used by the all-courses page
- * and by single-course related sections.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -25,7 +22,7 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
       <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
         <Icons.bookOpen className="h-10 w-10 text-[var(--color-text-tertiary)]" />
         <p className="text-[var(--color-text-secondary)] text-sm">
-          {t("common.empty")}
+          {t("courses.gridEmpty")}
         </p>
       </div>
     );
@@ -59,17 +56,11 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
         return (
           <div key={course.slug} className="relative">
             <ProductCard
-              title={course.persianTitle}
-              description={course.description}
+              title={t(`course.${course.slug}.title`)}
+              description={t(`course.${course.slug}.description`)}
               price={formatPrice(course.price)}
               image={course.logo}
-              category={
-                course.category === "web"
-                  ? t("courses.web")
-                  : course.category === "software"
-                    ? t("courses.software")
-                    : t("courses.game")
-              }
+              category={t(`courses.${course.category}`)}
               layout="vertical"
               glow={
                 course.category === "web"

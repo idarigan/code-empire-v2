@@ -1,8 +1,5 @@
 /**
  * Code Empire — Trusted-by bar
- *
- * Auto-scrolling carousel of company logos below the hero.
- * Splide handles the loop; we just feed it the company list.
  */
 
 import { Splide, SplideSlide } from "@trg69/react-splide";
@@ -39,11 +36,11 @@ export function TrustBar() {
           aria-label={t("home.trustedBy")}
         >
           {companies.map((company) => (
-            <SplideSlide key={company.name}>
+            <SplideSlide key={company.slug}>
               <div className="flex items-center justify-center h-16 px-4 opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <img
                   src={company.logo}
-                  alt={company.name}
+                  alt={t(`company.${company.slug}.name`)}
                   className="h-10 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   loading="lazy"
                 />

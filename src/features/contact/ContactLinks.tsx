@@ -1,8 +1,5 @@
 /**
  * Code Empire — Contact links
- *
- * Two columns of buttons: communication bridges and social networks.
- * All links open in a new tab.
  */
 
 import { Card, Button, useI18n } from "dara-ui";
@@ -14,20 +11,20 @@ export function ContactLinks() {
 
   const bridges = [
     {
-      label: t("contact.links"),
+      label: t("contact.telegramLabel"),
       href: contactInfo.telegram,
       icon: <Icons.send className="h-4 w-4" />,
       variant: "primary" as const,
     },
     {
-      label: t("contact.email"),
-      href: `mailto:${contactInfo.email}`,
+      label: t("contact.emailLabel"),
+      href: `mailto:${t("contactInfo.email")}`,
       icon: <Icons.mail className="h-4 w-4" />,
       variant: "secondary" as const,
     },
     {
-      label: t("contact.phone"),
-      href: `tel:${contactInfo.phone}`,
+      label: t("contact.phoneLabel"),
+      href: `tel:${contactInfo.phoneRaw}`,
       icon: <Icons.phone className="h-4 w-4" />,
       variant: "outline" as const,
     },
@@ -37,7 +34,7 @@ export function ContactLinks() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <Card glow="primary">
         <h3 className="font-heading font-bold text-base mb-4">
-          {t("contact.links")}
+          {t("contact.bridges")}
         </h3>
         <div className="flex flex-col gap-2">
           {bridges.map((b) => (
@@ -61,7 +58,7 @@ export function ContactLinks() {
 
       <Card glow="secondary">
         <h3 className="font-heading font-bold text-base mb-4">
-          {t("nav.about")}
+          {t("contact.aboutUs")}
         </h3>
         <div className="flex flex-col gap-2">
           {socialLinks.slice(0, 4).map((s) => {
@@ -77,7 +74,7 @@ export function ContactLinks() {
                 fullWidth
                 leftIcon={<Icon className="h-4 w-4" />}
               >
-                {s.platform}
+                {t(`social.${s.platform}`)}
               </Button>
             );
           })}

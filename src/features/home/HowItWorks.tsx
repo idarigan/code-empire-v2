@@ -1,8 +1,5 @@
 /**
  * Code Empire — How it works
- *
- * Three class-type cards from constants.
- * Each links to the guide page.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -15,29 +12,44 @@ export function HowItWorks() {
   const { t } = useI18n();
   const navigate = useNavigate();
 
+  const keyForSlug = (slug: string) => {
+    if (slug === "private-online") return "privateOnline";
+    if (slug === "private-offline") return "privateOffline";
+    return "groupOnline";
+  };
+
   return (
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Guide"
+          eyebrow={t("home.guideEyebrow")}
           title={t("home.howItWorks")}
           subtitle={t("guide.subtitle")}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {classTypes.map((cls, i) => (
-            <ScrollReveal key={cls.slug} animation="fade-up" delay={i * 120}>
-              <CharacterCard
-                name={cls.title}
-                subtitle={cls.subtitle}
-                quote={cls.description}
-                portrait={cls.image}
-                traits={cls.features}
-                glow={cls.glow}
-                layout="vertical"
-              />
-            </ScrollReveal>
-          ))}
+          {classTypes.map((cls, i) => {
+            const titleKey = `guide.${keyForSlug(cls.slug)}`;
+            const descKey = `${titleKey}Desc`;
+            const featureKey = (idx: number) =>
+              `guide.feature.${cls.slug.replace("-", "")}.${idx + 1}`;
+
+            return (
+              <ScrollReveal key={cls.slug} animation="fade-up" delay={i * 120}>
+                <CharacterCard
+                  name={t(titleKey)}
+                  subtitle=""
+                  quote={t(descKey)}
+                  portrait={cls.image}
+                  traits={Array.from({ length: cls.featureCount }, (_, idx) =>
+                    t(featureKey(idx)),
+                  )}
+                  glow={cls.glow}
+                  layout="vertical"
+                />
+              </ScrollReveal>
+            );
+          })}
         </div>
 
         <div className="flex justify-center">

@@ -1,147 +1,78 @@
 /**
  * Code Empire — Shared entity types
- *
- * Single source of truth for every shape that flows through the app.
- * Data files, features, and lib helpers all import from here.
- *
- * Course and Blog now carry bilingual strings for every user-facing
- * field. Persian is the primary language; English and French fall
- * back to English when a translation is absent.
  */
 
-// ============================================
-// COURSES
-// ============================================
-
 export type CourseCategory = "web" | "software" | "game";
-
-export interface CourseSpec {
-  /** Lucide icon name (resolved via lib/icons.ts) */
-  icon: string;
-  label: string;
-  value: string | number;
-}
-
-export interface CourseDetail {
-  label: string;
-  value: string;
-}
 
 export interface ArticleSection {
   title?: string;
   cover?: string;
-  /** Cover is a video when true, otherwise an image */
   coverIsVideo?: boolean;
   paragraphs?: string[];
   hints?: string[];
 }
 
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
 export interface Course {
   slug: string;
   title: string;
-  persianTitle: string;
-  fullTitle: string;
   category: CourseCategory;
-  description: string;
-  longDescription: string;
-
-  /** Single price — privatePrice from the legacy data */
   price: number;
   originalPrice?: number;
-
   logo: string;
-  /** Gradient endpoints used for the hero blur and card accents */
   color: [string, string];
   rank: number;
-
-  /** Max seats; -1 means unlimited */
   capacity: number;
-  /** Seats taken */
   enrolled: number;
-
-  specs: CourseSpec[];
-  details: CourseDetail[];
-  sections: ArticleSection[];
-  faq: FAQItem[];
-
+  specs: { icon: string; value: string | number }[];
+  details: { key: "name" | "prereq" | "method" }[];
+  sections: {
+    cover?: string;
+    coverIsVideo?: boolean;
+    paragraphCount: number;
+    hintCount: number;
+  }[];
+  faqCount: number;
   prerequisites: string[];
   relatedCourses: string[];
-  learningOutcomes: string[];
-  syllabus: { week: number; title: string; topics: string[] }[];
-
+  learningOutcomes: number;
+  syllabus: { week: number; titleKey: string; topicKeys: string[] }[];
   featured?: boolean;
 }
-
-// ============================================
-// BLOGS
-// ============================================
 
 export interface BlogAuthor {
   name: string;
   avatar?: string;
-  role: string;
 }
 
 export interface Blog {
   slug: string;
   title: string;
-  excerpt: string;
   coverImage: string;
   author: BlogAuthor;
   date: string;
   readTime: number;
-  category: string;
-  tags: string[];
-
-  sections: ArticleSection[];
-  faq?: FAQItem[];
   featured?: boolean;
   relatedPosts: string[];
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-  };
+  sectionCount: number;
+  tagCount: number;
+  faqCount: number;
 }
 
-// ============================================
-// POLICY / RULES
-// ============================================
 export interface Rule {
   slug: string;
-  title: string;
-  subtitle: string;
   category: "course" | "site";
   validFrom: string;
   cover?: string;
-  sections: ArticleSection[];
   order: number;
+  sectionCount: number;
 }
 
 export interface CharterItem {
   id: string;
-  title: string;
-  body: string;
 }
-
-export interface CharterBill {
-  title: string;
-  paragraphs: string[];
-}
-
-// ============================================
-// TEAM / USERS
-// ============================================
 
 export interface TeamMember {
-  name: string;
-  role: string;
-  bio: string;
+  slug: string;
   photo: string;
   socials?: {
     github?: string;
@@ -152,15 +83,6 @@ export interface TeamMember {
   glow?: "primary" | "secondary" | "accent";
 }
 
-export interface RankedStudent {
-  name: string;
-  avatar: string;
-  course: string;
-  isLearning: boolean;
-  tier: StudentTier;
-  glow?: "primary" | "secondary" | "accent";
-}
-
 export type StudentTier =
   | "Aghazgar"
   | "Danshour"
@@ -168,41 +90,33 @@ export type StudentTier =
   | "Danshour-e Nokhbeh"
   | "Javidan";
 
-// ============================================
-// TESTIMONIALS / COMPANIES
-// ============================================
+export interface RankedStudent {
+  slug: string;
+  avatar: string;
+  courseSlug: string;
+  isLearning: boolean;
+  tier: StudentTier;
+  glow?: "primary" | "secondary" | "accent";
+}
 
 export interface Testimonial {
-  name: string;
-  job: string;
+  slug: string;
   avatar: string;
-  quote: string;
   videoUrl?: string;
   rating: number;
 }
 
 export interface Company {
-  name: string;
+  slug: string;
   logo: string;
 }
 
-// ============================================
-// CLASS TYPES (Guide page)
-// ============================================
-
 export interface ClassType {
-  slug: string;
-  title: string;
-  subtitle: string;
-  description: string;
+  slug: "private-online" | "private-offline" | "group-online";
   image: string;
-  features: string[];
   glow: "primary" | "secondary" | "accent";
+  featureCount: number;
 }
-
-// ============================================
-// USER / LOCAL STATE
-// ============================================
 
 export interface Profile {
   name: string;
@@ -231,10 +145,6 @@ export interface Preferences {
   notifications: boolean;
   sound: boolean;
 }
-
-// ============================================
-// NAV / FOOTER CONSTANTS
-// ============================================
 
 export interface NavLink {
   key: string;

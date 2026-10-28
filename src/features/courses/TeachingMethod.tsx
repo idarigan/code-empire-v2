@@ -13,26 +13,26 @@ export function TeachingMethod() {
   const items = [
     {
       icon: <Icons.target className="h-5 w-5" />,
-      title: t("guide.teachingMethod"),
-      desc: t("home.heroType3"),
+      title: t("guide.teachingMethodCard1Title"),
+      desc: t("guide.teachingMethodCard1Desc"),
       glow: "primary" as const,
     },
     {
       icon: <Icons.users className="h-5 w-5" />,
-      title: t("home.howItWorks"),
-      desc: t("home.heroType2"),
+      title: t("guide.teachingMethodCard2Title"),
+      desc: t("guide.teachingMethodCard2Desc"),
       glow: "secondary" as const,
     },
     {
       icon: <Icons.zap className="h-5 w-5" />,
-      title: t("home.whyUs"),
-      desc: t("home.heroType1"),
+      title: t("guide.teachingMethodCard3Title"),
+      desc: t("guide.teachingMethodCard3Desc"),
       glow: "accent" as const,
     },
     {
       icon: <Icons.award className="h-5 w-5" />,
-      title: t("guide.sessionStructure"),
-      desc: t("home.finalCTADesc"),
+      title: t("guide.teachingMethodCard4Title"),
+      desc: t("guide.teachingMethodCard4Desc"),
       glow: "primary" as const,
     },
   ];

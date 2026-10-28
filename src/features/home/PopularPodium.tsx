@@ -1,8 +1,5 @@
 /**
  * Code Empire — Popular courses podium
- *
- * Top three courses by rank, styled on a stepped podium.
- * Desktop: side-by-side heights. Mobile: stacked.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -26,7 +23,7 @@ export function PopularPodium() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Top 3"
+          eyebrow={t("home.popularEyebrow")}
           title={t("home.popularCourses")}
           subtitle={t("courses.subtitle")}
         />
@@ -51,7 +48,7 @@ export function PopularPodium() {
 
               <div className="flex flex-col gap-2 text-center mt-4">
                 <h3 className="font-heading font-bold text-sm md:text-base text-[var(--color-text-primary)] line-clamp-2">
-                  {course.persianTitle}
+                  {t(`course.${course.slug}.title`)}
                 </h3>
 
                 <Progress

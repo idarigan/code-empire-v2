@@ -1,30 +1,22 @@
 /**
  * Code Empire — Team members
- *
- * Three leads. Bios are verbatim from the previous site.
  */
 
 import type { TeamMember } from "@/types";
 
 export const teamMembers: TeamMember[] = [
   {
-    name: "شهریار سرگورابی",
-    role: "مدیرعامل",
-    bio: "برنامه‌نویس و طراح وب و دانشجوی ارشد علوم کامپیوتر که به عنوان مدیرعامل آکادمی امپراتوری کد هدایت این مجموعه رو بر عهده دارم، تا باهم فضایی کاربردی و پویا برای یادگیری و نوآوری بسازیم.",
+    slug: "shahriar",
     photo: "/images/team/shahriar.png",
     glow: "primary",
   },
   {
-    name: "پارسا آریا",
-    role: "هم‌بنیان‌گذار و رئیس هیئت مدیره",
-    bio: "برنامه‌نویس و مربی و دانشجوی رشته انیمیشن که به عنوان رئیس هیئت مدیره امپراتوری کد مسئولیت راهبری عالیه مجموعه را دارم. همراه شما هستم تا مسیر هیجان‌انگیزی از پیشرفت و تجربه داشته باشیم.",
+    slug: "parsa",
     photo: "/images/team/parsa.png",
     glow: "secondary",
   },
   {
-    name: "ستاره اسدالهی",
-    role: "سرپرست تیم آموزشی",
-    bio: "برنامه‌نویس وب و یادگیری ماشین که به عنوان سرپرست تیم آموزشی امپراتوری کد مسیر یادگیری و رشد دانشجویان رو هموار می‌کنم. اینجاییم تا یادگیری رو ساده، جذاب و لذت‌بخش کنیم.",
+    slug: "setareh",
     photo: "/images/team/setareh.png",
     glow: "accent",
   },

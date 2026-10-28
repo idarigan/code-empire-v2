@@ -1,12 +1,8 @@
 /**
  * Code Empire — Policy overview
- *
- * Charter bill + rules list + validity warning.
- * Reads Persian by default and switches to English for en/fr locales.
  */
 
 import { Card, ScrollReveal, useI18n } from "dara-ui";
-import { charterBill } from "@/data/policy";
 import { RulesBill } from "@/features/policy/RulesBill";
 import { RulesList } from "@/features/policy/RulesList";
 import { SectionHeader } from "@/features/home/SectionHeader";
@@ -14,7 +10,6 @@ import { Icons } from "@/lib/icons";
 
 export default function PolicyPage() {
   const { t } = useI18n();
-  const displayCharter = charterBill;
 
   return (
     <>
@@ -49,7 +44,7 @@ export default function PolicyPage() {
             title={t("policy.charter")}
             align="start"
           />
-          <RulesBill items={displayCharter} />
+          <RulesBill />
         </div>
       </section>
 

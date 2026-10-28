@@ -1,8 +1,5 @@
 /**
  * Code Empire — Certificates
- *
- * One certificate per completed course.
- * Uses CertificatePreview which renders our canvas generator inline.
  */
 
 import { useNavigate } from "react-router-dom";
@@ -39,7 +36,7 @@ export default function Certificates() {
             size="sm"
             onClick={() => navigate("/courses")}
           >
-            {t("nav.courses")}
+            {t("dashboard.courses")}
           </Button>
         </Card>
       ) : (
@@ -51,7 +48,7 @@ export default function Certificates() {
               <CertificatePreview
                 key={slug}
                 studentName={studentName}
-                courseName={course.persianTitle}
+                courseName={t(`course.${course.slug}.title`)}
               />
             );
           })}

@@ -1,8 +1,5 @@
 /**
  * Code Empire — Class type section
- *
- * Guide page section: one card per class type, alternating sides on desktop.
- * Uses Card + Badge for structure. ScrollReveal on each card.
  */
 
 import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
@@ -16,10 +13,21 @@ interface ClassTypeSectionProps {
 export function ClassTypeSection({ classTypes }: ClassTypeSectionProps) {
   const { t } = useI18n();
 
+  const keyForSlug = (slug: ClassType["slug"]) => {
+    if (slug === "private-online") return "privateOnline";
+    if (slug === "private-offline") return "privateOffline";
+    return "groupOnline";
+  };
+
   return (
     <div className="flex flex-col gap-8">
       {classTypes.map((cls, i) => {
         const reverse = i % 2 === 1;
+        const titleKey = `guide.${keyForSlug(cls.slug)}`;
+        const descKey = `${titleKey}Desc`;
+        const featureKey = (idx: number) =>
+          `guide.feature.${cls.slug.replace("-", "")}.${idx + 1}`;
+
         return (
           <ScrollReveal
             key={cls.slug}
@@ -36,7 +44,7 @@ export function ClassTypeSection({ classTypes }: ClassTypeSectionProps) {
               <div className="md:w-2/5 aspect-video md:aspect-auto md:min-h-[280px] bg-[var(--color-bg-tertiary)] overflow-hidden">
                 <img
                   src={cls.image}
-                  alt={cls.title}
+                  alt={t(titleKey)}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -48,23 +56,23 @@ export function ClassTypeSection({ classTypes }: ClassTypeSectionProps) {
                   size="sm"
                   glow
                 >
-                  {cls.subtitle}
+                  {t("guide.classTypes")}
                 </Badge>
                 <h3 className="font-heading text-xl md:text-2xl font-bold text-[var(--color-text-primary)]">
-                  {cls.title}
+                  {t(titleKey)}
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                  {cls.description}
+                  {t(descKey)}
                 </p>
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                  {cls.features.map((feature) => (
+                  {Array.from({ length: cls.featureCount }, (_, idx) => (
                     <li
-                      key={feature}
+                      key={idx}
                       className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]"
                     >
                       <Icons.check className="h-3.5 w-3.5 flex-shrink-0 text-[var(--color-success)]" />
-                      <span className="truncate">{feature}</span>
+                      <span className="truncate">{t(featureKey(idx))}</span>
                     </li>
                   ))}
                 </ul>

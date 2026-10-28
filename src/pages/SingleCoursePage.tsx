@@ -1,7 +1,5 @@
 /**
  * Code Empire — Single course page
- *
- * Hero banner, breadcrumb, article sections, FAQ, sidebar, similar courses.
  */
 
 import { useMemo } from "react";
@@ -13,6 +11,7 @@ import { CourseSidebar } from "@/features/courses/CourseSidebar";
 import { CourseGrid } from "@/features/courses/CourseGrid";
 import { SectionHeader } from "@/features/home/SectionHeader";
 import { Icons } from "@/lib/icons";
+import type { ArticleSection } from "@/types";
 
 export default function SingleCoursePage() {
   const { slug = "" } = useParams();
@@ -51,15 +50,34 @@ export default function SingleCoursePage() {
     );
   }
 
-  const faqItems = course.faq.map((item) => ({
-    id: item.id,
-    title: item.question,
-    content: <p>{item.answer}</p>,
+  const sections: ArticleSection[] = course.sections.map((s, i) => ({
+    cover: s.cover,
+    coverIsVideo: s.coverIsVideo,
+    title: t(`course.${course.slug}.section.${i}.title`),
+    paragraphs: Array.from({ length: s.paragraphCount }, (_, j) =>
+      t(`course.${course.slug}.section.${i}.paragraph.${j}`),
+    ),
+    hints:
+      s.hintCount > 0
+        ? Array.from({ length: s.hintCount }, (_, j) =>
+            t(`course.${course.slug}.section.${i}.hint.${j}`),
+          )
+        : undefined,
   }));
+
+  const faqItems = Array.from({ length: course.faqCount }, (_, i) => ({
+    id: `faq-${i}`,
+    title: t(`course.${course.slug}.faq.${i}.question`),
+    content: <p>{t(`course.${course.slug}.faq.${i}.answer`)}</p>,
+  }));
+
+  const learningOutcomes = Array.from(
+    { length: course.learningOutcomes },
+    (_, i) => t(`course.${course.slug}.learningOutcome.${i}`),
+  );
 
   return (
     <>
-      {/* Hero banner */}
       <section className="relative pt-20 pb-10 overflow-hidden">
         <div
           className="absolute inset-0 opacity-30"
@@ -89,44 +107,39 @@ export default function SingleCoursePage() {
             </button>
             <Icons.chevronLeft className="h-3 w-3 rtl:-scale-x-100" />
             <span className="text-[var(--color-text-secondary)] truncate">
-              {course.persianTitle}
+              {t(`course.${course.slug}.title`)}
             </span>
           </div>
 
           <ScrollReveal animation="fade-up">
             <div className="flex flex-col gap-3 max-w-3xl">
               <Badge variant="primary" glow>
-                {course.category === "web"
-                  ? t("courses.web")
-                  : course.category === "software"
-                    ? t("courses.software")
-                    : t("courses.game")}
+                {t(`courses.${course.category}`)}
               </Badge>
               <h1 className="font-heading text-3xl md:text-5xl font-bold text-gradient-hero">
-                {course.persianTitle}
+                {t(`course.${course.slug}.title`)}
               </h1>
               <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed">
-                {course.description}
+                {t(`course.${course.slug}.description`)}
               </p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Main content + sidebar */}
       <section className="section pt-4">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10">
             <div className="min-w-0">
-              <CourseArticle sections={course.sections} />
+              <CourseArticle sections={sections} />
 
-              {course.learningOutcomes.length > 0 && (
+              {learningOutcomes.length > 0 && (
                 <Card variant="solid" className="mt-10">
                   <h3 className="font-heading font-bold text-base mb-3">
                     {t("guide.sessionStructure")}
                   </h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {course.learningOutcomes.map((outcome) => (
+                    {learningOutcomes.map((outcome) => (
                       <li
                         key={outcome}
                         className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]"
@@ -142,7 +155,7 @@ export default function SingleCoursePage() {
               {faqItems.length > 0 && (
                 <div className="mt-12">
                   <SectionHeader
-                    eyebrow="FAQ"
+                    eyebrow={t("courses.faqEyebrow")}
                     title={t("courses.faq")}
                     align="start"
                   />
@@ -156,12 +169,11 @@ export default function SingleCoursePage() {
         </div>
       </section>
 
-      {/* Related */}
       {related.length > 0 && (
         <section className="section">
           <div className="section-container">
             <SectionHeader
-              eyebrow="Related"
+              eyebrow={t("courses.relatedEyebrow")}
               title={t("courses.similarCourses")}
               align="start"
             />

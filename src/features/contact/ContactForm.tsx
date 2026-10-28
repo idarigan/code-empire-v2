@@ -1,12 +1,9 @@
 /**
  * Code Empire — Contact form
- *
- * Zod-validated form (name, email, phone, subject, message).
- * Sends via EmailJS and clears on success.
  */
 
 import { useState, type FormEvent } from "react";
-import { Card, Input, Button, useI18n, useToast } from "dara-ui";
+import { Card, Input, Button, useToast, useI18n } from "dara-ui";
 import { sendContact } from "@/lib/emailjs";
 import { contactSchema, zodErrors } from "@/lib/validation";
 import { Icons } from "@/lib/icons";
@@ -70,7 +67,7 @@ export function ContactForm() {
     <Card glow="primary">
       <h3 className="font-heading font-bold text-lg mb-4 flex items-center gap-2">
         <Icons.messageCircle className="h-5 w-5 text-[var(--color-primary)]" />
-        {t("contact.form")}
+        {t("contact.formTitle")}
       </h3>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -153,7 +150,7 @@ export function ContactForm() {
           loading={submitting}
           leftIcon={<Icons.send className="h-4 w-4" />}
         >
-          {submitting ? t("form.sending") : t("contact.submit")}
+          {submitting ? t("contact.submitting") : t("contact.submit")}
         </Button>
       </form>
     </Card>

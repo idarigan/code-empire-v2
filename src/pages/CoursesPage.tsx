@@ -1,8 +1,5 @@
 /**
  * Code Empire — All courses page
- *
- * Full catalog with category tabs + search filter.
- * Leaderboard below the grid.
  */
 
 import { useMemo, useState } from "react";
@@ -25,12 +22,13 @@ export default function CoursesPage() {
     const q = debouncedQuery.trim().toLowerCase();
     return courses
       .filter((c) => category === "all" || c.category === category)
-      .filter(
-        (c) =>
-          !q || c.title.toLowerCase().includes(q) || c.persianTitle.includes(q),
-      )
+      .filter((c) => {
+        if (!q) return true;
+        const title = t(`course.${c.slug}.title`).toLowerCase();
+        return title.includes(q);
+      })
       .sort((a, b) => a.rank - b.rank);
-  }, [category, debouncedQuery]);
+  }, [category, debouncedQuery, t]);
 
   const faq = [
     {

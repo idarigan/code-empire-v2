@@ -1,7 +1,5 @@
 /**
  * Code Empire — About page
- *
- * Three-half sections, numbers, team grid, join CTA.
  */
 
 import { useNavigate } from "react-router-dom";

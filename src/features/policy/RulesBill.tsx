@@ -1,9 +1,5 @@
 /**
  * Code Empire — Rules bill
- *
- * Six-card grid representing the Code Empire charter.
- * Accepts an optional `items` prop so the parent page can pass
- * English translations; falls back to the Persian default.
  */
 
 import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
@@ -31,10 +27,10 @@ export function RulesBill({ items = charterBill }: RulesBillProps) {
               </span>
             </div>
             <h3 className="font-heading font-bold text-base mb-2 text-[var(--color-text-primary)]">
-              {item.title}
+              {t(`charter.${item.id}.title`)}
             </h3>
             <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-              {item.body}
+              {t(`charter.${item.id}.body`)}
             </p>
           </Card>
         </ScrollReveal>

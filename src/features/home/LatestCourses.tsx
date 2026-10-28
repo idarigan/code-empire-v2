@@ -1,8 +1,5 @@
 /**
  * Code Empire — Latest courses
- *
- * Tabs by category, ProductCard grid under each tab.
- * Each card links to the course page and shows capacity status.
  */
 
 import { useMemo, useState } from "react";
@@ -18,7 +15,7 @@ import { Icons } from "@/lib/icons";
 export function LatestCourses() {
   const { t } = useI18n();
   const navigate = useNavigate();
-  const [category, setCategory] = useState<CourseCategory | "all">("web");
+  const [category, setCategory] = useState<CourseCategory>("web");
 
   const items: TabItem[] = useMemo(
     () => [
@@ -42,7 +39,7 @@ export function LatestCourses() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow="Courses"
+          eyebrow={t("home.coursesEyebrow")}
           title={t("home.latestCourses")}
           subtitle={t("courses.subtitle")}
           align="start"

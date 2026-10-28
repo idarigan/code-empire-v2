@@ -1,8 +1,5 @@
 /**
  * Code Empire — Blog overview
- *
- * Full magazine page: filters + sort + pagination.
- * Reads ?category= from the URL for deep links from the sidebar.
  */
 
 import { useEffect, useMemo, useState } from "react";
@@ -30,7 +27,12 @@ export default function BlogPage() {
 
   const debouncedQuery = useDebounce(query, 250);
 
-  // Keep category in the URL so deep links work
+  const allCategories = useMemo(() => {
+    const set = new Set<string>();
+    blogs.forEach((b) => set.add(t(`blogPost.${b.slug}.category`)));
+    return Array.from(set);
+  }, [t]);
+
   useEffect(() => {
     const current = searchParams.get("category") ?? "all";
     if (category === "all" && current !== "all") {
@@ -43,7 +45,6 @@ export default function BlogPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
-  // Reset page when filters change
   useEffect(() => {
     setPage(1);
   }, [category, debouncedQuery, sort]);
@@ -51,17 +52,24 @@ export default function BlogPage() {
   const filtered = useMemo(() => {
     const q = debouncedQuery.trim().toLowerCase();
 
-    let list = blogs.filter(
-      (b) => category === "all" || b.category === category,
-    );
+    let list = blogs.filter((b) => {
+      const cat = t(`blogPost.${b.slug}.category`);
+      return category === "all" || cat === category;
+    });
 
     if (q) {
-      list = list.filter(
-        (b) =>
-          b.title.toLowerCase().includes(q) ||
-          b.excerpt.toLowerCase().includes(q) ||
-          b.tags.some((tag) => tag.toLowerCase().includes(q)),
-      );
+      list = list.filter((b) => {
+        const title = t(`blogPost.${b.slug}.title`).toLowerCase();
+        const excerpt = t(`blogPost.${b.slug}.excerpt`).toLowerCase();
+        const tags = Array.from({ length: b.tagCount }, (_, i) =>
+          t(`blogPost.${b.slug}.tag.${i}`).toLowerCase(),
+        );
+        return (
+          title.includes(q) ||
+          excerpt.includes(q) ||
+          tags.some((tag) => tag.includes(q))
+        );
+      });
     }
 
     if (sort === "newest") {
@@ -73,7 +81,6 @@ export default function BlogPage() {
         (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
       );
     } else {
-      // Suggested: featured first, then newest
       list.sort((a, b) => {
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
@@ -82,7 +89,7 @@ export default function BlogPage() {
     }
 
     return list;
-  }, [category, debouncedQuery, sort]);
+  }, [category, debouncedQuery, sort, t]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -106,6 +113,7 @@ export default function BlogPage() {
           onQueryChange={setQuery}
           sort={sort}
           onSortChange={setSort}
+          categories={allCategories}
         />
 
         <BlogGrid blogs={paginated} columns={3} />
