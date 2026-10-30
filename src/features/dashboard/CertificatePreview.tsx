@@ -6,13 +6,14 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { Card, Button, Badge, useI18n } from "dara-ui";
+import { Card, Button, Badge } from "dara-ui";
 import {
   renderCertificate,
   downloadCertificate,
   openCertificateInNewTab,
 } from "@/lib/certificate";
 import { formatDate } from "@/lib/format";
+import { dashboard } from "@/content/dashboard";
 import { Icons } from "@/lib/icons";
 
 interface CertificatePreviewProps {
@@ -28,7 +29,6 @@ export function CertificatePreview({
   level,
   date,
 }: CertificatePreviewProps) {
-  const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isRendering, setIsRendering] = useState(true);
 
@@ -85,7 +85,7 @@ export function CertificatePreview({
         <div className="flex items-center gap-2">
           <Icons.award className="h-5 w-5 text-[var(--color-accent)]" />
           <h3 className="font-heading font-bold text-sm">
-            {t("dashboard.certificateTitle")}
+            {dashboard.certificateTitle}
           </h3>
         </div>
         {level && (
@@ -101,7 +101,7 @@ export function CertificatePreview({
       >
         {isRendering && (
           <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-            {t("dashboard.certificateLoading")}
+            {dashboard.certificateLoading}
           </p>
         )}
       </div>
@@ -114,7 +114,7 @@ export function CertificatePreview({
           leftIcon={<Icons.download className="h-3.5 w-3.5" />}
           onClick={handleDownload}
         >
-          {t("dashboard.downloadCertificate")}
+          {dashboard.downloadCertificate}
         </Button>
         <Button
           variant="outline"
@@ -122,7 +122,7 @@ export function CertificatePreview({
           leftIcon={<Icons.eye className="h-3.5 w-3.5" />}
           onClick={handleOpen}
         >
-          {t("dashboard.openAll")}
+          {dashboard.openAll}
         </Button>
       </div>
     </Card>

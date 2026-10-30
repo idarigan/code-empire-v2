@@ -3,18 +3,21 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { Card, Progress, Button, Badge, useI18n } from "dara-ui";
+import { Card, Progress, Button, Badge } from "dara-ui";
 import { getCourseBySlug } from "@/data/courses";
 import { useProgress } from "@/contexts";
+import { coursesContent } from "@/content/courses";
+import { dashboard } from "@/content/dashboard";
+import { common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function CourseProgressCard({ slug }: { slug: string }) {
-  const { t } = useI18n();
   const navigate = useNavigate();
   const { getProgress, isComplete } = useProgress();
 
   const course = getCourseBySlug(slug);
-  if (!course) return null;
+  const content = coursesContent[slug];
+  if (!course || !content) return null;
 
   const progress = getProgress(slug);
   const complete = isComplete(slug);
@@ -28,24 +31,24 @@ export function CourseProgressCard({ slug }: { slug: string }) {
         <div className="w-14 h-14 rounded-[var(--radius-md)] overflow-hidden bg-[var(--color-bg-tertiary)] flex-shrink-0">
           <img
             src={course.logo}
-            alt={t(`course.${course.slug}.title`)}
+            alt={content.title}
             className="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="font-heading font-bold text-sm text-[var(--color-text-primary)] truncate">
-            {t(`course.${course.slug}.title`)}
+            {content.title}
           </h3>
           <div className="flex items-center gap-2 mt-1">
             {complete ? (
               <Badge variant="success" size="sm" glow>
                 <Icons.check className="h-3 w-3 inline me-1" />
-                {t("common.success")}
+                {common.success}
               </Badge>
             ) : (
               <Badge variant="primary" size="sm" outline>
-                {t("dashboard.progress")}
+                {dashboard.progress}
               </Badge>
             )}
           </div>
@@ -68,7 +71,7 @@ export function CourseProgressCard({ slug }: { slug: string }) {
           onClick={() => navigate(`/courses/${slug}`)}
           leftIcon={<Icons.bookOpen className="h-3.5 w-3.5" />}
         >
-          {t("dashboard.continue")}
+          {dashboard.continue}
         </Button>
       </div>
     </Card>

@@ -7,6 +7,7 @@
 
 import { Badge } from "dara-ui";
 import type { StudentTier } from "@/types";
+import { tierLabels } from "@/content/ranking";
 
 export interface RankTier {
   tier: StudentTier;
@@ -31,7 +32,6 @@ export function getTierForXP(xp: number): RankTier {
 }
 
 export function getLevelForXP(xp: number): number {
-  // Simple level curve: 500 XP per level
   return Math.floor(xp / 500) + 1;
 }
 
@@ -40,7 +40,7 @@ export function RankBadge({ xp }: { xp: number }) {
 
   return (
     <Badge variant={rank.color} size="sm" glow={rank.tier === "Javidan"}>
-      {rank.tier}
+      {tierLabels[rank.tier] ?? rank.tier}
     </Badge>
   );
 }

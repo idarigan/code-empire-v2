@@ -3,17 +3,19 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { Button, Card, ScrollReveal, useI18n } from "dara-ui";
+import { Button, Card, ScrollReveal } from "dara-ui";
 import { useProfile, useProgress } from "@/contexts";
 import { XPLevelCard } from "@/features/dashboard/XPLevelCard";
 import { DashboardStats } from "@/features/dashboard/DashboardStats";
 import { CourseProgressCard } from "@/features/dashboard/CourseProgressCard";
 import { CertificatePreview } from "@/features/dashboard/CertificatePreview";
 import { getCourseBySlug } from "@/data/courses";
+import { coursesContent } from "@/content/courses";
+import { dashboard } from "@/content/dashboard";
+import { nav, common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export default function DashboardHome() {
-  const { t } = useI18n();
   const navigate = useNavigate();
   const { profile } = useProfile();
   const { enrollments, isComplete } = useProgress();
@@ -36,10 +38,10 @@ export default function DashboardHome() {
         >
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mb-1">
-              {t("dashboard.home")}
+              {dashboard.home}
             </p>
             <h1 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] truncate">
-              {t("dashboard.welcome") + ", " + (profile?.name ?? "")}
+              {dashboard.welcome + ", " + (profile?.name ?? "")}
             </h1>
           </div>
           <div className="flex gap-2 flex-shrink-0">
@@ -49,7 +51,7 @@ export default function DashboardHome() {
               leftIcon={<Icons.bookOpen className="h-3.5 w-3.5" />}
               onClick={() => navigate("/courses")}
             >
-              {t("nav.courses")}
+              {nav.courses}
             </Button>
           </div>
         </Card>
@@ -62,7 +64,7 @@ export default function DashboardHome() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
-            {t("dashboard.courses")}
+            {dashboard.courses}
           </h2>
           {enrollments.length > 0 && (
             <Button
@@ -73,7 +75,7 @@ export default function DashboardHome() {
               }
               onClick={() => navigate("/dashboard/courses")}
             >
-              {t("dashboard.viewAll")}
+              {dashboard.viewAll}
             </Button>
           )}
         </div>
@@ -82,14 +84,14 @@ export default function DashboardHome() {
           <Card variant="outline" className="text-center py-10">
             <Icons.bookOpen className="h-10 w-10 mx-auto text-[var(--color-text-tertiary)] mb-3" />
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              {t("dashboard.noEnrollments")}
+              {dashboard.noEnrollments}
             </p>
             <Button
               variant="primary"
               size="sm"
               onClick={() => navigate("/courses")}
             >
-              {t("dashboard.courses")}
+              {dashboard.courses}
             </Button>
           </Card>
         ) : (
@@ -101,11 +103,11 @@ export default function DashboardHome() {
         )}
       </div>
 
-      {latestCompleted && (
+      {latestCompleted && coursesContent[latestCompleted.slug] && (
         <div>
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
-              {t("dashboard.certificates")}
+              {dashboard.certificates}
             </h2>
             <Button
               variant="outline"
@@ -115,12 +117,12 @@ export default function DashboardHome() {
               }
               onClick={() => navigate("/dashboard/certificates")}
             >
-              {t("dashboard.viewAll")}
+              {dashboard.viewAll}
             </Button>
           </div>
           <CertificatePreview
-            studentName={profile?.name ?? t("dashboard.profile")}
-            courseName={t(`course.${latestCompleted.slug}.title`)}
+            studentName={profile?.name ?? dashboard.profile}
+            courseName={coursesContent[latestCompleted.slug].title}
             level="Javidan"
           />
         </div>

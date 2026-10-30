@@ -4,37 +4,37 @@
  * Four quick stat cards: enrolled courses, bookmarks, XP, overall progress.
  */
 
-import { Card, useI18n } from "dara-ui";
+import { Card } from "dara-ui";
 import { useProgress } from "@/contexts";
 import { formatNumber, formatPercent } from "@/lib/format";
+import { dashboard } from "@/content/dashboard";
 import { Icons } from "@/lib/icons";
 
 export function DashboardStats() {
-  const { t } = useI18n();
   const { enrollments, bookmarks, xp, overallProgress } = useProgress();
 
   const items = [
     {
       icon: <Icons.bookOpen className="h-5 w-5" />,
-      label: t("dashboard.courses"),
+      label: dashboard.courses,
       value: formatNumber(enrollments.length),
       glow: "primary" as const,
     },
     {
       icon: <Icons.bookmark className="h-5 w-5" />,
-      label: t("dashboard.bookmarks"),
+      label: dashboard.bookmarks,
       value: formatNumber(bookmarks.length),
       glow: "secondary" as const,
     },
     {
       icon: <Icons.zap className="h-5 w-5" />,
-      label: t("dashboard.xp"),
+      label: dashboard.xp,
       value: formatNumber(xp),
       glow: "accent" as const,
     },
     {
       icon: <Icons.chart className="h-5 w-5" />,
-      label: t("dashboard.overallProgress"),
+      label: dashboard.overallProgress,
       value: formatPercent(overallProgress),
       glow: "primary" as const,
     },

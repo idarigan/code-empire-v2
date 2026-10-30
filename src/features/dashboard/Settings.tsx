@@ -12,16 +12,16 @@ import {
   Button,
   Switch,
   Modal,
-  useI18n,
   useToast,
   ThemeChanger,
 } from "dara-ui";
 import { useProfile, useProgress } from "@/contexts";
 import { preferencesStore, resetAll } from "@/lib/storage";
+import { dashboard, switchLabels, themeChanger } from "@/content/dashboard";
+import { common, form } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export default function Settings() {
-  const { t } = useI18n();
   const toast = useToast();
   const { profile, save } = useProfile();
   const { reset } = useProgress();
@@ -39,7 +39,7 @@ export default function Settings() {
     try {
       await save({ name: name.trim(), bio: bio.trim() });
       await preferencesStore.set({ notifications, sound });
-      toast.success(t("common.success"));
+      toast.success(common.success);
     } finally {
       setSaving(false);
     }
@@ -48,7 +48,7 @@ export default function Settings() {
   const handleReset = async () => {
     await Promise.all([reset(), resetAll()]);
     setConfirmOpen(false);
-    toast.success(t("common.success"));
+    toast.success(common.success);
     setName("");
     setBio("");
   };
@@ -56,26 +56,25 @@ export default function Settings() {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="font-heading text-2xl font-bold text-[var(--color-text-primary)]">
-        {t("dashboard.settings")}
+        {dashboard.settings}
       </h1>
 
-      {/* Profile */}
       <Card glow="primary">
         <h2 className="font-heading font-bold text-sm mb-3 flex items-center gap-2">
           <Icons.user className="h-4 w-4 text-[var(--color-primary)]" />
-          {t("dashboard.profile")}
+          {dashboard.profile}
         </h2>
         <div className="flex flex-col gap-3">
           <Input
-            label={t("dashboard.profileName")}
-            placeholder={t("contact.name")}
+            label={dashboard.profileName}
+            placeholder={form.required}
             value={name}
             onChange={(e) => setName(e.target.value)}
             leftIcon={<Icons.user className="h-4 w-4" />}
           />
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-[var(--color-text-secondary)]">
-              {t("dashboard.profileBio")}
+              {dashboard.profileBio}
             </label>
             <textarea
               rows={3}
@@ -93,26 +92,25 @@ export default function Settings() {
             onClick={handleSaveProfile}
             leftIcon={<Icons.check className="h-3.5 w-3.5" />}
           >
-            {t("dashboard.saveProfile")}
+            {dashboard.saveProfile}
           </Button>
         </div>
       </Card>
 
-      {/* Preferences */}
       <Card glow="secondary">
         <h2 className="font-heading font-bold text-sm mb-3 flex items-center gap-2">
           <Icons.settings className="h-4 w-4 text-[var(--color-secondary)]" />
-          {t("dashboard.settings")}
+          {dashboard.settings}
         </h2>
         <div className="flex flex-col gap-4">
           <Switch
-            label={t("switch.notifications")}
+            label={switchLabels.notifications}
             defaultChecked={notifications}
             onCheckedChange={setNotifications}
             glow
           />
           <Switch
-            label={t("switch.sound")}
+            label={switchLabels.sound}
             defaultChecked={sound}
             onCheckedChange={setSound}
           />
@@ -120,7 +118,7 @@ export default function Settings() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.title")}
+                {themeChanger.title}
               </label>
               <ThemeChanger />
             </div>
@@ -128,14 +126,13 @@ export default function Settings() {
         </div>
       </Card>
 
-      {/* Danger zone */}
       <Card variant="outline" className="border-[var(--color-danger)]/30">
         <h2 className="font-heading font-bold text-sm mb-3 flex items-center gap-2 text-[var(--color-danger)]">
           <Icons.trash className="h-4 w-4" />
-          {t("dashboard.clearData")}
+          {dashboard.clearData}
         </h2>
         <p className="text-xs text-[var(--color-text-secondary)] mb-4 leading-relaxed">
-          {t("dashboard.clearDataWarning")}
+          {dashboard.clearDataWarning}
         </p>
         <Button
           variant="danger"
@@ -143,19 +140,19 @@ export default function Settings() {
           leftIcon={<Icons.trash className="h-3.5 w-3.5" />}
           onClick={() => setConfirmOpen(true)}
         >
-          {t("dashboard.clearData")}
+          {dashboard.clearData}
         </Button>
       </Card>
 
       <Modal
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}
-        title={t("dashboard.clearData")}
-        confirmText={t("common.confirm")}
-        cancelText={t("common.cancel")}
+        title={dashboard.clearData}
+        confirmText={common.confirm}
+        cancelText={common.cancel}
         onConfirm={handleReset}
       >
-        <p>{t("dashboard.clearDataWarning")}</p>
+        <p>{dashboard.clearDataWarning}</p>
       </Modal>
     </div>
   );

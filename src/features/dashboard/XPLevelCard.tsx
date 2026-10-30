@@ -5,10 +5,13 @@
  * Shows current level, rank, XP toward next tier.
  */
 
-import { Card, XPBar, ScrollReveal, useI18n } from "dara-ui";
+import { Card, XPBar, ScrollReveal } from "dara-ui";
 import { useProgress } from "@/contexts";
 import { formatNumber } from "@/lib/format";
 import { getLevelForXP, getTierForXP, RankBadge } from "./RankBadge";
+import { dashboard } from "@/content/dashboard";
+import { tierLabels } from "@/content/ranking";
+import { common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 interface XPLevelCardProps {
@@ -16,7 +19,6 @@ interface XPLevelCardProps {
 }
 
 export function XPLevelCard({ compact = false }: XPLevelCardProps) {
-  const { t } = useI18n();
   const { xp } = useProgress();
 
   const tier = getTierForXP(xp);
@@ -26,13 +28,12 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
   const xpInto = xp - tierMin;
   const xpToNext = tier.nextXP ? tier.nextXP - xp : 0;
 
-  // Build rank tiers array for XPBar
   const rankTiers = [
-    { label: "Aghazgar", requiredXP: 0 },
-    { label: "Danshour", requiredXP: 1000 },
-    { label: "Kadzan-e Nokhbeh", requiredXP: 3000 },
-    { label: "Danshour-e Nokhbeh", requiredXP: 6000 },
-    { label: "Javidan", requiredXP: 10000 },
+    { label: tierLabels.Aghazgar, requiredXP: 0 },
+    { label: tierLabels.Danshour, requiredXP: 1000 },
+    { label: tierLabels["Kadzan-e Nokhbeh"], requiredXP: 3000 },
+    { label: tierLabels["Danshour-e Nokhbeh"], requiredXP: 6000 },
+    { label: tierLabels.Javidan, requiredXP: 10000 },
   ];
 
   return (
@@ -45,10 +46,10 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                {t("dashboard.level")} {formatNumber(level)}
+                {dashboard.level} {formatNumber(level)}
               </p>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                {formatNumber(xp)} {t("dashboard.xp")}
+                {formatNumber(xp)} {dashboard.xp}
               </p>
             </div>
           </div>
@@ -61,9 +62,9 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
             max={tierMax - tierMin || 1}
             level={level}
             ranks={rankTiers}
-            customLabel={t("dashboard.overallProgress")}
-            levelLabel={t("dashboard.level")}
-            xpLabel={t("dashboard.xp")}
+            customLabel={dashboard.overallProgress}
+            levelLabel={dashboard.level}
+            xpLabel={dashboard.xp}
           />
         )}
 
@@ -79,7 +80,7 @@ export function XPLevelCard({ compact = false }: XPLevelCardProps) {
             </div>
             {tier.nextXP && (
               <p className="text-[10px] font-mono text-[var(--color-text-tertiary)] mt-1">
-                {formatNumber(xpToNext)} {t("dashboard.xp")} {t("common.next")}
+                {formatNumber(xpToNext)} {dashboard.xp} {common.next}
               </p>
             )}
           </div>
