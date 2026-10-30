@@ -3,8 +3,10 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { BlogCard, useI18n } from "dara-ui";
+import { BlogCard } from "dara-ui";
 import type { Blog } from "@/types";
+import { blogPostsContent, blogAuthors } from "@/content/blogs";
+import { blog } from "@/content/blog";
 import { Icons } from "@/lib/icons";
 
 interface BlogGridProps {
@@ -14,7 +16,6 @@ interface BlogGridProps {
 }
 
 export function BlogGrid({ blogs, columns = 3, emptyMessage }: BlogGridProps) {
-  const { t } = useI18n();
   const navigate = useNavigate();
 
   if (blogs.length === 0) {
@@ -22,7 +23,7 @@ export function BlogGrid({ blogs, columns = 3, emptyMessage }: BlogGridProps) {
       <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
         <Icons.fileText className="h-10 w-10 text-[var(--color-text-tertiary)]" />
         <p className="text-[var(--color-text-secondary)] text-sm">
-          {emptyMessage ?? t("blog.noResults")}
+          {emptyMessage ?? blog.noResults}
         </p>
       </div>
     );
@@ -41,25 +42,27 @@ export function BlogGrid({ blogs, columns = 3, emptyMessage }: BlogGridProps) {
 
   return (
     <div className={`grid ${colsClass} gap-5`}>
-      {blogs.map((blog, i) => (
-        <BlogCard
-          key={blog.slug}
-          title={t(`blogPost.${blog.slug}.title`)}
-          excerpt={t(`blogPost.${blog.slug}.excerpt`)}
-          coverImage={blog.coverImage}
-          author={blog.author.name}
-          authorAvatar={blog.author.avatar}
-          date={blog.date}
-          readTime={blog.readTime}
-          category={t(`blogPost.${blog.slug}.category`)}
-          tags={Array.from({ length: blog.tagCount }, (_, j) =>
-            t(`blogPost.${blog.slug}.tag.${j}`),
-          )}
-          link={`/blog/${blog.slug}`}
-          glow={glowCycle[i % glowCycle.length]}
-          onClick={() => navigate(`/blog/${blog.slug}`)}
-        />
-      ))}
+      {blogs.map((post, i) => {
+        const content = blogPostsContent[post.slug];
+        if (!content) return null;
+        return (
+          <BlogCard
+            key={post.slug}
+            title={content.title}
+            excerpt={content.excerpt}
+            coverImage={post.coverImage}
+            author={blogAuthors[post.author.name as keyof typeof blogAuthors]}
+            authorAvatar={post.author.avatar}
+            date={post.date}
+            readTime={post.readTime}
+            category={content.category}
+            tags={content.tags}
+            link={`/blog/${post.slug}`}
+            glow={glowCycle[i % glowCycle.length]}
+            onClick={() => navigate(`/blog/${post.slug}`)}
+          />
+        );
+      })}
     </div>
   );
 }

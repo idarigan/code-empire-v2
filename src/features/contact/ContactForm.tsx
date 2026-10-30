@@ -3,9 +3,11 @@
  */
 
 import { useState, type FormEvent } from "react";
-import { Card, Input, Button, useToast, useI18n } from "dara-ui";
+import { Card, Input, Button, useToast } from "dara-ui";
 import { sendContact } from "@/lib/emailjs";
 import { contactSchema, zodErrors } from "@/lib/validation";
+import { contact } from "@/content/contact";
+import { form } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 interface FormState {
@@ -27,9 +29,8 @@ const EMPTY: FormState = {
 };
 
 export function ContactForm() {
-  const { t } = useI18n();
   const toast = useToast();
-  const [form, setForm] = useState<FormState>(EMPTY);
+  const [formState, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -45,7 +46,7 @@ export function ContactForm() {
     e.preventDefault();
     setErrors({});
 
-    const parsed = contactSchema.safeParse(form);
+    const parsed = contactSchema.safeParse(formState);
     if (!parsed.success) {
       setErrors(zodErrors(parsed.error));
       return;
@@ -53,11 +54,11 @@ export function ContactForm() {
 
     setSubmitting(true);
     try {
-      await sendContact(form);
-      toast.success(t("contact.success"));
+      await sendContact(formState);
+      toast.success(contact.success);
       setForm(EMPTY);
     } catch {
-      toast.error(t("form.failed"));
+      toast.error(form.failed);
     } finally {
       setSubmitting(false);
     }
@@ -67,24 +68,24 @@ export function ContactForm() {
     <Card glow="primary">
       <h3 className="font-heading font-bold text-lg mb-4 flex items-center gap-2">
         <Icons.messageCircle className="h-5 w-5 text-[var(--color-primary)]" />
-        {t("contact.formTitle")}
+        {contact.formTitle}
       </h3>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            label={t("contact.name")}
-            placeholder={t("contact.name")}
-            value={form.name}
+            label={contact.name}
+            placeholder={contact.name}
+            value={formState.name}
             onChange={(e) => setField("name", e.target.value)}
             validation={errors.name ? "error" : undefined}
             errorMessage={errors.name}
             leftIcon={<Icons.user className="h-4 w-4" />}
           />
           <Input
-            label={t("contact.lastName")}
-            placeholder={t("contact.lastName")}
-            value={form.lastName}
+            label={contact.lastName}
+            placeholder={contact.lastName}
+            value={formState.lastName}
             onChange={(e) => setField("lastName", e.target.value)}
             leftIcon={<Icons.user className="h-4 w-4" />}
           />
@@ -92,20 +93,20 @@ export function ContactForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            label={t("contact.email")}
+            label={contact.email}
             type="email"
-            placeholder={t("contact.email")}
-            value={form.email}
+            placeholder={contact.email}
+            value={formState.email}
             onChange={(e) => setField("email", e.target.value)}
             validation={errors.email ? "error" : undefined}
             errorMessage={errors.email}
             leftIcon={<Icons.mail className="h-4 w-4" />}
           />
           <Input
-            label={t("contact.phone")}
+            label={contact.phone}
             type="tel"
             placeholder="09xxxxxxxxx"
-            value={form.phone}
+            value={formState.phone}
             onChange={(e) => setField("phone", e.target.value)}
             validation={errors.phone ? "error" : undefined}
             errorMessage={errors.phone}
@@ -114,9 +115,9 @@ export function ContactForm() {
         </div>
 
         <Input
-          label={t("contact.subject")}
-          placeholder={t("contact.subject")}
-          value={form.subject}
+          label={contact.subject}
+          placeholder={contact.subject}
+          value={formState.subject}
           onChange={(e) => setField("subject", e.target.value)}
           validation={errors.subject ? "error" : undefined}
           errorMessage={errors.subject}
@@ -125,13 +126,13 @@ export function ContactForm() {
 
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium text-[var(--color-text-secondary)]">
-            {t("contact.message")}
+            {contact.message}
           </label>
           <textarea
             rows={5}
-            value={form.message}
+            value={formState.message}
             onChange={(e) => setField("message", e.target.value)}
-            placeholder={t("contact.message")}
+            placeholder={contact.message}
             className="w-full font-sans rounded-[14px] px-4 py-3 text-base outline-none transition-all bg-[var(--color-bg-tertiary)] border border-[var(--color-border-primary)] focus:border-[var(--color-primary)] focus:bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] resize-y min-h-[120px]"
             dir="auto"
           />
@@ -150,7 +151,7 @@ export function ContactForm() {
           loading={submitting}
           leftIcon={<Icons.send className="h-4 w-4" />}
         >
-          {submitting ? t("contact.submitting") : t("contact.submit")}
+          {submitting ? contact.submitting : contact.submit}
         </Button>
       </form>
     </Card>

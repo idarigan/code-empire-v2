@@ -2,29 +2,29 @@
  * Code Empire — Contact links
  */
 
-import { Card, Button, useI18n } from "dara-ui";
-import { contactInfo, socialLinks } from "@/data/constants";
+import { Card, Button } from "dara-ui";
+import { contactInfo as contactInfoRaw, socialLinks } from "@/data/constants";
+import { contact, contactInfo } from "@/content/contact";
+import { social } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function ContactLinks() {
-  const { t } = useI18n();
-
   const bridges = [
     {
-      label: t("contact.telegramLabel"),
-      href: contactInfo.telegram,
+      label: contact.telegramLabel,
+      href: contactInfoRaw.telegram,
       icon: <Icons.send className="h-4 w-4" />,
       variant: "primary" as const,
     },
     {
-      label: t("contact.emailLabel"),
-      href: `mailto:${t("contactInfo.email")}`,
+      label: contact.emailLabel,
+      href: `mailto:${contactInfo.email}`,
       icon: <Icons.mail className="h-4 w-4" />,
       variant: "secondary" as const,
     },
     {
-      label: t("contact.phoneLabel"),
-      href: `tel:${contactInfo.phoneRaw}`,
+      label: contact.phoneLabel,
+      href: `tel:${contactInfoRaw.phoneRaw}`,
       icon: <Icons.phone className="h-4 w-4" />,
       variant: "outline" as const,
     },
@@ -34,7 +34,7 @@ export function ContactLinks() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <Card glow="primary">
         <h3 className="font-heading font-bold text-base mb-4">
-          {t("contact.bridges")}
+          {contact.bridges}
         </h3>
         <div className="flex flex-col gap-2">
           {bridges.map((b) => (
@@ -58,7 +58,7 @@ export function ContactLinks() {
 
       <Card glow="secondary">
         <h3 className="font-heading font-bold text-base mb-4">
-          {t("contact.aboutUs")}
+          {contact.aboutUs}
         </h3>
         <div className="flex flex-col gap-2">
           {socialLinks.slice(0, 4).map((s) => {
@@ -74,7 +74,7 @@ export function ContactLinks() {
                 fullWidth
                 leftIcon={<Icon className="h-4 w-4" />}
               >
-                {t(`social.${s.platform}`)}
+                {social[s.platform as keyof typeof social] ?? s.platform}
               </Button>
             );
           })}

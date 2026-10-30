@@ -2,37 +2,38 @@
  * Code Empire — About numbers
  */
 
-import { StatsWidget, ScrollReveal, useI18n } from "dara-ui";
+import { StatsWidget, ScrollReveal } from "dara-ui";
 import { SectionHeader } from "@/features/home/SectionHeader";
+import { about } from "@/content/about";
+import { home } from "@/content/home";
 
 export function Numbers() {
-  const { t } = useI18n();
   const palette = ["primary", "secondary", "accent", "success"] as const;
 
   const stats = [
     {
-      label: t("about.statMentors"),
+      label: about.statMentors,
       value: 30,
       max: 36,
       color: palette[0],
       trend: 0,
     },
     {
-      label: t("about.statStudents"),
+      label: about.statStudents,
       value: 800,
       max: 960,
       color: palette[1],
       trend: 0,
     },
     {
-      label: t("about.statHours"),
+      label: about.statHours,
       value: 100,
       max: 120,
       color: palette[2],
       trend: 0,
     },
     {
-      label: t("about.statConsultations"),
+      label: about.statConsultations,
       value: 300,
       max: 360,
       color: palette[3],
@@ -43,9 +44,9 @@ export function Numbers() {
   return (
     <div>
       <SectionHeader
-        eyebrow={t("about.numbersEyebrow")}
-        title={t("about.numbers")}
-        subtitle={t("home.heroSubtitle")}
+        eyebrow={about.numbersEyebrow}
+        title={about.numbers}
+        subtitle={home.heroSubtitle}
       />
       <ScrollReveal animation="zoom-in">
         <StatsWidget

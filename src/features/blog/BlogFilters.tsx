@@ -2,8 +2,9 @@
  * Code Empire — Blog filters
  */
 
-import { Dropdown, Input, Tabs, useI18n } from "dara-ui";
+import { Dropdown, Input, Tabs } from "dara-ui";
 import type { TabItem } from "dara-ui";
+import { blog } from "@/content/blog";
 import { Icons } from "@/lib/icons";
 
 export type BlogSort = "newest" | "oldest" | "suggested";
@@ -27,17 +28,15 @@ export function BlogFilters({
   onSortChange,
   categories,
 }: BlogFiltersProps) {
-  const { t } = useI18n();
-
   const categoryOptions = [
-    { value: "all", label: t("blog.allCategories") },
+    { value: "all", label: blog.allCategories },
     ...categories.map((c) => ({ value: c, label: c })),
   ];
 
   const sortTabs: TabItem[] = [
-    { label: t("blog.sortNewest"), value: "newest", content: null },
-    { label: t("blog.sortOldest"), value: "oldest", content: null },
-    { label: t("blog.sortSuggested"), value: "suggested", content: null },
+    { label: blog.sortNewest, value: "newest", content: null },
+    { label: blog.sortOldest, value: "oldest", content: null },
+    { label: blog.sortSuggested, value: "suggested", content: null },
   ];
 
   return (
@@ -47,14 +46,14 @@ export function BlogFilters({
           options={categoryOptions}
           value={category}
           onChange={onCategoryChange}
-          placeholder={t("blog.categoryPlaceholder")}
+          placeholder={blog.categoryPlaceholder}
           searchable
-          searchPlaceholder={t("blog.searchPlaceholder")}
+          searchPlaceholder={blog.searchPlaceholder}
           fullWidth
         />
         <Input
           type="search"
-          placeholder={t("blog.searchPlaceholder")}
+          placeholder={blog.searchPlaceholder}
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           leftIcon={<Icons.search className="h-4 w-4" />}

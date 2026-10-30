@@ -2,38 +2,37 @@
  * Code Empire — Contact info cards
  */
 
-import { Card, ScrollReveal, useI18n } from "dara-ui";
-import { contactInfo } from "@/data/constants";
+import { Card, ScrollReveal } from "dara-ui";
+import { contactInfo as contactInfoRaw } from "@/data/constants";
+import { contact, contactInfo } from "@/content/contact";
 import { Icons } from "@/lib/icons";
 
 export function ContactInfo() {
-  const { t } = useI18n();
-
   const items = [
     {
       icon: <Icons.phone className="h-5 w-5" />,
-      label: t("contact.phoneLabel"),
-      value: t("contactInfo.phone"),
-      href: `tel:${contactInfo.phoneRaw}`,
+      label: contact.phoneLabel,
+      value: contactInfo.phone,
+      href: `tel:${contactInfoRaw.phoneRaw}`,
       glow: "primary" as const,
     },
     {
       icon: <Icons.clock className="h-5 w-5" />,
-      label: t("contact.hours"),
-      value: t("contactInfo.hours"),
+      label: contact.hours,
+      value: contactInfo.hours,
       glow: "secondary" as const,
     },
     {
       icon: <Icons.mail className="h-5 w-5" />,
-      label: t("contact.emailLabel"),
-      value: t("contactInfo.email"),
-      href: `mailto:${t("contactInfo.email")}`,
+      label: contact.emailLabel,
+      value: contactInfo.email,
+      href: `mailto:${contactInfo.email}`,
       glow: "accent" as const,
     },
     {
       icon: <Icons.mapPin className="h-5 w-5" />,
-      label: t("contact.addressLabel"),
-      value: t("contactInfo.address"),
+      label: contact.addressLabel,
+      value: contactInfo.address,
       glow: "primary" as const,
     },
   ];

@@ -4,40 +4,39 @@
  * Alternating image/text blocks from about.halfSections.
  */
 
-import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
+import { Card, Badge, ScrollReveal } from "dara-ui";
+import { about } from "@/content/about";
 import { Icons } from "@/lib/icons";
 
+const items = [
+  {
+    title: about.section1Title,
+    desc: about.section1Desc,
+    cover: "/images/about/about.png",
+    glow: "primary" as const,
+  },
+  {
+    title: about.section2Title,
+    desc: about.section2Desc,
+    cover: "/images/about/mission.png",
+    glow: "secondary" as const,
+  },
+  {
+    title: about.section3Title,
+    desc: about.section3Desc,
+    cover: "/images/about/why-us.png",
+    glow: "accent" as const,
+  },
+];
+
 export function HalfSections() {
-  const { t } = useI18n();
-
-  const items = [
-    {
-      titleKey: "about.section1Title",
-      descKey: "about.section1Desc",
-      cover: "/images/about/about.png",
-      glow: "primary" as const,
-    },
-    {
-      titleKey: "about.section2Title",
-      descKey: "about.section2Desc",
-      cover: "/images/about/mission.png",
-      glow: "secondary" as const,
-    },
-    {
-      titleKey: "about.section3Title",
-      descKey: "about.section3Desc",
-      cover: "/images/about/why-us.png",
-      glow: "accent" as const,
-    },
-  ];
-
   return (
     <div className="flex flex-col gap-12">
       {items.map((item, i) => {
         const reverse = i % 2 === 1;
         return (
           <ScrollReveal
-            key={item.titleKey}
+            key={item.title}
             animation={reverse ? "fade-left" : "fade-right"}
             delay={i * 80}
           >
@@ -49,7 +48,7 @@ export function HalfSections() {
               <Card padding="none" glow={item.glow} className="overflow-hidden">
                 <img
                   src={item.cover}
-                  alt={t(item.titleKey)}
+                  alt={item.title}
                   className="w-full aspect-[4/3] object-cover"
                   loading="lazy"
                 />
@@ -63,14 +62,14 @@ export function HalfSections() {
                 >
                   <span className="inline-flex items-center gap-1">
                     <Icons.info className="h-3.5 w-3.5" />
-                    {t(item.titleKey)}
+                    {item.title}
                   </span>
                 </Badge>
                 <h2 className="font-heading text-2xl md:text-3xl font-bold text-gradient-primary">
-                  {t(item.titleKey)}
+                  {item.title}
                 </h2>
                 <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                  {t(item.descKey)}
+                  {item.desc}
                 </p>
               </div>
             </div>
