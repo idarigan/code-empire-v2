@@ -8,23 +8,21 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { usePageLoader } from "dara-ui";
-import { useI18n } from "dara-ui";
+import { loader as loaderContent } from "@/content/common";
 
 export function RouteLoader() {
   const { pathname } = useLocation();
   const loader = usePageLoader();
-  const { t } = useI18n();
   const first = useRef(true);
 
   useEffect(() => {
-    // Skip the initial mount so we don't flash the loader on first paint
     if (first.current) {
       first.current = false;
       return;
     }
 
     loader.show({
-      label: t("common.loading"),
+      label: loaderContent.label,
       shape: "spinner",
       showBrand: true,
       minDuration: 400,

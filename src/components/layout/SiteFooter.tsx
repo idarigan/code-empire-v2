@@ -3,7 +3,7 @@
  */
 
 import { Link } from "react-router-dom";
-import { Footer, SocialMedia, useI18n } from "dara-ui";
+import { Footer, SocialMedia } from "dara-ui";
 import type { FooterColumn as DaraFooterColumn } from "dara-ui";
 import {
   footerColumns,
@@ -11,37 +11,40 @@ import {
   contactInfo,
   siteMeta,
 } from "@/data/constants";
+import { footer, social, siteMeta as siteMetaContent } from "@/content/common";
+import { contactInfo as contactInfoContent } from "@/content/contact";
 import { NewsletterMini } from "./NewsletterMini";
 
 export function SiteFooter() {
-  const { t } = useI18n();
-
   const columns: DaraFooterColumn[] = footerColumns.map((col) => ({
-    title: t(col.titleKey),
+    title:
+      footer[col.titleKey.replace("footer.", "") as keyof typeof footer] ??
+      col.titleKey,
     links: col.links.map((l) => ({
-      label: t(l.key),
+      label:
+        footer[l.key.replace("footer.", "") as keyof typeof footer] ?? l.key,
       href: l.href,
       external: l.external,
     })),
   }));
 
   columns.push({
-    title: t("footer.quickContact"),
+    title: footer.quickContact,
     content: (
       <div className="flex flex-col gap-2 text-sm text-[var(--color-text-secondary)]">
         <a
           href={`tel:${contactInfo.phoneRaw}`}
           className="hover:text-[var(--color-primary)] transition-colors"
         >
-          {t("contactInfo.phone")}
+          {contactInfoContent.phone}
         </a>
         <a
-          href={`mailto:${t("contactInfo.email")}`}
+          href={`mailto:${contactInfoContent.email}`}
           className="hover:text-[var(--color-primary)] transition-colors"
         >
-          {t("contactInfo.email")}
+          {contactInfoContent.email}
         </a>
-        <span>{t("contactInfo.hours")}</span>
+        <span>{contactInfoContent.hours}</span>
       </div>
     ),
   });
@@ -62,7 +65,7 @@ export function SiteFooter() {
             CODE EMPIRE
           </span>
         }
-        tagline={t("footer.tagline")}
+        tagline={footer.tagline}
         columns={columns}
         social={
           <div className="flex flex-col gap-4 w-full">
@@ -75,7 +78,7 @@ export function SiteFooter() {
         bottomBar={
           <div className="flex items-center justify-between flex-wrap gap-3 w-full">
             <span>
-              {t("footer.copyrightPrefix").replace(
+              {footer.copyrightPrefix.replace(
                 "{year}",
                 new Date().getFullYear().toString(),
               )}
@@ -84,7 +87,7 @@ export function SiteFooter() {
               to="/policy"
               className="text-[var(--color-primary)] hover:underline"
             >
-              {t("footer.policy")}
+              {footer.policy}
             </Link>
           </div>
         }

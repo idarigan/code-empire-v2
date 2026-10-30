@@ -8,24 +8,33 @@
  */
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { Navbar, useI18n } from "dara-ui";
+import { Navbar } from "dara-ui";
 import type { NavLink as DaraNavLink } from "dara-ui";
 import { Button } from "dara-ui";
 import { primaryNavLinks } from "@/data/constants";
-import { useUI } from "@/contexts";
-import { useProfile } from "@/contexts";
+import { useUI, useProfile } from "@/contexts";
+import { nav, home } from "@/content/common";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Icons } from "@/lib/icons";
 
+const navMap: Record<string, string> = {
+  "nav.home": nav.home,
+  "nav.courses": nav.courses,
+  "nav.guide": nav.guide,
+  "nav.about": nav.about,
+  "nav.blog": nav.blog,
+  "nav.contact": nav.contact,
+  "nav.policy": nav.policy,
+};
+
 export function SiteNavbar() {
-  const { t } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
   const { openCommandPalette } = useUI();
   const { profile } = useProfile();
 
   const links: DaraNavLink[] = primaryNavLinks.map((l) => ({
-    label: t(l.key),
+    label: navMap[l.key] ?? l.key,
     href: l.href,
     active:
       l.href === "/"
@@ -53,7 +62,7 @@ export function SiteNavbar() {
         }
         links={links}
         showSearch
-        searchPlaceholder={t("common.search")}
+        searchPlaceholder={nav.search}
         onSearch={handleSearch}
         showThemeChanger
         themeChanger={<ThemeSwitcher compact />}
@@ -71,7 +80,7 @@ export function SiteNavbar() {
             }
             onClick={() => navigate(profile ? "/dashboard" : "/courses")}
           >
-            {profile ? t("nav.dashboard") : t("home.startLearning")}
+            {profile ? nav.dashboard : home.startLearning}
           </Button>
         }
       />

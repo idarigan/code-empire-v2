@@ -6,15 +6,15 @@
  */
 
 import { useState, type FormEvent } from "react";
-import { useI18n, useToast } from "dara-ui";
+import { useToast } from "dara-ui";
 import { Button, Input } from "dara-ui";
 import { sendNewsletter } from "@/lib/emailjs";
 import { newsletterSchema, zodErrors } from "@/lib/validation";
 import { newsletterStore } from "@/lib/storage";
+import { form, newsletter, footer } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function NewsletterMini() {
-  const { t } = useI18n();
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export function NewsletterMini() {
     const parsed = newsletterSchema.safeParse({ email });
     if (!parsed.success) {
       const errs = zodErrors(parsed.error);
-      setError(errs.email ?? t("form.invalidEmail"));
+      setError(errs.email ?? form.invalidEmail);
       return;
     }
 
@@ -35,10 +35,10 @@ export function NewsletterMini() {
     try {
       await sendNewsletter({ email });
       await newsletterStore.add(email);
-      toast.success(t("home.newsletter"));
+      toast.success(newsletter.success);
       setEmail("");
     } catch {
-      toast.error(t("form.failed"));
+      toast.error(newsletter.fail);
     } finally {
       setLoading(false);
     }
@@ -49,7 +49,7 @@ export function NewsletterMini() {
       <div className="flex gap-2 items-start">
         <Input
           type="email"
-          placeholder={t("contact.email")}
+          placeholder={footer.emailPlaceholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           validation={error ? "error" : undefined}
@@ -65,7 +65,7 @@ export function NewsletterMini() {
           loading={loading}
           rightIcon={<Icons.send className="h-3.5 w-3.5" />}
         >
-          {t("common.save")}
+          {footer.newsletterButton}
         </Button>
       </div>
     </form>

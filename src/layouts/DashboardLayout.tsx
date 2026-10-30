@@ -7,14 +7,15 @@
  */
 
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Sidebar, useI18n, Button } from "dara-ui";
+import { Sidebar, Button } from "dara-ui";
 import type { SidebarGroup, SidebarItem } from "dara-ui";
 import { useMemo } from "react";
 import { useProfile } from "@/contexts";
+import { dashboard } from "@/content/dashboard";
+import { nav } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function DashboardLayout() {
-  const { t } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
   const { profile } = useProfile();
@@ -22,50 +23,50 @@ export function DashboardLayout() {
   const groups: SidebarGroup[] = useMemo(
     () => [
       {
-        label: t("dashboard.home"),
+        label: dashboard.home,
         icon: <Icons.dashboard className="h-4 w-4" />,
         defaultExpanded: true,
         items: [
           {
             id: "home",
-            label: t("dashboard.home"),
+            label: dashboard.home,
             icon: <Icons.dashboard className="h-4 w-4" />,
           },
           {
             id: "courses",
-            label: t("dashboard.courses"),
+            label: dashboard.courses,
             icon: <Icons.bookOpen className="h-4 w-4" />,
           },
           {
             id: "bookmarks",
-            label: t("dashboard.bookmarks"),
+            label: dashboard.bookmarks,
             icon: <Icons.bookmark className="h-4 w-4" />,
           },
         ],
       },
       {
-        label: t("dashboard.progress"),
+        label: dashboard.progress,
         icon: <Icons.trending className="h-4 w-4" />,
         items: [
           {
             id: "progress",
-            label: t("dashboard.progress"),
+            label: dashboard.progress,
             icon: <Icons.chart className="h-4 w-4" />,
           },
           {
             id: "certificates",
-            label: t("dashboard.certificates"),
+            label: dashboard.certificates,
             icon: <Icons.award className="h-4 w-4" />,
           },
           {
             id: "settings",
-            label: t("dashboard.settings"),
+            label: dashboard.settings,
             icon: <Icons.settings className="h-4 w-4" />,
           },
         ],
       },
     ],
-    [t],
+    [],
   );
 
   const routeById: Record<string, string> = {
@@ -89,7 +90,6 @@ export function DashboardLayout() {
     if (path) navigate(path);
   };
 
-  // Attach onClick to each item so Sidebar drives navigation
   const wiredGroups: SidebarGroup[] = groups.map((g) => ({
     ...g,
     items: g.items.map(
@@ -126,7 +126,7 @@ export function DashboardLayout() {
             leftIcon={<Icons.home className="h-3.5 w-3.5" />}
             onClick={() => navigate("/")}
           >
-            {t("nav.home")}
+            {nav.home}
           </Button>
         }
         height="100vh"
@@ -137,7 +137,7 @@ export function DashboardLayout() {
             <div className="flex items-center gap-3">
               <Icons.user className="h-5 w-5 text-[var(--color-primary)]" />
               <span className="font-heading font-bold text-lg">
-                {profile?.name ?? t("dashboard.welcome")}
+                {profile?.name ?? dashboard.welcome}
               </span>
             </div>
           </header>
