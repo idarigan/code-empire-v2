@@ -9,17 +9,14 @@ import { siteMeta } from "@/data/constants";
 import { coursesContent } from "@/content/courses";
 import { blogPostsContent } from "@/content/blogs";
 import { ruleChrome } from "@/content/policy-rules";
-import {
-  home,
-  about,
-  contact,
-  coursesPage,
-  register,
-  guide,
-  blog,
-  policy,
-  notFound,
-} from "@/content/index";
+import { home } from "@/content/home";
+import { about } from "@/content/about";
+import { contact } from "@/content/contact";
+import { coursesPage, register } from "@/content/courses-page";
+import { guide } from "@/content/guide";
+import { blog } from "@/content/blog";
+import { policy } from "@/content/policy";
+import { notFound } from "@/content/common";
 
 export interface SEOResult {
   title: string;
@@ -38,6 +35,10 @@ interface RouteConfig {
   resolve: (params: Record<string, string | undefined>) => SEOResult;
 }
 
+// ============================================
+// Rule slug → content key map
+// ============================================
+
 const ruleKeyMap: Record<string, keyof typeof ruleChrome> = {
   "makeup-class": "makeupClass",
   "teacher-replacement": "teacherReplacement",
@@ -46,6 +47,10 @@ const ruleKeyMap: Record<string, keyof typeof ruleChrome> = {
   "student-ranks": "studentRanks",
   "absence-and-cancellation": "absenceAndCancellation",
 };
+
+// ============================================
+// Static routes
+// ============================================
 
 const STATIC: RouteConfig[] = [
   {
@@ -107,6 +112,10 @@ const STATIC: RouteConfig[] = [
   },
 ];
 
+// ============================================
+// Dynamic routes
+// ============================================
+
 const DYNAMIC: RouteConfig[] = [
   {
     pattern: "/courses/:slug",
@@ -146,15 +155,15 @@ const DYNAMIC: RouteConfig[] = [
   {
     pattern: "/blog/:slug",
     resolve: ({ slug }) => {
-      const blog = blogs.find((b) => b.slug === slug);
+      const post = blogs.find((b) => b.slug === slug);
       const content = slug ? blogPostsContent[slug] : undefined;
-      if (!blog || !content) {
+      if (!post || !content) {
         return { title: "مقاله یافت نشد", description: "" };
       }
       return {
         title: content.title,
         description: content.excerpt,
-        image: blog.coverImage,
+        image: post.coverImage,
         type: "article",
         jsonLd: {
           id: "article-schema",
@@ -163,9 +172,9 @@ const DYNAMIC: RouteConfig[] = [
             "@type": "Article",
             headline: content.title,
             description: content.excerpt,
-            image: blog.coverImage,
-            datePublished: blog.date,
-            author: { "@type": "Person", name: blog.author.name },
+            image: post.coverImage,
+            datePublished: post.date,
+            author: { "@type": "Person", name: post.author.name },
             publisher: { "@type": "Organization", name: siteMeta.name },
           },
         },

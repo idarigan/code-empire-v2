@@ -23,7 +23,7 @@ export interface Course {
   rank: number;
   capacity: number;
   enrolled: number;
-  specs: { icon: string; value: string | number }[];
+  specs: { icon: string }[];
   details: { key: "name" | "prereq" | "method" }[];
   sections: {
     cover?: string;

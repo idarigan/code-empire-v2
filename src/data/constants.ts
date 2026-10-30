@@ -99,7 +99,6 @@ export const siteStats = {
 
 export const siteMeta = {
   name: "Code Empire",
-  namePersian: "امپراتوری کد",
   url: import.meta.env.VITE_SITE_URL || "https://code-empire-v2.vercel.app",
 };
 

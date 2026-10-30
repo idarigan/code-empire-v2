@@ -63,9 +63,9 @@ export default function SingleRulePage() {
   }
 
   const sections: ArticleSection[] = content.sections.map((s) => ({
-    title: s.title,
-    paragraphs: s.paragraphs,
-    hints: s.hints,
+    title: "title" in s ? s.title : undefined,
+    paragraphs: "paragraphs" in s ? s.paragraphs : undefined,
+    hints: "hints" in s ? s.hints : undefined,
   }));
 
   return (

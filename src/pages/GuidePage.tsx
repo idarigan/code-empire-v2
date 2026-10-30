@@ -11,7 +11,8 @@ import { TeachingMethod } from "@/features/courses/TeachingMethod";
 import { guide } from "@/content/guide";
 import { coursesPage } from "@/content/courses-page";
 import { home } from "@/content/home";
-import { nav, contact } from "@/content/common";
+import { nav } from "@/content/common";
+import { contact } from "@/content/contact";
 import { Icons } from "@/lib/icons";
 
 export default function GuidePage() {

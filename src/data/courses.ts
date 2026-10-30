@@ -19,11 +19,7 @@ export const courses: Course[] = [
     relatedCourses: ["tailwind", "bootstrap", "total-web"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 83 },
-      { icon: "clock", value: "۲۰ ساعت" },
-      { icon: "calendar", value: "۲۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -65,11 +61,7 @@ export const courses: Course[] = [
     relatedCourses: ["bootstrap", "html-css", "total-web"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 40 },
-      { icon: "clock", value: "۲۴ ساعت" },
-      { icon: "calendar", value: "۲۴" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -111,11 +103,7 @@ export const courses: Course[] = [
     relatedCourses: ["tailwind", "html-css", "total-web"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 67 },
-      { icon: "clock", value: "۲۰ ساعت" },
-      { icon: "calendar", value: "۲۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -151,11 +139,7 @@ export const courses: Course[] = [
     relatedCourses: ["html-css", "javascript", "tailwind", "bootstrap"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 157 },
-      { icon: "clock", value: "۵۰ ساعت" },
-      { icon: "calendar", value: "۵۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -195,11 +179,7 @@ export const courses: Course[] = [
     relatedCourses: ["total-web", "python-beginner"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 102 },
-      { icon: "clock", value: "۳۲ ساعت" },
-      { icon: "calendar", value: "۳۲" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -241,11 +221,7 @@ export const courses: Course[] = [
     relatedCourses: ["python-advanced", "javascript"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 147 },
-      { icon: "clock", value: "۲۰ ساعت" },
-      { icon: "calendar", value: "۲۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -284,11 +260,7 @@ export const courses: Course[] = [
     relatedCourses: ["python-beginner"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 100 },
-      { icon: "clock", value: "۳۰ ساعت" },
-      { icon: "calendar", value: "۳۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -326,11 +298,7 @@ export const courses: Course[] = [
     relatedCourses: ["c-plus-plus", "unity"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 44 },
-      { icon: "clock", value: "۳۵ ساعت" },
-      { icon: "calendar", value: "۳۵" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -367,11 +335,7 @@ export const courses: Course[] = [
     relatedCourses: ["c-sharp", "unreal-engine"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 61 },
-      { icon: "clock", value: "۴۰ ساعت" },
-      { icon: "calendar", value: "۴۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -412,11 +376,7 @@ export const courses: Course[] = [
     relatedCourses: ["c-sharp", "c-plus-plus"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 59 },
-      { icon: "clock", value: "۳۸ ساعت" },
-      { icon: "calendar", value: "۳۸" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -453,11 +413,7 @@ export const courses: Course[] = [
     relatedCourses: ["c-sharp", "unreal-engine"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 70 },
-      { icon: "clock", value: "۳۲ ساعت" },
-      { icon: "calendar", value: "۳۲" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -498,11 +454,7 @@ export const courses: Course[] = [
     relatedCourses: ["c-plus-plus", "unity"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 70 },
-      { icon: "clock", value: "۳۰ ساعت" },
-      { icon: "calendar", value: "۳۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {
@@ -545,11 +497,7 @@ export const courses: Course[] = [
     relatedCourses: ["unity", "unreal-engine"],
     learningOutcomes: 4,
     syllabus: [],
-    specs: [
-      { icon: "users", value: 98 },
-      { icon: "clock", value: "۲۰ ساعت" },
-      { icon: "calendar", value: "۲۰" },
-    ],
+    specs: [{ icon: "users" }, { icon: "clock" }, { icon: "calendar" }],
     details: [{ key: "name" }, { key: "prereq" }, { key: "method" }],
     sections: [
       {

@@ -13,7 +13,8 @@ import type { NavLink as DaraNavLink } from "dara-ui";
 import { Button } from "dara-ui";
 import { primaryNavLinks } from "@/data/constants";
 import { useUI, useProfile } from "@/contexts";
-import { nav, home } from "@/content/common";
+import { nav } from "@/content/common";
+import { home } from "@/content/home";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Icons } from "@/lib/icons";
 
