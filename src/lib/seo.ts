@@ -2,11 +2,10 @@
  * Code Empire — Document head helpers
  */
 
-import { translations, DEFAULT_LOCALE } from "@/translations";
+import { siteMeta as siteMetaContent } from "@/content/common";
 
-const SITE_NAME = "Code Empire";
-const DEFAULT_DESCRIPTION =
-  translations[DEFAULT_LOCALE]["siteMeta.description"];
+const SITE_NAME = siteMetaContent.name;
+const DEFAULT_DESCRIPTION = siteMetaContent.description;
 
 interface SEOOptions {
   title?: string;

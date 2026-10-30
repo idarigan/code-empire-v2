@@ -4,7 +4,6 @@
 
 import { useEffect } from "react";
 import { matchPath, useLocation } from "react-router-dom";
-import { useI18n } from "dara-ui";
 import { setSEO, setJSONLD, clearJSONLD } from "@/lib/seo";
 import { seoRoutes } from "@/config/seoRoutes";
 
@@ -12,7 +11,6 @@ let activeSchemaId: string | null = null;
 
 export function SEOManager() {
   const { pathname } = useLocation();
-  const { t } = useI18n();
 
   useEffect(() => {
     let matched: (typeof seoRoutes)[number] | null = null;
@@ -29,7 +27,7 @@ export function SEOManager() {
 
     if (!matched) return;
 
-    const result = matched.resolve(matchedParams, t);
+    const result = matched.resolve(matchedParams);
 
     setSEO({
       title: result.title,
@@ -57,7 +55,7 @@ export function SEOManager() {
       setJSONLD(result.jsonLd.id, result.jsonLd.data);
       activeSchemaId = result.jsonLd.id;
     }
-  }, [pathname, t]);
+  }, [pathname]);
 
   return null;
 }
