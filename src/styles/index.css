@@ -101,18 +101,18 @@ html[dir="rtl"] h6 {
    ====================================================== */
 
 .section {
-  padding-block: 4rem;
+  padding-block: 3rem;
   position: relative;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding-block: 6rem;
+    padding-block: 5rem;
   }
 }
 
 .section-container {
-  max-width: 80rem;
+  max-width: 72rem;
   margin-inline: auto;
   padding-inline: 1rem;
 }
