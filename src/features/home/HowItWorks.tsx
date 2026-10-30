@@ -3,47 +3,48 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { CharacterCard, Button, ScrollReveal, useI18n } from "dara-ui";
+import { CharacterCard, Button, ScrollReveal } from "dara-ui";
 import { classTypes } from "@/data/constants";
 import { SectionHeader } from "./SectionHeader";
+import { guide } from "@/content/guide";
+import { home } from "@/content/home";
 import { Icons } from "@/lib/icons";
 
-export function HowItWorks() {
-  const { t } = useI18n();
-  const navigate = useNavigate();
+const keyForSlug = (
+  slug: string,
+): "privateOnline" | "privateOffline" | "groupOnline" => {
+  if (slug === "private-online") return "privateOnline";
+  if (slug === "private-offline") return "privateOffline";
+  return "groupOnline";
+};
 
-  const keyForSlug = (slug: string) => {
-    if (slug === "private-online") return "privateOnline";
-    if (slug === "private-offline") return "privateOffline";
-    return "groupOnline";
-  };
+export function HowItWorks() {
+  const navigate = useNavigate();
 
   return (
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow={t("home.guideEyebrow")}
-          title={t("home.howItWorks")}
-          subtitle={t("guide.subtitle")}
+          eyebrow={home.guideEyebrow}
+          title={home.howItWorks}
+          subtitle={guide.subtitle}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {classTypes.map((cls, i) => {
-            const titleKey = `guide.${keyForSlug(cls.slug)}`;
-            const descKey = `${titleKey}Desc`;
-            const featureKey = (idx: number) =>
-              `guide.feature.${cls.slug.replace("-", "")}.${idx + 1}`;
+            const key = keyForSlug(cls.slug);
+            const title = guide[key];
+            const desc = guide[`${key}Desc` as keyof typeof guide] as string;
+            const features = guide.features[key];
 
             return (
               <ScrollReveal key={cls.slug} animation="fade-up" delay={i * 120}>
                 <CharacterCard
-                  name={t(titleKey)}
+                  name={title}
                   subtitle=""
-                  quote={t(descKey)}
+                  quote={desc}
                   portrait={cls.image}
-                  traits={Array.from({ length: cls.featureCount }, (_, idx) =>
-                    t(featureKey(idx)),
-                  )}
+                  traits={features}
                   glow={cls.glow}
                   layout="vertical"
                 />
@@ -60,7 +61,7 @@ export function HowItWorks() {
             leftIcon={<Icons.bookOpen className="h-4 w-4" />}
             onClick={() => navigate("/guide")}
           >
-            {t("home.viewGuide")}
+            {home.viewGuide}
           </Button>
         </div>
       </div>

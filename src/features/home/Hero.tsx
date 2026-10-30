@@ -14,18 +14,16 @@ import {
   NoiseOverlay,
   ScrollReveal,
   Badge,
-  useI18n,
 } from "dara-ui";
 import { TypeAnimation } from "react-type-animation";
 import { Icons } from "@/lib/icons";
+import { home } from "@/content/home";
 
 export function Hero() {
-  const { t } = useI18n();
   const navigate = useNavigate();
 
   return (
     <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden pt-10">
-      {/* Layered atmosphere */}
       <NoiseOverlay />
       <AuroraBlobs />
       <Particles count={50} />
@@ -35,13 +33,13 @@ export function Hero() {
         <div className="flex flex-col items-center text-center gap-6 max-w-3xl mx-auto">
           <ScrollReveal animation="fade-down">
             <Badge variant="primary" glow size="md">
-              {t("home.heroVersion")}
+              {home.heroVersion}
             </Badge>
           </ScrollReveal>
 
           <ScrollReveal animation="zoom-in" delay={100}>
             <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gradient-hero leading-[1.1]">
-              {t("home.heroTitle")}
+              {home.heroTitle}
             </h1>
           </ScrollReveal>
 
@@ -49,11 +47,11 @@ export function Hero() {
             <div className="h-10 md:h-12">
               <TypeAnimation
                 sequence={[
-                  t("home.heroType1"),
+                  home.heroType1,
                   2000,
-                  t("home.heroType2"),
+                  home.heroType2,
                   2000,
-                  t("home.heroType3"),
+                  home.heroType3,
                   2000,
                 ]}
                 wrapper="span"
@@ -66,7 +64,7 @@ export function Hero() {
 
           <ScrollReveal animation="fade-up" delay={300}>
             <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed max-w-2xl">
-              {t("home.heroSubtitle")}
+              {home.heroSubtitle}
             </p>
           </ScrollReveal>
 
@@ -79,7 +77,7 @@ export function Hero() {
                 leftIcon={<Icons.rocket className="h-4 w-4" />}
                 onClick={() => navigate("/courses")}
               >
-                {t("home.startLearning")}
+                {home.startLearning}
               </Button>
               <Button
                 variant="outline"
@@ -89,7 +87,7 @@ export function Hero() {
                 }
                 onClick={() => navigate("/guide")}
               >
-                {t("home.viewGuide")}
+                {home.viewGuide}
               </Button>
             </div>
           </ScrollReveal>

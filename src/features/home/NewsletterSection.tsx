@@ -5,14 +5,16 @@
  */
 
 import { useState, type FormEvent } from "react";
-import { Card, Input, Button, ScrollReveal, useI18n, useToast } from "dara-ui";
+import { Card, Input, Button, ScrollReveal, useToast } from "dara-ui";
 import { sendNewsletter } from "@/lib/emailjs";
 import { newsletterSchema, zodErrors } from "@/lib/validation";
 import { newsletterStore } from "@/lib/storage";
+import { home } from "@/content/home";
+import { contact } from "@/content/contact";
+import { form, common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function NewsletterSection() {
-  const { t } = useI18n();
   const toast = useToast();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +27,7 @@ export function NewsletterSection() {
     const parsed = newsletterSchema.safeParse({ email });
     if (!parsed.success) {
       const errs = zodErrors(parsed.error);
-      setError(errs.email ?? t("form.invalidEmail"));
+      setError(errs.email ?? form.invalidEmail);
       return;
     }
 
@@ -33,10 +35,10 @@ export function NewsletterSection() {
     try {
       await sendNewsletter({ email });
       await newsletterStore.add(email);
-      toast.success(t("home.newsletter"));
+      toast.success(home.newsletter);
       setEmail("");
     } catch {
-      toast.error(t("form.failed"));
+      toast.error(form.failed);
     } finally {
       setLoading(false);
     }
@@ -51,10 +53,10 @@ export function NewsletterSection() {
               <Icons.mail className="h-10 w-10" />
             </div>
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-2">
-              {t("home.newsletter")}
+              {home.newsletter}
             </h2>
             <p className="text-[var(--color-text-secondary)] text-sm mb-6">
-              {t("home.newsletterHint")}
+              {home.newsletterHint}
             </p>
 
             <form
@@ -63,7 +65,7 @@ export function NewsletterSection() {
             >
               <Input
                 type="email"
-                placeholder={t("contact.email")}
+                placeholder={contact.email}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 validation={error ? "error" : undefined}
@@ -80,7 +82,7 @@ export function NewsletterSection() {
                 loading={loading}
                 leftIcon={<Icons.send className="h-4 w-4" />}
               >
-                {t("common.save")}
+                {common.save}
               </Button>
             </form>
           </Card>

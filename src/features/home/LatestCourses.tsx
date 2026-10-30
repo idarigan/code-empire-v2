@@ -4,26 +4,28 @@
 
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Tabs, Button, useI18n } from "dara-ui";
+import { Tabs, Button } from "dara-ui";
 import type { TabItem } from "dara-ui";
 import { courses } from "@/data/courses";
 import type { CourseCategory } from "@/types";
 import { SectionHeader } from "./SectionHeader";
 import { CourseCard } from "./CourseCard";
+import { coursesPage } from "@/content/courses-page";
+import { home } from "@/content/home";
+import { common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export function LatestCourses() {
-  const { t } = useI18n();
   const navigate = useNavigate();
   const [category, setCategory] = useState<CourseCategory>("web");
 
   const items: TabItem[] = useMemo(
     () => [
-      { label: t("courses.web"), value: "web", content: null },
-      { label: t("courses.software"), value: "software", content: null },
-      { label: t("courses.game"), value: "game", content: null },
+      { label: coursesPage.web, value: "web", content: null },
+      { label: coursesPage.software, value: "software", content: null },
+      { label: coursesPage.game, value: "game", content: null },
     ],
-    [t],
+    [],
   );
 
   const filtered = useMemo(
@@ -39,9 +41,9 @@ export function LatestCourses() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow={t("home.coursesEyebrow")}
-          title={t("home.latestCourses")}
-          subtitle={t("courses.subtitle")}
+          eyebrow={home.coursesEyebrow}
+          title={home.latestCourses}
+          subtitle={coursesPage.subtitle}
           align="start"
           action={
             <Button
@@ -52,7 +54,7 @@ export function LatestCourses() {
               }
               onClick={() => navigate("/courses")}
             >
-              {t("common.viewAll")}
+              {common.viewAll}
             </Button>
           }
         />

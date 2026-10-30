@@ -3,9 +3,11 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { ProductCard, Badge, useI18n } from "dara-ui";
+import { ProductCard, Badge } from "dara-ui";
 import type { Course } from "@/types";
 import { formatPrice } from "@/lib/format";
+import { coursesContent } from "@/content/courses";
+import { coursesPage } from "@/content/courses-page";
 
 interface CourseCardProps {
   course: Course;
@@ -18,8 +20,10 @@ export function CourseCard({
   layout = "vertical",
   glow = "primary",
 }: CourseCardProps) {
-  const { t } = useI18n();
   const navigate = useNavigate();
+  const content = coursesContent[course.slug];
+
+  if (!content) return null;
 
   const remaining = course.capacity - course.enrolled;
   const isFull = remaining <= 0;
@@ -32,19 +36,19 @@ export function CourseCard({
       : ("primary" as const);
 
   const badgeText = isFull
-    ? t("courses.full")
+    ? coursesPage.full
     : isAlmost
-      ? t("courses.almostFull")
-      : `${remaining} ${t("courses.available")}`;
+      ? coursesPage.almostFull
+      : `${remaining} ${coursesPage.available}`;
 
   return (
     <div className="relative">
       <ProductCard
-        title={t(`course.${course.slug}.title`)}
-        description={t(`course.${course.slug}.description`)}
+        title={content.title}
+        description={content.description}
         price={formatPrice(course.price)}
         image={course.logo}
-        category={t(`courses.${course.category}`)}
+        category={coursesPage[course.category]}
         layout={layout}
         glow={glow}
         onAddToCart={() => navigate(`/courses/${course.slug}`)}

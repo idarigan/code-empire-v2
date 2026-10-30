@@ -5,36 +5,35 @@
  * Uses Dara UI Card + custom icons, staggered ScrollReveal.
  */
 
-import { Card, ScrollReveal, useI18n } from "dara-ui";
+import { Card, ScrollReveal } from "dara-ui";
 import { SectionHeader } from "./SectionHeader";
+import { home } from "@/content/home";
 import { Icons } from "@/lib/icons";
 
 export function WhyUs() {
-  const { t } = useI18n();
-
   const items = [
     {
       icon: <Icons.zap className="h-6 w-6" />,
-      title: t("home.whyUsItem1Title"),
-      desc: t("home.whyUsItem1Desc"),
+      title: home.whyUsItem1Title,
+      desc: home.whyUsItem1Desc,
       glow: "primary" as const,
     },
     {
       icon: <Icons.shieldCheck className="h-6 w-6" />,
-      title: t("home.whyUsItem2Title"),
-      desc: t("home.whyUsItem2Desc"),
+      title: home.whyUsItem2Title,
+      desc: home.whyUsItem2Desc,
       glow: "secondary" as const,
     },
     {
       icon: <Icons.messageCircle className="h-6 w-6" />,
-      title: t("home.whyUsItem3Title"),
-      desc: t("home.whyUsItem3Desc"),
+      title: home.whyUsItem3Title,
+      desc: home.whyUsItem3Desc,
       glow: "accent" as const,
     },
     {
       icon: <Icons.award className="h-6 w-6" />,
-      title: t("home.whyUsItem4Title"),
-      desc: t("home.whyUsItem4Desc"),
+      title: home.whyUsItem4Title,
+      desc: home.whyUsItem4Desc,
       glow: "primary" as const,
     },
   ];
@@ -43,9 +42,9 @@ export function WhyUs() {
     <section className="section">
       <div className="section-container">
         <SectionHeader
-          eyebrow={t("home.whyUsEyebrow")}
-          title={t("home.whyUs")}
-          subtitle={t("home.heroSubtitle")}
+          eyebrow={home.whyUsEyebrow}
+          title={home.whyUs}
+          subtitle={home.heroSubtitle}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
