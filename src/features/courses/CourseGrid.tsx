@@ -3,9 +3,11 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { ProductCard, Badge, useI18n } from "dara-ui";
+import { ProductCard, Badge } from "dara-ui";
 import type { Course } from "@/types";
 import { formatPrice } from "@/lib/format";
+import { coursesContent } from "@/content/courses";
+import { coursesPage } from "@/content/courses-page";
 import { Icons } from "@/lib/icons";
 
 interface CourseGridProps {
@@ -14,7 +16,6 @@ interface CourseGridProps {
 }
 
 export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
-  const { t } = useI18n();
   const navigate = useNavigate();
 
   if (courses.length === 0) {
@@ -22,7 +23,7 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
       <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
         <Icons.bookOpen className="h-10 w-10 text-[var(--color-text-tertiary)]" />
         <p className="text-[var(--color-text-secondary)] text-sm">
-          {t("courses.gridEmpty")}
+          {coursesPage.gridEmpty}
         </p>
       </div>
     );
@@ -37,6 +38,9 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
   return (
     <div className={`grid ${colsClass} gap-5`}>
       {courses.map((course) => {
+        const content = coursesContent[course.slug];
+        if (!content) return null;
+
         const remaining = course.capacity - course.enrolled;
         const isFull = remaining <= 0;
         const isAlmost = !isFull && remaining <= 5;
@@ -48,19 +52,19 @@ export function CourseGrid({ courses, columns = 3 }: CourseGridProps) {
             : ("primary" as const);
 
         const badgeText = isFull
-          ? t("courses.full")
+          ? coursesPage.full
           : isAlmost
-            ? t("courses.almostFull")
-            : `${remaining} ${t("courses.available")}`;
+            ? coursesPage.almostFull
+            : `${remaining} ${coursesPage.available}`;
 
         return (
           <div key={course.slug} className="relative">
             <ProductCard
-              title={t(`course.${course.slug}.title`)}
-              description={t(`course.${course.slug}.description`)}
+              title={content.title}
+              description={content.description}
               price={formatPrice(course.price)}
               image={course.logo}
-              category={t(`courses.${course.category}`)}
+              category={coursesPage[course.category]}
               layout="vertical"
               glow={
                 course.category === "web"

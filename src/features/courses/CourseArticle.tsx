@@ -2,7 +2,7 @@
  * Code Empire — Article renderer
  */
 
-import { Card, ScrollReveal, useI18n } from "dara-ui";
+import { Card, ScrollReveal } from "dara-ui";
 import type { ArticleSection } from "@/types";
 
 interface CourseArticleProps {
@@ -10,8 +10,6 @@ interface CourseArticleProps {
 }
 
 export function CourseArticle({ sections }: CourseArticleProps) {
-  const { t } = useI18n();
-
   if (sections.length === 0) return null;
 
   return (

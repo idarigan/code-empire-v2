@@ -4,49 +4,34 @@
  * Guide page section: four cards explaining how Code Empire teaches.
  */
 
-import { Card, ScrollReveal, useI18n } from "dara-ui";
+import { Card, ScrollReveal } from "dara-ui";
+import { guide } from "@/content/guide";
 import { Icons } from "@/lib/icons";
 
 export function TeachingMethod() {
-  const { t } = useI18n();
-
-  const items = [
-    {
-      icon: <Icons.target className="h-5 w-5" />,
-      title: t("guide.teachingMethodCard1Title"),
-      desc: t("guide.teachingMethodCard1Desc"),
-      glow: "primary" as const,
-    },
-    {
-      icon: <Icons.users className="h-5 w-5" />,
-      title: t("guide.teachingMethodCard2Title"),
-      desc: t("guide.teachingMethodCard2Desc"),
-      glow: "secondary" as const,
-    },
-    {
-      icon: <Icons.zap className="h-5 w-5" />,
-      title: t("guide.teachingMethodCard3Title"),
-      desc: t("guide.teachingMethodCard3Desc"),
-      glow: "accent" as const,
-    },
-    {
-      icon: <Icons.award className="h-5 w-5" />,
-      title: t("guide.teachingMethodCard4Title"),
-      desc: t("guide.teachingMethodCard4Desc"),
-      glow: "primary" as const,
-    },
+  const icons = [
+    <Icons.target className="h-5 w-5" key="1" />,
+    <Icons.users className="h-5 w-5" key="2" />,
+    <Icons.zap className="h-5 w-5" key="3" />,
+    <Icons.award className="h-5 w-5" key="4" />,
+  ];
+  const glows = [
+    "primary" as const,
+    "secondary" as const,
+    "accent" as const,
+    "primary" as const,
   ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {items.map((item, i) => (
+      {guide.teachingMethodCards.map((item, i) => (
         <ScrollReveal key={i} animation="fade-up" delay={i * 80}>
-          <Card glow={item.glow} float className="h-full">
+          <Card glow={glows[i]} float className="h-full">
             <div className="flex justify-center mb-3 text-[var(--color-primary)]">
               <div
-                className={`p-3 rounded-full bg-[var(--color-${item.glow}-light)]`}
+                className={`p-3 rounded-full bg-[var(--color-${glows[i]}-light)]`}
               >
-                {item.icon}
+                {icons[i]}
               </div>
             </div>
             <h3 className="font-heading font-bold text-sm text-center mb-2 text-[var(--color-text-primary)]">

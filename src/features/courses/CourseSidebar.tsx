@@ -3,9 +3,11 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import { Card, Badge, Button, Progress, useI18n } from "dara-ui";
+import { Card, Badge, Button, Progress } from "dara-ui";
 import type { Course } from "@/types";
 import { formatPrice } from "@/lib/format";
+import { coursesContent } from "@/content/courses";
+import { coursesPage } from "@/content/courses-page";
 import { Icons } from "@/lib/icons";
 
 interface CourseSidebarProps {
@@ -13,8 +15,9 @@ interface CourseSidebarProps {
 }
 
 export function CourseSidebar({ course }: CourseSidebarProps) {
-  const { t } = useI18n();
   const navigate = useNavigate();
+  const content = coursesContent[course.slug];
+  if (!content) return null;
 
   const remaining = course.capacity - course.enrolled;
   const isFull = remaining <= 0;
@@ -28,10 +31,10 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
       : ("primary" as const);
 
   const capacityText = isFull
-    ? t("courses.full")
+    ? coursesPage.full
     : isAlmost
-      ? t("courses.almostFull")
-      : `${remaining} ${t("courses.available")}`;
+      ? coursesPage.almostFull
+      : `${remaining} ${coursesPage.available}`;
 
   const goRegister = (type: "group" | "private") =>
     navigate(`/courses/register?course=${course.slug}&type=${type}`);
@@ -41,7 +44,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
       <Card glow={capacityVariant === "danger" ? "accent" : "primary"}>
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-text-tertiary)]">
-            {t("courses.capacity")}
+            {coursesPage.capacity}
           </span>
           <Badge variant={capacityVariant} size="sm" glow>
             {capacityText}
@@ -54,13 +57,17 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
           labelPosition="right"
         />
         <p className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
-          {course.enrolled} / {course.capacity} {t("courses.enrolled")}
+          {course.enrolled} / {course.capacity} {coursesPage.enrolled}
         </p>
       </Card>
 
       <div className="grid grid-cols-3 gap-2">
         {course.specs.map((spec) => {
           const Icon = Icons[spec.icon as keyof typeof Icons] ?? Icons.info;
+          const label =
+            content.specLabel[spec.icon as keyof typeof content.specLabel];
+          const value =
+            content.specValue[spec.icon as keyof typeof content.specValue];
           return (
             <Card
               key={spec.icon}
@@ -72,10 +79,10 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
                 <Icon className="h-4 w-4" />
               </div>
               <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mb-0.5 truncate">
-                {t(`course.${course.slug}.specLabel.${spec.icon}`)}
+                {label}
               </p>
               <p className="text-sm font-heading font-bold text-[var(--color-text-primary)] truncate">
-                {spec.value}
+                {value}
               </p>
             </Card>
           );
@@ -84,7 +91,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
 
       <Card variant="solid">
         <h3 className="font-heading font-bold text-sm mb-3 text-[var(--color-text-primary)]">
-          {t("courses.details")}
+          {coursesPage.details}
         </h3>
         <ul className="flex flex-col gap-2.5">
           {course.details.map((detail) => (
@@ -93,13 +100,13 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
               className="flex items-start justify-between gap-3 text-sm border-b border-[var(--color-border-secondary)] pb-2 last:border-b-0 last:pb-0"
             >
               <span className="text-[var(--color-text-tertiary)] font-mono text-xs flex-shrink-0">
-                {t(`course.${course.slug}.detailLabel.${detail.key}`)}
+                {content.detailLabel[detail.key]}
               </span>
               <span
                 className="text-[var(--color-text-primary)] text-end truncate"
                 dir="auto"
               >
-                {t(`course.${course.slug}.detailValue.${detail.key}`)}
+                {content.detailValue[detail.key]}
               </span>
             </li>
           ))}
@@ -109,7 +116,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
       <Card glow="secondary">
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-[var(--color-text-secondary)]">
-            {t("courses.price")}
+            {coursesPage.price}
           </span>
           <span className="font-heading font-bold text-lg text-[var(--color-primary)]">
             {formatPrice(course.price)}
@@ -124,7 +131,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
             leftIcon={<Icons.user className="h-4 w-4" />}
             onClick={() => goRegister("group")}
           >
-            {t("courses.registerGroup")}
+            {coursesPage.registerGroup}
           </Button>
           <Button
             variant="outline"
@@ -133,7 +140,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
             leftIcon={<Icons.crown className="h-4 w-4" />}
             onClick={() => goRegister("private")}
           >
-            {t("courses.registerPrivate")}
+            {coursesPage.registerPrivate}
           </Button>
         </div>
       </Card>
@@ -141,7 +148,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
       <Card variant="outline" padding="sm">
         <div className="flex items-start gap-2 text-xs text-[var(--color-text-tertiary)]">
           <Icons.info className="h-4 w-4 flex-shrink-0 text-[var(--color-accent)]" />
-          <p className="leading-relaxed">{t("courses.supportTitle")}</p>
+          <p className="leading-relaxed">{coursesPage.supportTitle}</p>
         </div>
       </Card>
     </aside>

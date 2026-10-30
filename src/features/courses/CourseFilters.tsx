@@ -4,9 +4,10 @@
  * Category tabs + search input. Filtering is fully clientside.
  */
 
-import { Tabs, Input, useI18n } from "dara-ui";
+import { Tabs, Input } from "dara-ui";
 import type { TabItem } from "dara-ui";
 import type { CourseCategory } from "@/types";
+import { coursesPage } from "@/content/courses-page";
 import { Icons } from "@/lib/icons";
 
 interface CourseFiltersProps {
@@ -22,13 +23,11 @@ export function CourseFilters({
   query,
   onQueryChange,
 }: CourseFiltersProps) {
-  const { t } = useI18n();
-
   const items: TabItem[] = [
-    { label: t("courses.all"), value: "all", content: null },
-    { label: t("courses.web"), value: "web", content: null },
-    { label: t("courses.software"), value: "software", content: null },
-    { label: t("courses.game"), value: "game", content: null },
+    { label: coursesPage.all, value: "all", content: null },
+    { label: coursesPage.web, value: "web", content: null },
+    { label: coursesPage.software, value: "software", content: null },
+    { label: coursesPage.game, value: "game", content: null },
   ];
 
   return (
@@ -43,7 +42,7 @@ export function CourseFilters({
       </div>
       <Input
         type="search"
-        placeholder={t("courses.searchPlaceholder")}
+        placeholder={coursesPage.searchPlaceholder}
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         leftIcon={<Icons.search className="h-4 w-4" />}

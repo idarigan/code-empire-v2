@@ -4,19 +4,14 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  Card,
-  Input,
-  Button,
-  Checkbox,
-  Dropdown,
-  useToast,
-  useI18n,
-} from "dara-ui";
+import { Card, Input, Button, Checkbox, Dropdown, useToast } from "dara-ui";
 import { courses, getCourseBySlug } from "@/data/courses";
 import { sendRegister } from "@/lib/emailjs";
 import { registerSchema, zodErrors } from "@/lib/validation";
 import { useProgress } from "@/contexts";
+import { coursesContent } from "@/content/courses";
+import { coursesPage, register as registerCopy } from "@/content/courses-page";
+import { form } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 interface FormState {
@@ -38,7 +33,6 @@ const EMPTY: FormState = {
 };
 
 export function RegistrationForm() {
-  const { t } = useI18n();
   const toast = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -49,7 +43,7 @@ export function RegistrationForm() {
     | "group"
     | "private";
 
-  const [form, setForm] = useState<FormState>({
+  const [formState, setForm] = useState<FormState>({
     ...EMPTY,
     courseSlug: initialSlug,
   });
@@ -67,12 +61,12 @@ export function RegistrationForm() {
     () =>
       courses.map((c) => ({
         value: c.slug,
-        label: t(`course.${c.slug}.title`),
+        label: coursesContent[c.slug]?.title ?? c.slug,
       })),
-    [t],
+    [],
   );
 
-  const selectedCourse = getCourseBySlug(form.courseSlug);
+  const selectedCourse = getCourseBySlug(formState.courseSlug);
 
   const setField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -86,36 +80,39 @@ export function RegistrationForm() {
     e.preventDefault();
     setErrors({});
 
-    const parsed = registerSchema.safeParse(form);
+    const parsed = registerSchema.safeParse(formState);
     if (!parsed.success) {
       setErrors(zodErrors(parsed.error));
       return;
     }
 
     if (!selectedCourse) {
-      setErrors({ courseSlug: t("form.required") });
+      setErrors({ courseSlug: form.required });
       return;
     }
+
+    const courseContent = coursesContent[selectedCourse.slug];
+    if (!courseContent) return;
 
     setSubmitting(true);
     try {
       await Promise.all([
         enroll(selectedCourse.slug, initialType),
         sendRegister({
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          phone: form.phone,
-          courseTitle: t(`course.${selectedCourse.slug}.title`),
+          firstName: formState.firstName,
+          lastName: formState.lastName,
+          email: formState.email,
+          phone: formState.phone,
+          courseTitle: courseContent.title,
           courseSlug: selectedCourse.slug,
         }),
       ]);
 
-      toast.success(t("register.success"));
-      setSuccess(t(`course.${selectedCourse.slug}.title`));
+      toast.success(registerCopy.success);
+      setSuccess(courseContent.title);
       setForm({ ...EMPTY });
     } catch {
-      toast.error(t("form.failed"));
+      toast.error(form.failed);
     } finally {
       setSubmitting(false);
     }
@@ -128,13 +125,13 @@ export function RegistrationForm() {
           <Icons.check className="h-12 w-12" />
         </div>
         <h2 className="font-heading text-2xl font-bold mb-2 text-[var(--color-text-primary)]">
-          {t("register.success")}
+          {registerCopy.success}
         </h2>
         <p className="text-sm text-[var(--color-text-secondary)] mb-2">
           {success}
         </p>
         <p className="text-xs text-[var(--color-text-tertiary)] mb-6">
-          {t("register.successDesc")}
+          {registerCopy.successDesc}
         </p>
         <div className="flex items-center gap-3 justify-center flex-wrap">
           <Button
@@ -142,14 +139,14 @@ export function RegistrationForm() {
             leftIcon={<Icons.dashboard className="h-4 w-4" />}
             onClick={() => navigate("/dashboard/courses")}
           >
-            {t("dashboard.courses")}
+            {coursesPage.leaderboard}
           </Button>
           <Button
             variant="outline"
             leftIcon={<Icons.home className="h-4 w-4" />}
             onClick={() => navigate("/")}
           >
-            {t("nav.home")}
+            {coursesPage.all}
           </Button>
         </div>
       </Card>
@@ -161,18 +158,18 @@ export function RegistrationForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            label={t("register.firstName")}
-            placeholder={t("register.firstName")}
-            value={form.firstName}
+            label={registerCopy.firstName}
+            placeholder={registerCopy.firstName}
+            value={formState.firstName}
             onChange={(e) => setField("firstName", e.target.value)}
             validation={errors.firstName ? "error" : undefined}
             errorMessage={errors.firstName}
             leftIcon={<Icons.user className="h-4 w-4" />}
           />
           <Input
-            label={t("register.lastName")}
-            placeholder={t("register.lastName")}
-            value={form.lastName}
+            label={registerCopy.lastName}
+            placeholder={registerCopy.lastName}
+            value={formState.lastName}
             onChange={(e) => setField("lastName", e.target.value)}
             leftIcon={<Icons.user className="h-4 w-4" />}
           />
@@ -180,20 +177,20 @@ export function RegistrationForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            label={t("register.email")}
+            label={registerCopy.email}
             type="email"
-            placeholder={t("register.email")}
-            value={form.email}
+            placeholder={registerCopy.email}
+            value={formState.email}
             onChange={(e) => setField("email", e.target.value)}
             validation={errors.email ? "error" : undefined}
             errorMessage={errors.email}
             leftIcon={<Icons.mail className="h-4 w-4" />}
           />
           <Input
-            label={t("register.phone")}
+            label={registerCopy.phone}
             type="tel"
             placeholder="09xxxxxxxxx"
-            value={form.phone}
+            value={formState.phone}
             onChange={(e) => setField("phone", e.target.value)}
             validation={errors.phone ? "error" : undefined}
             errorMessage={errors.phone}
@@ -202,13 +199,13 @@ export function RegistrationForm() {
         </div>
 
         <Dropdown
-          label={t("register.course")}
+          label={registerCopy.course}
           options={courseOptions}
-          value={form.courseSlug}
+          value={formState.courseSlug}
           onChange={(v) => setField("courseSlug", v)}
-          placeholder={t("register.selectCourse")}
+          placeholder={registerCopy.selectCourse}
           searchable
-          searchPlaceholder={t("command.placeholder")}
+          searchPlaceholder={registerCopy.selectCourse}
           fullWidth
           error={Boolean(errors.courseSlug)}
           errorMessage={errors.courseSlug}
@@ -216,8 +213,8 @@ export function RegistrationForm() {
 
         <div className="flex items-start gap-3">
           <Checkbox
-            label={t("register.terms")}
-            checked={form.acceptedTerms}
+            label={registerCopy.terms}
+            checked={formState.acceptedTerms}
             onCheckedChange={(v) => setField("acceptedTerms", v)}
             glow
           />
@@ -236,7 +233,7 @@ export function RegistrationForm() {
           loading={submitting}
           leftIcon={<Icons.rocket className="h-4 w-4" />}
         >
-          {submitting ? t("register.submitting") : t("register.submit")}
+          {submitting ? registerCopy.submitting : registerCopy.submit}
         </Button>
       </form>
     </Card>
