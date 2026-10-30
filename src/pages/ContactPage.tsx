@@ -4,24 +4,24 @@
  * Info cards, communication bridges, contact form.
  */
 
-import { ScrollReveal, useI18n } from "dara-ui";
+import { ScrollReveal } from "dara-ui";
 import { ContactInfo } from "@/features/contact/ContactInfo";
 import { ContactLinks } from "@/features/contact/ContactLinks";
 import { ContactForm } from "@/features/contact/ContactForm";
 import { SectionHeader } from "@/features/home/SectionHeader";
+import { contact } from "@/content/contact";
+import { nav } from "@/content/common";
 
 export default function ContactPage() {
-  const { t } = useI18n();
-
   return (
     <>
       <section className="section pt-8">
         <div className="section-container">
           <ScrollReveal animation="fade-up">
             <SectionHeader
-              eyebrow={t("nav.contact")}
-              title={t("contact.title")}
-              subtitle={t("contact.subtitle")}
+              eyebrow={nav.contact}
+              title={contact.title}
+              subtitle={contact.subtitle}
               align="center"
             />
           </ScrollReveal>

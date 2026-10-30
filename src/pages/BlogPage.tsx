@@ -4,18 +4,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Button, ScrollReveal, useI18n } from "dara-ui";
+import { Button, ScrollReveal } from "dara-ui";
 import { blogs } from "@/data/blogs";
 import { useDebounce } from "@/hooks";
 import { SectionHeader } from "@/features/home/SectionHeader";
 import { BlogGrid } from "@/features/blog/BlogGrid";
 import { BlogFilters, type BlogSort } from "@/features/blog/BlogFilters";
+import { blogPostsContent } from "@/content/blogs";
+import { blog } from "@/content/blog";
+import { nav, common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 const PAGE_SIZE = 9;
 
 export default function BlogPage() {
-  const { t } = useI18n();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [category, setCategory] = useState(
@@ -29,9 +31,12 @@ export default function BlogPage() {
 
   const allCategories = useMemo(() => {
     const set = new Set<string>();
-    blogs.forEach((b) => set.add(t(`blogPost.${b.slug}.category`)));
+    blogs.forEach((b) => {
+      const content = blogPostsContent[b.slug];
+      if (content) set.add(content.category);
+    });
     return Array.from(set);
-  }, [t]);
+  }, []);
 
   useEffect(() => {
     const current = searchParams.get("category") ?? "all";
@@ -53,21 +58,19 @@ export default function BlogPage() {
     const q = debouncedQuery.trim().toLowerCase();
 
     let list = blogs.filter((b) => {
-      const cat = t(`blogPost.${b.slug}.category`);
-      return category === "all" || cat === category;
+      const content = blogPostsContent[b.slug];
+      if (!content) return false;
+      return category === "all" || content.category === category;
     });
 
     if (q) {
       list = list.filter((b) => {
-        const title = t(`blogPost.${b.slug}.title`).toLowerCase();
-        const excerpt = t(`blogPost.${b.slug}.excerpt`).toLowerCase();
-        const tags = Array.from({ length: b.tagCount }, (_, i) =>
-          t(`blogPost.${b.slug}.tag.${i}`).toLowerCase(),
-        );
+        const content = blogPostsContent[b.slug];
+        if (!content) return false;
         return (
-          title.includes(q) ||
-          excerpt.includes(q) ||
-          tags.some((tag) => tag.includes(q))
+          content.title.toLowerCase().includes(q) ||
+          content.excerpt.toLowerCase().includes(q) ||
+          content.tags.some((tag) => tag.toLowerCase().includes(q))
         );
       });
     }
@@ -89,7 +92,7 @@ export default function BlogPage() {
     }
 
     return list;
-  }, [category, debouncedQuery, sort, t]);
+  }, [category, debouncedQuery, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -99,9 +102,9 @@ export default function BlogPage() {
       <div className="section-container">
         <ScrollReveal animation="fade-up">
           <SectionHeader
-            eyebrow={t("nav.blog")}
-            title={t("blog.title")}
-            subtitle={t("blog.subtitle")}
+            eyebrow={nav.blog}
+            title={blog.title}
+            subtitle={blog.subtitle}
             align="start"
           />
         </ScrollReveal>
@@ -127,7 +130,7 @@ export default function BlogPage() {
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               leftIcon={<Icons.chevronRight className="h-3.5 w-3.5" />}
             >
-              {t("common.previous")}
+              {common.previous}
             </Button>
 
             <div className="flex items-center gap-1">
@@ -154,7 +157,7 @@ export default function BlogPage() {
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               rightIcon={<Icons.chevronLeft className="h-3.5 w-3.5" />}
             >
-              {t("common.next")}
+              {common.next}
             </Button>
           </div>
         )}

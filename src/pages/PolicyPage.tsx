@@ -2,24 +2,24 @@
  * Code Empire — Policy overview
  */
 
-import { Card, ScrollReveal, useI18n } from "dara-ui";
+import { Card, ScrollReveal } from "dara-ui";
 import { RulesBill } from "@/features/policy/RulesBill";
 import { RulesList } from "@/features/policy/RulesList";
 import { SectionHeader } from "@/features/home/SectionHeader";
+import { policy } from "@/content/policy";
+import { nav } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export default function PolicyPage() {
-  const { t } = useI18n();
-
   return (
     <>
       <section className="section pt-8">
         <div className="section-container">
           <ScrollReveal animation="fade-up">
             <SectionHeader
-              eyebrow={t("nav.policy")}
-              title={t("policy.title")}
-              subtitle={t("policy.subtitle")}
+              eyebrow={nav.policy}
+              title={policy.title}
+              subtitle={policy.subtitle}
               align="center"
             />
           </ScrollReveal>
@@ -31,7 +31,7 @@ export default function PolicyPage() {
           >
             <div className="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]">
               <Icons.info className="h-5 w-5 flex-shrink-0 text-[var(--color-accent)]" />
-              <p className="leading-relaxed">{t("policy.validFrom")}</p>
+              <p className="leading-relaxed">{policy.validFrom}</p>
             </div>
           </Card>
         </div>
@@ -40,8 +40,8 @@ export default function PolicyPage() {
       <section className="section pt-0">
         <div className="section-container">
           <SectionHeader
-            eyebrow={t("policy.charter")}
-            title={t("policy.charter")}
+            eyebrow={policy.charter}
+            title={policy.charter}
             align="start"
           />
           <RulesBill />
@@ -51,8 +51,8 @@ export default function PolicyPage() {
       <section className="section">
         <div className="section-container">
           <SectionHeader
-            eyebrow={t("policy.rules")}
-            title={t("policy.rules")}
+            eyebrow={policy.rules}
+            title={policy.rules}
             align="start"
           />
           <RulesList />

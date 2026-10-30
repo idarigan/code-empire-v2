@@ -3,7 +3,7 @@
  */
 
 import { useMemo, useState } from "react";
-import { ScrollReveal, Accordion, useI18n } from "dara-ui";
+import { ScrollReveal, Accordion } from "dara-ui";
 import { courses } from "@/data/courses";
 import type { CourseCategory } from "@/types";
 import { useDebounce } from "@/hooks";
@@ -11,9 +11,12 @@ import { SectionHeader } from "@/features/home/SectionHeader";
 import { CourseGrid } from "@/features/courses/CourseGrid";
 import { CourseFilters } from "@/features/courses/CourseFilters";
 import { Leaderboard } from "@/features/courses/Leaderboard";
+import { coursesContent } from "@/content/courses";
+import { coursesPage, register } from "@/content/courses-page";
+import { home } from "@/content/home";
+import { nav } from "@/content/common";
 
 export default function CoursesPage() {
-  const { t } = useI18n();
   const [category, setCategory] = useState<CourseCategory | "all">("all");
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
@@ -24,27 +27,28 @@ export default function CoursesPage() {
       .filter((c) => category === "all" || c.category === category)
       .filter((c) => {
         if (!q) return true;
-        const title = t(`course.${c.slug}.title`).toLowerCase();
-        return title.includes(q);
+        const content = coursesContent[c.slug];
+        if (!content) return false;
+        return content.title.toLowerCase().includes(q);
       })
       .sort((a, b) => a.rank - b.rank);
-  }, [category, debouncedQuery, t]);
+  }, [category, debouncedQuery]);
 
   const faq = [
     {
       id: "faq-1",
-      title: t("courses.prerequisite"),
-      content: <p>{t("courses.noPrerequisite")}</p>,
+      title: coursesPage.prerequisite,
+      content: <p>{coursesPage.noPrerequisite}</p>,
     },
     {
       id: "faq-2",
-      title: t("register.title"),
-      content: <p>{t("register.subtitle")}</p>,
+      title: register.title,
+      content: <p>{register.subtitle}</p>,
     },
     {
       id: "faq-3",
-      title: t("courses.capacity"),
-      content: <p>{t("courses.capacity")}</p>,
+      title: coursesPage.capacity,
+      content: <p>{coursesPage.capacity}</p>,
     },
   ];
 
@@ -54,9 +58,9 @@ export default function CoursesPage() {
         <div className="section-container">
           <ScrollReveal animation="fade-up">
             <SectionHeader
-              eyebrow={t("nav.courses")}
-              title={t("courses.title")}
-              subtitle={t("courses.subtitle")}
+              eyebrow={nav.courses}
+              title={coursesPage.title}
+              subtitle={coursesPage.subtitle}
               align="start"
             />
           </ScrollReveal>
@@ -75,9 +79,9 @@ export default function CoursesPage() {
       <section className="section">
         <div className="section-container">
           <SectionHeader
-            eyebrow="Top"
-            title={t("courses.leaderboard")}
-            subtitle={t("home.heroSubtitle")}
+            eyebrow={coursesPage.leaderboardEyebrow}
+            title={coursesPage.leaderboard}
+            subtitle={home.heroSubtitle}
           />
           <Leaderboard />
         </div>
@@ -86,9 +90,9 @@ export default function CoursesPage() {
       <section className="section">
         <div className="section-container">
           <SectionHeader
-            eyebrow="FAQ"
-            title={t("courses.faq")}
-            subtitle={t("home.heroSubtitle")}
+            eyebrow={coursesPage.faqEyebrow}
+            title={coursesPage.faq}
+            subtitle={home.heroSubtitle}
           />
           <Accordion items={faq} multiple={false} size="md" />
         </div>
