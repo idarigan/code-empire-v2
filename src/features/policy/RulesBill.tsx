@@ -2,17 +2,15 @@
  * Code Empire — Rules bill
  */
 
-import { Card, Badge, ScrollReveal, useI18n } from "dara-ui";
-import { charterBill } from "@/data/policy";
-import type { CharterItem } from "@/types";
+import { Card, Badge, ScrollReveal } from "dara-ui";
+import { charter } from "@/content/policy-rules";
+import { policy } from "@/content/policy";
 
 interface RulesBillProps {
-  items?: CharterItem[];
+  items?: typeof charter;
 }
 
-export function RulesBill({ items = charterBill }: RulesBillProps) {
-  const { t } = useI18n();
-
+export function RulesBill({ items = charter }: RulesBillProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((item, i) => (
@@ -23,14 +21,14 @@ export function RulesBill({ items = charterBill }: RulesBillProps) {
                 #{item.id}
               </Badge>
               <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-tertiary)]">
-                {t("policy.charter")}
+                {policy.charter}
               </span>
             </div>
             <h3 className="font-heading font-bold text-base mb-2 text-[var(--color-text-primary)]">
-              {t(`charter.${item.id}.title`)}
+              {item.title}
             </h3>
             <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-              {t(`charter.${item.id}.body`)}
+              {item.body}
             </p>
           </Card>
         </ScrollReveal>
