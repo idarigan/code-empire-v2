@@ -123,7 +123,6 @@ html[dir="rtl"] h6 {
   }
 }
 
-/* Narrow container for single-article / single-course reading */
 .section-container-narrow {
   max-width: 46rem;
   margin-inline: auto;
@@ -133,6 +132,85 @@ html[dir="rtl"] h6 {
 @media (min-width: 768px) {
   .section-container-narrow {
     padding-inline: 2rem;
+  }
+}
+
+/* ======================================================
+   MARQUEE — TrustBar logo scroller (CSS only)
+   ====================================================== */
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  flex-shrink: 0;
+  padding-inline: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* RTL: slide the other way so the flow feels natural */
+html[dir="rtl"] .marquee__track {
+  animation-name: marquee-scroll-rtl;
+}
+
+@keyframes marquee-scroll-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  .marquee__item {
+    padding-inline: 1rem;
   }
 }
 

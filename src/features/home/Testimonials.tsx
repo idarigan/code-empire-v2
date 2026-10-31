@@ -1,10 +1,8 @@
 /**
- * Code Empire — Testimonials carousel
+ * Code Empire — Testimonials
  */
 
-import { Splide, SplideSlide } from "@trg69/react-splide";
-import "@trg69/react-splide/css";
-import { Card, Avatar, Badge } from "dara-ui";
+import { Card, Avatar, Badge, ScrollReveal } from "dara-ui";
 import { testimonials } from "@/data/testimonials";
 import { SectionHeader } from "./SectionHeader";
 import { testimonialCopy } from "@/content/testimonials";
@@ -21,26 +19,17 @@ export function Testimonials() {
           subtitle={home.heroSubtitle}
         />
 
-        <Splide
-          options={{
-            type: "loop",
-            perPage: 3,
-            gap: "1.5rem",
-            pagination: true,
-            arrows: true,
-            breakpoints: {
-              1024: { perPage: 2 },
-              768: { perPage: 1 },
-            },
-          }}
-          aria-label={home.testimonials}
-        >
-          {testimonials.map((review) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          {testimonials.map((review, i) => {
             const copy =
               testimonialCopy[review.slug as keyof typeof testimonialCopy];
             if (!copy) return null;
             return (
-              <SplideSlide key={review.slug}>
+              <ScrollReveal
+                key={review.slug}
+                animation="fade-up"
+                delay={i * 80}
+              >
                 <Card glow="primary" className="h-full flex flex-col gap-4">
                   <div className="flex items-center gap-3">
                     <Avatar
@@ -60,9 +49,9 @@ export function Testimonials() {
                   </div>
 
                   <div className="flex items-center gap-1 text-[var(--color-warning)]">
-                    {Array.from({ length: review.rating }).map((_, i) => (
+                    {Array.from({ length: review.rating }).map((_, idx) => (
                       <Icons.star
-                        key={i}
+                        key={idx}
                         className="h-3.5 w-3.5 fill-current"
                       />
                     ))}
@@ -79,10 +68,10 @@ export function Testimonials() {
                     </Badge>
                   )}
                 </Card>
-              </SplideSlide>
+              </ScrollReveal>
             );
           })}
-        </Splide>
+        </div>
       </div>
     </section>
   );

@@ -2,51 +2,42 @@
  * Code Empire — Trusted-by bar
  */
 
-import { Splide, SplideSlide } from "@trg69/react-splide";
-import "@trg69/react-splide/css";
 import { companies } from "@/data/companies";
 import { companyNames } from "@/content/companies";
 import { home } from "@/content/home";
 
 export function TrustBar() {
+  const items = [...companies, ...companies];
+
   return (
-    <section className="py-10 border-y border-[var(--color-border-secondary)] bg-[var(--color-bg-secondary)]/40">
+    <section className="py-10 border-y border-[var(--color-border-secondary)] bg-[var(--color-bg-secondary)]/40 overflow-hidden">
       <div className="section-container">
         <p className="text-center text-xs md:text-sm font-mono uppercase tracking-widest text-[var(--color-text-tertiary)] mb-6">
           {home.trustedBy}
         </p>
+      </div>
 
-        <Splide
-          options={{
-            type: "loop",
-            autoWidth: true,
-            gap: "3rem",
-            arrows: false,
-            pagination: false,
-            drag: "free",
-            autoScroll: {
-              speed: 0.8,
-              pauseOnHover: true,
-            },
-            breakpoints: {
-              768: { gap: "2rem" },
-            },
-          }}
-          aria-label={home.trustedBy}
-        >
-          {companies.map((company) => (
-            <SplideSlide key={company.slug}>
-              <div className="flex items-center justify-center h-16 px-4 opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <img
-                  src={company.logo}
-                  alt={companyNames[company.slug as keyof typeof companyNames]}
-                  className="h-10 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                  loading="lazy"
-                />
-              </div>
-            </SplideSlide>
+      <div className="marquee">
+        <div className="marquee__track">
+          {items.map((company, i) => (
+            <div
+              key={`${company.slug}-${i}`}
+              className="marquee__item"
+              aria-hidden={i >= companies.length ? true : undefined}
+            >
+              <img
+                src={company.logo}
+                alt={
+                  i < companies.length
+                    ? companyNames[company.slug as keyof typeof companyNames]
+                    : ""
+                }
+                className="h-10 w-auto object-contain filter grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
           ))}
-        </Splide>
+        </div>
       </div>
     </section>
   );
