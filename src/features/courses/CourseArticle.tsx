@@ -13,9 +13,9 @@ export function CourseArticle({ sections }: CourseArticleProps) {
   if (sections.length === 0) return null;
 
   return (
-    <article className="flex flex-col gap-12">
+    <article className="flex flex-col gap-10 md:gap-12">
       {sections.map((section, i) => (
-        <ScrollReveal key={i} animation="fade-up" delay={i * 60}>
+        <ScrollReveal key={i} animation="fade-up" delay={i * 40}>
           <div className="flex flex-col gap-4">
             {section.cover && (
               <Card variant="solid" padding="none" className="overflow-hidden">
@@ -25,7 +25,7 @@ export function CourseArticle({ sections }: CourseArticleProps) {
                     muted
                     loop
                     controls
-                    className="w-full max-h-[60vh] object-cover"
+                    className="w-full aspect-video object-cover"
                   >
                     <source src={section.cover} />
                   </video>
@@ -33,7 +33,7 @@ export function CourseArticle({ sections }: CourseArticleProps) {
                   <img
                     src={section.cover}
                     alt={section.title ?? ""}
-                    className="w-full max-h-[60vh] object-cover"
+                    className="w-full aspect-video object-cover"
                     loading="lazy"
                   />
                 )}
@@ -41,7 +41,7 @@ export function CourseArticle({ sections }: CourseArticleProps) {
             )}
 
             {section.title && (
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-gradient-primary">
+              <h2 className="font-heading text-xl md:text-2xl font-bold text-[var(--color-text-primary)]">
                 {section.title}
               </h2>
             )}
@@ -49,7 +49,7 @@ export function CourseArticle({ sections }: CourseArticleProps) {
             {section.paragraphs?.map((p, j) => (
               <p
                 key={j}
-                className="text-[var(--color-text-secondary)] leading-relaxed"
+                className="text-[var(--color-text-secondary)] text-[15px] md:text-base leading-[1.9]"
                 dir="auto"
               >
                 {p}
@@ -57,11 +57,11 @@ export function CourseArticle({ sections }: CourseArticleProps) {
             ))}
 
             {section.hints && section.hints.length > 0 && (
-              <ul className="flex flex-col gap-3 ps-6 list-disc">
+              <ul className="flex flex-col gap-2.5 ps-5 list-disc marker:text-[var(--color-primary)]">
                 {section.hints.map((hint, j) => (
                   <li
                     key={j}
-                    className="text-[var(--color-text-secondary)] leading-relaxed"
+                    className="text-[var(--color-text-secondary)] text-[15px] md:text-base leading-[1.9]"
                     dir="auto"
                   >
                     {hint}

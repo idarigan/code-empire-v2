@@ -40,7 +40,41 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
     navigate(`/courses/register?course=${course.slug}&type=${type}`);
 
   return (
-    <aside className="flex flex-col gap-5 sticky top-24 self-start">
+    <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:self-start">
+      {/* ---------- Price + CTA (top priority) ---------- */}
+      <Card glow="secondary">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-sm text-[var(--color-text-secondary)]">
+            {coursesPage.price}
+          </span>
+          <span className="font-heading font-bold text-xl text-[var(--color-primary)]">
+            {formatPrice(course.price)}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <Button
+            variant="primary"
+            fullWidth
+            disabled={isFull}
+            leftIcon={<Icons.user className="h-4 w-4" />}
+            onClick={() => goRegister("group")}
+          >
+            {coursesPage.registerGroup}
+          </Button>
+          <Button
+            variant="outline"
+            fullWidth
+            disabled={isFull}
+            leftIcon={<Icons.crown className="h-4 w-4" />}
+            onClick={() => goRegister("private")}
+          >
+            {coursesPage.registerPrivate}
+          </Button>
+        </div>
+      </Card>
+
+      {/* ---------- Capacity ---------- */}
       <Card glow={capacityVariant === "danger" ? "accent" : "primary"}>
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-mono uppercase tracking-wider text-[var(--color-text-tertiary)]">
@@ -61,6 +95,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         </p>
       </Card>
 
+      {/* ---------- Specs ---------- */}
       <div className="grid grid-cols-3 gap-2">
         {course.specs.map((spec) => {
           const Icon = Icons[spec.icon as keyof typeof Icons] ?? Icons.info;
@@ -89,6 +124,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         })}
       </div>
 
+      {/* ---------- Details ---------- */}
       <Card variant="solid">
         <h3 className="font-heading font-bold text-sm mb-3 text-[var(--color-text-primary)]">
           {coursesPage.details}
@@ -113,38 +149,7 @@ export function CourseSidebar({ course }: CourseSidebarProps) {
         </ul>
       </Card>
 
-      <Card glow="secondary">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-[var(--color-text-secondary)]">
-            {coursesPage.price}
-          </span>
-          <span className="font-heading font-bold text-lg text-[var(--color-primary)]">
-            {formatPrice(course.price)}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <Button
-            variant="primary"
-            fullWidth
-            disabled={isFull}
-            leftIcon={<Icons.user className="h-4 w-4" />}
-            onClick={() => goRegister("group")}
-          >
-            {coursesPage.registerGroup}
-          </Button>
-          <Button
-            variant="outline"
-            fullWidth
-            disabled={isFull}
-            leftIcon={<Icons.crown className="h-4 w-4" />}
-            onClick={() => goRegister("private")}
-          >
-            {coursesPage.registerPrivate}
-          </Button>
-        </div>
-      </Card>
-
+      {/* ---------- Support note ---------- */}
       <Card variant="outline" padding="sm">
         <div className="flex items-start gap-2 text-xs text-[var(--color-text-tertiary)]">
           <Icons.info className="h-4 w-4 flex-shrink-0 text-[var(--color-accent)]" />

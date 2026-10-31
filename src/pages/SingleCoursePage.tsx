@@ -68,18 +68,12 @@ export default function SingleCoursePage() {
 
   return (
     <>
-      <section className="relative pt-20 pb-10 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `linear-gradient(135deg, ${course.color[0]}, ${course.color[1]})`,
-            filter: "blur(100px)",
-            transform: "scale(1.5)",
-          }}
-          aria-hidden="true"
-        />
-        <div className="section-container relative">
-          <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] font-mono mb-4">
+      {/* ============================================ */}
+      {/* Header — breadcrumb + logo + title block */}
+      {/* ============================================ */}
+      <section className="section pt-8 pb-6">
+        <div className="section-container">
+          <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] font-mono mb-6 flex-wrap">
             <button
               type="button"
               onClick={() => navigate("/")}
@@ -96,30 +90,44 @@ export default function SingleCoursePage() {
               {nav.courses}
             </button>
             <Icons.chevronLeft className="h-3 w-3 rtl:-scale-x-100" />
-            <span className="text-[var(--color-text-secondary)] truncate">
+            <span className="text-[var(--color-text-secondary)] truncate max-w-[16rem]">
               {content.title}
             </span>
           </div>
 
           <ScrollReveal animation="fade-up">
-            <div className="flex flex-col gap-3 max-w-3xl">
-              <Badge variant="primary" glow>
-                {coursesPage[course.category]}
-              </Badge>
-              <h1 className="font-heading text-3xl md:text-5xl font-bold text-gradient-hero">
-                {content.title}
-              </h1>
-              <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed">
-                {content.description}
-              </p>
+            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-[var(--radius-md)] overflow-hidden bg-[var(--color-bg-tertiary)] flex-shrink-0 ring-1 ring-[var(--color-border-primary)]">
+                <img
+                  src={course.logo}
+                  alt={content.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2 min-w-0">
+                <Badge variant="primary" glow>
+                  {coursesPage[course.category]}
+                </Badge>
+                <h1 className="font-heading text-2xl md:text-4xl font-bold text-[var(--color-text-primary)] leading-[1.2]">
+                  {content.title}
+                </h1>
+                <p className="text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed">
+                  {content.description}
+                </p>
+              </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      <section className="section pt-4">
+      {/* ============================================ */}
+      {/* Body + sidebar */}
+      {/* ============================================ */}
+      <section className="pb-12">
         <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-8 lg:gap-10">
             <div className="min-w-0">
               <CourseArticle sections={sections} />
 
@@ -159,8 +167,11 @@ export default function SingleCoursePage() {
         </div>
       </section>
 
+      {/* ============================================ */}
+      {/* Related courses */}
+      {/* ============================================ */}
       {related.length > 0 && (
-        <section className="section">
+        <section className="section pt-4 border-t border-[var(--color-border-secondary)]">
           <div className="section-container">
             <SectionHeader
               eyebrow={coursesPage.relatedEyebrow}
