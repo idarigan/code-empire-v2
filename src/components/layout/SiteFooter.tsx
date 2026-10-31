@@ -11,18 +11,32 @@ import {
   contactInfo,
   siteMeta,
 } from "@/data/constants";
-import { footer, social, siteMeta as siteMetaContent } from "@/content/common";
+import {
+  footer,
+  nav,
+  social,
+  siteMeta as siteMetaContent,
+} from "@/content/common";
 import { contactInfo as contactInfoContent } from "@/content/contact";
 import { NewsletterMini } from "./NewsletterMini";
 
+// ============================================
+// Label resolver — footer first, then nav
+// ============================================
+
+function resolveLabel(key: string): string {
+  const bare = key.replace(/^(footer|nav)\./, "");
+  const table = key.startsWith("nav.")
+    ? nav
+    : (footer as Record<string, string>);
+  return table[bare] ?? footer[bare as keyof typeof footer] ?? bare;
+}
+
 export function SiteFooter() {
   const columns: DaraFooterColumn[] = footerColumns.map((col) => ({
-    title:
-      footer[col.titleKey.replace("footer.", "") as keyof typeof footer] ??
-      col.titleKey,
+    title: resolveLabel(col.titleKey),
     links: col.links.map((l) => ({
-      label:
-        footer[l.key.replace("footer.", "") as keyof typeof footer] ?? l.key,
+      label: resolveLabel(l.key),
       href: l.href,
       external: l.external,
     })),

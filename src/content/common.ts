@@ -136,4 +136,7 @@ export const footer = {
   newsletterButton: "ذخیره",
   copyrightPrefix: "© {year} — تمام حقوق برای امپراتوری کد محفوظ است.",
   policy: "قوانین",
+  home: "خانه",
+  courses: "دوره‌ها",
+  guide: "راهنمای دوره",
 };
