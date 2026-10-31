@@ -8,7 +8,8 @@
 import { Card, XPBar, ScrollReveal } from "dara-ui";
 import { useProgress } from "@/contexts";
 import { formatNumber } from "@/lib/format";
-import { getLevelForXP, getTierForXP, RankBadge } from "./RankBadge";
+import { getLevelForXP, getTierForXP } from "./rankTiers";
+import { RankBadge } from "./RankBadge";
 import { dashboard } from "@/content/dashboard";
 import { tierLabels } from "@/content/ranking";
 import { common } from "@/content/common";
