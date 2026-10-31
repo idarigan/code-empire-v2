@@ -31,7 +31,7 @@ const items = [
 
 export function HalfSections() {
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-10 md:gap-14">
       {items.map((item, i) => {
         const reverse = i % 2 === 1;
         return (
@@ -41,7 +41,7 @@ export function HalfSections() {
             delay={i * 80}
           >
             <div
-              className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${
+              className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center ${
                 reverse ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
@@ -54,7 +54,7 @@ export function HalfSections() {
                 />
               </Card>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3 md:gap-4">
                 <Badge
                   variant={item.glow === "accent" ? "primary" : item.glow}
                   size="sm"
@@ -65,10 +65,10 @@ export function HalfSections() {
                     {item.title}
                   </span>
                 </Badge>
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-gradient-primary">
+                <h2 className="font-heading text-xl md:text-2xl lg:text-3xl font-bold text-gradient-primary">
                   {item.title}
                 </h2>
-                <p className="text-[var(--color-text-secondary)] leading-relaxed">
+                <p className="text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed">
                   {item.desc}
                 </p>
               </div>

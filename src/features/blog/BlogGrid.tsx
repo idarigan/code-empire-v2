@@ -31,8 +31,8 @@ export function BlogGrid({ blogs, columns = 3, emptyMessage }: BlogGridProps) {
 
   const colsClass =
     columns === 2
-      ? "grid-cols-1 md:grid-cols-2"
-      : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
+      ? "grid-cols-1 sm:grid-cols-2"
+      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
 
   const glowCycle: ("primary" | "secondary" | "accent")[] = [
     "primary",
@@ -41,7 +41,7 @@ export function BlogGrid({ blogs, columns = 3, emptyMessage }: BlogGridProps) {
   ];
 
   return (
-    <div className={`grid ${colsClass} gap-5`}>
+    <div className={`grid ${colsClass} gap-4 md:gap-5`}>
       {blogs.map((post, i) => {
         const content = blogPostsContent[post.slug];
         if (!content) return null;

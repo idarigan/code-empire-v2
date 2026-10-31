@@ -47,7 +47,7 @@ export function WhyUs() {
           subtitle={home.heroSubtitle}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {items.map((item, i) => (
             <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
               <Card glow={item.glow} float className="h-full text-center">

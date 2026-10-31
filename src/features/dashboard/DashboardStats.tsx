@@ -41,13 +41,13 @@ export function DashboardStats() {
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {items.map((item, i) => (
         <Card key={i} glow={item.glow} padding="sm">
           <div className="flex items-center gap-2 mb-2 text-[var(--color-primary)]">
             {item.icon}
           </div>
-          <p className="text-2xl font-heading font-bold text-[var(--color-text-primary)]">
+          <p className="text-xl md:text-2xl font-heading font-bold text-[var(--color-text-primary)]">
             {item.value}
           </p>
           <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono truncate">

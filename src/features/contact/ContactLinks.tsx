@@ -31,7 +31,7 @@ export function ContactLinks() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
       <Card glow="primary">
         <h3 className="font-heading font-bold text-base mb-4">
           {contact.bridges}

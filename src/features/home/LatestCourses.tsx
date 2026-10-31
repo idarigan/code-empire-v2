@@ -59,7 +59,7 @@ export function LatestCourses() {
           }
         />
 
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <Tabs
             items={items}
             activeValue={category}
@@ -68,7 +68,7 @@ export function LatestCourses() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {filtered.map((course) => (
             <CourseCard key={course.slug} course={course} />
           ))}

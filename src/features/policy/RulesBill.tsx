@@ -12,7 +12,7 @@ interface RulesBillProps {
 
 export function RulesBill({ items = charter }: RulesBillProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((item, i) => (
         <ScrollReveal key={item.id} animation="fade-up" delay={i * 60}>
           <Card glow="accent" float className="h-full">
