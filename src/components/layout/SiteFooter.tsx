@@ -26,10 +26,16 @@ import { NewsletterMini } from "./NewsletterMini";
 
 function resolveLabel(key: string): string {
   const bare = key.replace(/^(footer|nav)\./, "");
-  const table = key.startsWith("nav.")
-    ? nav
-    : (footer as Record<string, string>);
-  return table[bare] ?? footer[bare as keyof typeof footer] ?? bare;
+
+  if (key.startsWith("nav.")) {
+    const fromNav = (nav as Record<string, string>)[bare];
+    if (fromNav) return fromNav;
+  }
+
+  const fromFooter = (footer as Record<string, string>)[bare];
+  if (fromFooter) return fromFooter;
+
+  return bare;
 }
 
 export function SiteFooter() {
