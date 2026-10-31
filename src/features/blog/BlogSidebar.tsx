@@ -22,9 +22,9 @@ export function BlogSidebar({ author, currentSlug }: BlogSidebarProps) {
   const currentContent = blogPostsContent[currentSlug];
 
   return (
-    <aside className="flex flex-col gap-5 sticky top-24 self-start">
+    <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:self-start">
       <Card glow="primary">
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center gap-3 mb-1">
           <Avatar
             src={author.avatar}
             fallbackText={displayName}

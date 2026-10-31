@@ -59,20 +59,12 @@ export default function SingleBlogPage() {
 
   return (
     <>
-      <section className="relative pt-20 pb-8 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage: `url(${post.coverImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "blur(60px)",
-            transform: "scale(1.3)",
-          }}
-          aria-hidden="true"
-        />
-        <div className="section-container relative">
-          <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] font-mono mb-4">
+      {/* ============================================ */}
+      {/* Header wich is breadcrumb + title block */}
+      {/* ============================================ */}
+      <section className="section pt-8 pb-6">
+        <div className="section-container-narrow">
+          <div className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] font-mono mb-6 flex-wrap">
             <button
               type="button"
               onClick={() => navigate("/")}
@@ -89,17 +81,17 @@ export default function SingleBlogPage() {
               {nav.blog}
             </button>
             <Icons.chevronLeft className="h-3 w-3 rtl:-scale-x-100" />
-            <span className="text-[var(--color-text-secondary)] truncate">
+            <span className="text-[var(--color-text-secondary)] truncate max-w-[16rem]">
               {content.title}
             </span>
           </div>
 
           <ScrollReveal animation="fade-up">
-            <div className="flex flex-col gap-4 max-w-3xl">
+            <div className="flex flex-col gap-4">
               <Badge variant="primary" glow>
                 {content.category}
               </Badge>
-              <h1 className="font-heading text-3xl md:text-5xl font-bold text-gradient-hero leading-tight">
+              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)] leading-[1.2]">
                 {content.title}
               </h1>
               <p className="text-[var(--color-text-secondary)] text-base md:text-lg leading-relaxed">
@@ -115,18 +107,21 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
+      {/* ============================================ */}
+      {/* Cover */}
+      {/* ============================================ */}
       <section className="pb-8">
         <div className="section-container">
           <ScrollReveal animation="zoom-in">
             <Card
               variant="solid"
               padding="none"
-              className="overflow-hidden max-w-4xl mx-auto"
+              className="overflow-hidden rounded-[var(--radius-lg)]"
             >
               <img
                 src={post.coverImage}
                 alt={content.title}
-                className="w-full aspect-video object-cover"
+                className="w-full aspect-[16/9] object-cover"
                 loading="lazy"
               />
             </Card>
@@ -134,10 +129,13 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
-      <section className="section pt-4">
+      {/* ============================================ */}
+      {/* Body + sidebar */}
+      {/* ============================================ */}
+      <section className="pb-12">
         <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-            <div className="min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-8 lg:gap-10">
+            <div className="min-w-0 max-w-3xl mx-auto lg:mx-0 w-full">
               <CourseArticle sections={content.sections} />
 
               {content.tags.length > 0 && (
@@ -167,8 +165,11 @@ export default function SingleBlogPage() {
         </div>
       </section>
 
+      {/* ============================================ */}
+      {/* Related posts */}
+      {/* ============================================ */}
       {related.length > 0 && (
-        <section className="section">
+        <section className="section pt-4 border-t border-[var(--color-border-secondary)]">
           <div className="section-container">
             <SectionHeader
               eyebrow={blog.relatedEyebrow}
