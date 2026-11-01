@@ -1,10 +1,11 @@
 /**
- * Code Empire — Popular courses podium
+ * Code Empire - Popular courses podium
  */
 
 import { useNavigate } from "react-router-dom";
-import { Card, Badge, Button, Progress } from "dara-ui";
+import { Card, Badge, Button, Progress, ScrollReveal } from "dara-ui";
 import { getTopCourses } from "@/data/courses";
+import { formatNumber } from "@/lib/format";
 import { SectionHeader } from "./SectionHeader";
 import { coursesContent } from "@/content/courses";
 import { coursesPage } from "@/content/courses-page";
@@ -12,15 +13,11 @@ import { home } from "@/content/home";
 import { common } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
+const GLOWS = ["accent", "secondary", "primary"] as const;
+
 export function PopularPodium() {
   const navigate = useNavigate();
-  const [first, second, third] = getTopCourses(3);
-
-  const podium = [
-    { course: second, rank: 2, height: "h-44", glow: "secondary" as const },
-    { course: first, rank: 1, height: "h-64", glow: "accent" as const },
-    { course: third, rank: 3, height: "h-40", glow: "primary" as const },
-  ];
+  const top = getTopCourses(3);
 
   return (
     <section className="section">
@@ -31,48 +28,85 @@ export function PopularPodium() {
           subtitle={coursesPage.subtitle}
         />
 
-        <div className="flex items-end justify-center gap-4 md:gap-6 max-w-4xl mx-auto">
-          {podium.map(({ course, rank, height, glow }) => {
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+          {top.map((course, i) => {
             const content = coursesContent[course.slug];
             if (!content) return null;
+
+            const percent = Math.round(
+              (course.enrolled / course.capacity) * 100,
+            );
+
             return (
-              <Card
+              <ScrollReveal
                 key={course.slug}
-                glow={glow}
-                className={`relative ${height} flex-1 max-w-[220px] flex flex-col justify-end p-4 cursor-pointer hover:-translate-y-2 transition-transform duration-300`}
-                onClick={() => navigate(`/courses/${course.slug}`)}
+                animation="fade-up"
+                delay={i * 100}
               >
-                <div className="absolute -top-3 start-1/2 -translate-x-1/2 rtl:translate-x-1/2">
-                  <Badge
-                    variant={rank === 1 ? "warning" : "secondary"}
-                    glow={rank === 1}
-                    size="md"
+                <Card
+                  glow={GLOWS[i]}
+                  float
+                  className="relative h-full cursor-pointer overflow-hidden"
+                  onClick={() => navigate(`/courses/${course.slug}`)}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -top-4 end-4 select-none font-heading text-8xl font-bold text-[var(--color-text-primary)] opacity-[0.05]"
                   >
-                    <Icons.trophy className="h-3 w-3 me-1 inline-flex" />#{rank}
-                  </Badge>
-                </div>
+                    {formatNumber(i + 1)}
+                  </span>
 
-                <div className="flex flex-col gap-2 text-center mt-4">
-                  <h3 className="font-heading font-bold text-sm md:text-base text-[var(--color-text-primary)] line-clamp-2">
-                    {content.title}
-                  </h3>
+                  <div className="relative flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <div className="h-14 w-14 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] ring-1 ring-[var(--color-border-primary)]">
+                        <img
+                          src={course.logo}
+                          alt={content.title}
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                      <Badge
+                        variant={i === 0 ? "warning" : "secondary"}
+                        glow={i === 0}
+                        size="sm"
+                      >
+                        <span className="inline-flex items-center gap-1">
+                          <Icons.trophy className="h-3 w-3" />#{i + 1}
+                        </span>
+                      </Badge>
+                    </div>
 
-                  <Progress
-                    value={Math.round(
-                      (course.enrolled / course.capacity) * 100,
-                    )}
-                    color={rank === 1 ? "warning" : "primary"}
-                    size="sm"
-                    showLabel
-                    labelPosition="right"
-                  />
-                </div>
-              </Card>
+                    <div className="flex flex-col gap-1.5">
+                      <h3 className="font-heading text-lg font-bold text-[var(--color-text-primary)]">
+                        {content.title}
+                      </h3>
+                      <p className="line-clamp-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                        {content.description}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2 border-t border-[var(--color-border-secondary)] pt-4">
+                      <Progress
+                        value={percent}
+                        color={i === 0 ? "warning" : "primary"}
+                        size="sm"
+                        showLabel
+                        labelPosition="right"
+                      />
+                      <p className="font-mono text-[11px] text-[var(--color-text-tertiary)]">
+                        {formatNumber(course.enrolled)} /{" "}
+                        {formatNumber(course.capacity)} {coursesPage.enrolled}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </ScrollReveal>
             );
           })}
         </div>
 
-        <div className="flex justify-center mt-10">
+        <div className="mt-10 flex justify-center">
           <Button
             variant="primary"
             glow="primary"

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Latest courses
+ * Code Empire - Latest courses
  */
 
 import { useMemo, useState } from "react";
@@ -37,8 +37,11 @@ export function LatestCourses() {
     [category],
   );
 
+  const glowFor = (cat: CourseCategory) =>
+    cat === "web" ? "primary" : cat === "software" ? "secondary" : "accent";
+
   return (
-    <section className="section">
+    <section className="section bg-[var(--color-bg-secondary)]/30">
       <div className="section-container">
         <SectionHeader
           eyebrow={home.coursesEyebrow}
@@ -59,7 +62,7 @@ export function LatestCourses() {
           }
         />
 
-        <div className="mb-6 md:mb-8">
+        <div className="mb-8 overflow-x-auto">
           <Tabs
             items={items}
             activeValue={category}
@@ -68,9 +71,13 @@ export function LatestCourses() {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
           {filtered.map((course) => (
-            <CourseCard key={course.slug} course={course} />
+            <CourseCard
+              key={course.slug}
+              course={course}
+              glow={glowFor(course.category)}
+            />
           ))}
         </div>
       </div>
