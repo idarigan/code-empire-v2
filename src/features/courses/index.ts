@@ -1,6 +1,9 @@
 export { CourseGrid } from "./CourseGrid";
 export { CourseFilters } from "./CourseFilters";
 export { CourseSidebar } from "./CourseSidebar";
+export { CourseHero } from "./CourseHero";
+export { CourseOutcomes } from "./CourseOutcomes";
+export { CourseMobileBar } from "./CourseMobileBar";
 export { CourseArticle } from "./CourseArticle";
 export { Leaderboard } from "./Leaderboard";
 export { RegistrationForm } from "./RegistrationForm";
