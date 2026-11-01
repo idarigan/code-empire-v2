@@ -1,5 +1,5 @@
 /**
- * Code Empire — Magazine preview
+ * Code Empire - Magazine preview
  */
 
 import { useNavigate } from "react-router-dom";
@@ -12,12 +12,14 @@ import { common } from "@/content/common";
 import { blogPostsContent, blogAuthors } from "@/content/blogs";
 import { Icons } from "@/lib/icons";
 
+const GLOWS = ["primary", "secondary", "accent"] as const;
+
 export function MagazinePreview() {
   const navigate = useNavigate();
-  const posts = getLatestBlogs(4);
+  const posts = getLatestBlogs(3);
 
   return (
-    <section className="section">
+    <section className="section bg-[var(--color-bg-secondary)]/30">
       <div className="section-container">
         <SectionHeader
           eyebrow={home.magazineEyebrow}
@@ -38,7 +40,7 @@ export function MagazinePreview() {
           }
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
           {posts.map((post, i) => {
             const content = blogPostsContent[post.slug];
             if (!content) return null;
@@ -57,13 +59,8 @@ export function MagazinePreview() {
                   category={content.category}
                   tags={content.tags}
                   link={`/blog/${post.slug}`}
-                  glow={
-                    i % 3 === 0
-                      ? "primary"
-                      : i % 3 === 1
-                        ? "secondary"
-                        : "accent"
-                  }
+                  glow={GLOWS[i % GLOWS.length]}
+                  onClick={() => navigate(`/blog/${post.slug}`)}
                 />
               </ScrollReveal>
             );

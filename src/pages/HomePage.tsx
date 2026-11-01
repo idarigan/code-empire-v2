@@ -1,5 +1,5 @@
 /**
- * Code Empire — Home page
+ * Code Empire - Home page
  *
  * Full landing page. Every section is defined in features/home.
  */
@@ -7,8 +7,8 @@
 import { Hero } from "@/features/home/Hero";
 import { TrustBar } from "@/features/home/TrustBar";
 import { LatestCourses } from "@/features/home/LatestCourses";
-import { PopularPodium } from "@/features/home/PopularPodium";
 import { WhyUs } from "@/features/home/WhyUs";
+import { PopularPodium } from "@/features/home/PopularPodium";
 import { HowItWorks } from "@/features/home/HowItWorks";
 import { StudentStats } from "@/features/home/StudentStats";
 import { Testimonials } from "@/features/home/Testimonials";
@@ -22,8 +22,8 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <LatestCourses />
-      <PopularPodium />
       <WhyUs />
+      <PopularPodium />
       <HowItWorks />
       <StudentStats />
       <Testimonials />

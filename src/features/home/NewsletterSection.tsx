@@ -1,5 +1,5 @@
 /**
- * Code Empire — Newsletter section
+ * Code Empire - Newsletter section
  *
  * Large newsletter signup card. Same schema and sender as the footer mini-form.
  */
@@ -48,43 +48,50 @@ export function NewsletterSection() {
     <section className="section">
       <div className="section-container">
         <ScrollReveal animation="zoom-in">
-          <Card glow="accent" className="max-w-3xl mx-auto text-center">
-            <div className="flex justify-center mb-4 text-[var(--color-accent)]">
-              <Icons.mail className="h-10 w-10" />
-            </div>
-            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-2">
-              {home.newsletter}
-            </h2>
-            <p className="text-[var(--color-text-secondary)] text-sm mb-6">
-              {home.newsletterHint}
-            </p>
+          <Card glow="accent" className="mx-auto max-w-4xl">
+            <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10">
+              <div className="flex flex-col items-start gap-3 text-start">
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]"
+                  style={{
+                    background: "var(--color-accent-light)",
+                    color: "var(--color-accent)",
+                  }}
+                >
+                  <Icons.mail className="h-6 w-6" />
+                </div>
+                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] md:text-3xl">
+                  {home.newsletter}
+                </h2>
+                <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                  {home.newsletterHint}
+                </p>
+              </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            >
-              <Input
-                type="email"
-                placeholder={contact.email}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                validation={error ? "error" : undefined}
-                errorMessage={error ?? undefined}
-                leftIcon={<Icons.mail className="h-4 w-4" />}
-                size="md"
-                className="flex-1"
-              />
-              <Button
-                type="submit"
-                variant="accent"
-                size="md"
-                glow="accent"
-                loading={loading}
-                leftIcon={<Icons.send className="h-4 w-4" />}
-              >
-                {common.save}
-              </Button>
-            </form>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                <Input
+                  type="email"
+                  placeholder={contact.email}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  validation={error ? "error" : undefined}
+                  errorMessage={error ?? undefined}
+                  leftIcon={<Icons.mail className="h-4 w-4" />}
+                  size="md"
+                />
+                <Button
+                  type="submit"
+                  variant="accent"
+                  size="md"
+                  glow="accent"
+                  fullWidth
+                  loading={loading}
+                  leftIcon={<Icons.send className="h-4 w-4" />}
+                >
+                  {common.save}
+                </Button>
+              </form>
+            </div>
           </Card>
         </ScrollReveal>
       </div>
