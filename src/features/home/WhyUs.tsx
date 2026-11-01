@@ -1,5 +1,5 @@
 /**
- * Code Empire — Why us
+ * Code Empire - Why us
  *
  * Four glow cards explaining what makes Code Empire different.
  * Uses Dara UI Card + custom icons, staggered ScrollReveal.
@@ -7,6 +7,7 @@
 
 import { Card, ScrollReveal } from "dara-ui";
 import { SectionHeader } from "./SectionHeader";
+import { formatNumber } from "@/lib/format";
 import { home } from "@/content/home";
 import { Icons } from "@/lib/icons";
 
@@ -39,7 +40,7 @@ export function WhyUs() {
   ];
 
   return (
-    <section className="section">
+    <section className="section bg-[var(--color-bg-secondary)]/30">
       <div className="section-container">
         <SectionHeader
           eyebrow={home.whyUsEyebrow}
@@ -47,23 +48,35 @@ export function WhyUs() {
           subtitle={home.heroSubtitle}
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
           {items.map((item, i) => (
             <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-              <Card glow={item.glow} float className="h-full text-center">
-                <div className="flex justify-center mb-4 text-[var(--color-primary)]">
+              <Card glow={item.glow} float className="h-full">
+                <div className="flex items-start gap-4 md:gap-5">
                   <div
-                    className={`p-3 rounded-full bg-[var(--color-${item.glow}-light)]`}
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-md)]"
+                    style={{
+                      background: `var(--color-${item.glow}-light)`,
+                      color: `var(--color-${item.glow})`,
+                    }}
                   >
                     {item.icon}
                   </div>
+
+                  <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="font-heading text-base font-bold text-[var(--color-text-primary)] md:text-lg">
+                        {item.title}
+                      </h3>
+                      <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                        {formatNumber(i + 1).padStart(2, "۰")}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-heading font-bold text-base mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">
-                  {item.desc}
-                </p>
               </Card>
             </ScrollReveal>
           ))}
