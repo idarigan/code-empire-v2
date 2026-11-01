@@ -1,5 +1,5 @@
 /**
- * Code Empire — Trusted-by bar
+ * Code Empire - Trusted-by bar
  */
 
 import { companies } from "@/data/companies";
@@ -10,11 +10,15 @@ export function TrustBar() {
   const items = [...companies, ...companies];
 
   return (
-    <section className="py-10 border-y border-[var(--color-border-secondary)] bg-[var(--color-bg-secondary)]/40 overflow-hidden">
+    <section className="overflow-hidden border-y border-[var(--color-border-secondary)] bg-[var(--color-bg-secondary)]/50 py-8 md:py-10">
       <div className="section-container">
-        <p className="text-center text-xs md:text-sm font-mono uppercase tracking-widest text-[var(--color-text-tertiary)] mb-6">
-          {home.trustedBy}
-        </p>
+        <div className="mb-6 flex items-center gap-4">
+          <span className="h-px flex-1 bg-[var(--color-border-secondary)]" />
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-text-tertiary)] md:text-xs">
+            {home.trustedBy}
+          </p>
+          <span className="h-px flex-1 bg-[var(--color-border-secondary)]" />
+        </div>
       </div>
 
       <div className="marquee">
@@ -32,7 +36,7 @@ export function TrustBar() {
                     ? companyNames[company.slug as keyof typeof companyNames]
                     : ""
                 }
-                className="h-10 w-auto object-contain filter grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                className="h-9 w-auto object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 loading="lazy"
               />
             </div>
