@@ -18,6 +18,7 @@ export const coursesPage = {
   privatePrice: "قیمت خصوصی",
   registerGroup: "ثبت‌نام گروهی",
   registerPrivate: "ثبت‌نام خصوصی",
+  registerNow: "ثبت‌نام",
   prerequisite: "پیش‌نیاز",
   noPrerequisite: "بدون پیش‌نیاز",
   specs: "مشخصات",
@@ -35,6 +36,14 @@ export const coursesPage = {
   leaderboardEyebrow: "برترین‌ها",
   supportTitle: "به‌زودی تیم پشتیبانی برای هماهنگی با شما تماس می‌گیرد.",
   moreDetails: "ادامه مطلب",
+  overview: "معرفی دوره",
+  overviewEyebrow: "درباره دوره",
+  learningOutcomes: "در این دوره چه یاد می‌گیری؟",
+  includes: "همراه با دوره",
+  popular: "پرطرفدار",
+  bookmark: "ذخیره دوره",
+  bookmarked: "ذخیره شد",
+  alreadyEnrolled: "در این دوره ثبت‌نام کرده‌اید",
 };
 
 // ============================================
