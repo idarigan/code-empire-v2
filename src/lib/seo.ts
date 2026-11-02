@@ -1,5 +1,5 @@
 /**
- * Code Empire — Document head helpers
+ * Code Empire - Document head helpers
  */
 
 import { siteMeta as siteMetaContent } from "@/content/common";

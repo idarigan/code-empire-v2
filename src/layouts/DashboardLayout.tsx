@@ -1,8 +1,8 @@
 /**
- * Code Empire — Dashboard layout
+ * Code Empire - Dashboard layout
  *
  * Dara UI Sidebar (with desktop collapse and mobile tabs) wrapping
- * the student dashboard routes. No site footer here — dashboard is
+ * the student dashboard routes. No site footer here - dashboard is
  * its own focused space.
  */
 

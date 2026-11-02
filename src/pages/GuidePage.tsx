@@ -1,5 +1,5 @@
 /**
- * Code Empire — Learning guide page
+ * Code Empire - Learning guide page
  */
 
 import { Card, Accordion, Button, ScrollReveal } from "dara-ui";

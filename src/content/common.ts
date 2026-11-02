@@ -95,7 +95,7 @@ export const newsletter = {
 
 export const siteMeta = {
   name: "Code Empire",
-  description: "آکادمی برنامه‌نویسی فارسی — یادگیری از صفر تا پیشرفته",
+  description: "آکادمی برنامه‌نویسی فارسی - یادگیری از صفر تا پیشرفته",
 };
 
 // ============================================
@@ -134,7 +134,7 @@ export const footer = {
     "آکادمی برنامه‌نویسی فارسی - از صفر تا پیشرفته، در کنار بهترین اساتید ایران.",
   emailPlaceholder: "ایمیل",
   newsletterButton: "ذخیره",
-  copyrightPrefix: "© {year} — تمام حقوق برای امپراتوری کد محفوظ است.",
+  copyrightPrefix: "© {year} - تمام حقوق برای امپراتوری کد محفوظ است.",
   policy: "قوانین",
   home: "خانه",
   courses: "دوره‌ها",

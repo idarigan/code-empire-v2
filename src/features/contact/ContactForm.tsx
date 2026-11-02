@@ -1,5 +1,5 @@
 /**
- * Code Empire — Contact form
+ * Code Empire - Contact form
  */
 
 import { useState, type FormEvent } from "react";

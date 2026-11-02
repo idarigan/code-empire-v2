@@ -1,5 +1,5 @@
 /**
- * Code Empire — Footer newsletter mini-form
+ * Code Empire - Footer newsletter mini-form
  *
  * Compact email input + submit button for the footer.
  * Shares the schema and EmailJS sender with the full-page newsletter.

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Root layout
+ * Code Empire - Root layout
  *
  * Public shell: navbar + footer + scroll restoration + route loader + palette.
  * Every non-dashboard route renders inside <Outlet />.

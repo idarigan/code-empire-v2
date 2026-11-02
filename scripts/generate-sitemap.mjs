@@ -1,5 +1,5 @@
 /**
- * Code Empire — Sitemap generator
+ * Code Empire - Sitemap generator
  *
  * Runs at build time. Parses slugs from data files with regex
  * (avoids needing ts-node in the build). Writes public/sitemap.xml.

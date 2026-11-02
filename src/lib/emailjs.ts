@@ -1,5 +1,5 @@
 /**
- * Code Empire — EmailJS integration
+ * Code Empire - EmailJS integration
  *
  * Thin wrapper around @emailjs/browser with typed payloads.
  * Every form in the app funnels through one of the three senders.

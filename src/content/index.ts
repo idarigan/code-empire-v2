@@ -1,5 +1,5 @@
 // ============================================
-// Content barrel — single import point for all Persian copy
+// Content barrel - single import point for all Persian copy
 // ============================================
 
 export * from "./common";

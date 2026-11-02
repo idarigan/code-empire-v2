@@ -1,5 +1,5 @@
 /**
- * Code Empire — Shared entity types
+ * Code Empire - Shared entity types
  */
 
 export type CourseCategory = "web" | "software" | "game";

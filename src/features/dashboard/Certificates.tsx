@@ -1,5 +1,5 @@
 /**
- * Code Empire — Certificates
+ * Code Empire - Certificates
  */
 
 import { useNavigate } from "react-router-dom";

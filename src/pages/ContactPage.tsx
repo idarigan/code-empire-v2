@@ -1,5 +1,5 @@
 /**
- * Code Empire — Contact page
+ * Code Empire - Contact page
  *
  * Info cards, communication bridges, contact form.
  */

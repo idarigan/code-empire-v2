@@ -1,5 +1,5 @@
 /**
- * Code Empire — Trusted-by companies
+ * Code Empire - Trusted-by companies
  */
 
 import type { Company } from "@/types";

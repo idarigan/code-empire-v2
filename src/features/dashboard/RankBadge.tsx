@@ -1,5 +1,5 @@
 /**
- * Code Empire — Rank badge
+ * Code Empire - Rank badge
  *
  * Renders the current tier as a glow badge.
  * Tier ladder + helpers live in ./rankTiers.

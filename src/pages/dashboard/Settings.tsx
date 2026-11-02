@@ -1,5 +1,5 @@
 /**
- * Code Empire — Settings
+ * Code Empire - Settings
  */
 
 export { default } from "@/features/dashboard/Settings";

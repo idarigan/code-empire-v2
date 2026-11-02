@@ -1,5 +1,5 @@
 /**
- * Code Empire — useDebounce
+ * Code Empire - useDebounce
  *
  * Delays a value update until the input has settled.
  * Standard pattern for search inputs.

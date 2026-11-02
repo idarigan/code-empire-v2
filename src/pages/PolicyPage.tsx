@@ -1,5 +1,5 @@
 /**
- * Code Empire — Policy overview
+ * Code Empire - Policy overview
  */
 
 import { Card, ScrollReveal } from "dara-ui";

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Automatic SEO manager
+ * Code Empire - Automatic SEO manager
  */
 
 import { useEffect } from "react";

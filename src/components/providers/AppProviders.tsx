@@ -1,5 +1,5 @@
 /**
- * Code Empire — Application providers
+ * Code Empire - Application providers
  *
  * Composition root. Order matters:
  * - Toast outermost so nothing throws past it

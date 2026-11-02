@@ -1,5 +1,5 @@
 /**
- * Code Empire — Certificate generator
+ * Code Empire - Certificate generator
  *
  * Renders a certificate to a canvas and returns a PNG blob.
  * Persian text uses the browser's font stack; make sure Vazirmatn is loaded.
@@ -153,7 +153,7 @@ export function renderCertificate(input: CertificateInput): HTMLCanvasElement {
   ctx.textAlign = "center";
   ctx.direction = "rtl";
 
-  // Header — brand
+  // Header - brand
   ctx.fillStyle = "#60a5fa";
   ctx.font = "bold 32px Vazirmatn, sans-serif";
   ctx.fillText("امپراتوری کد", WIDTH / 2, 200);
@@ -202,7 +202,7 @@ export function renderCertificate(input: CertificateInput): HTMLCanvasElement {
     ctx.fillText(`سطح: ${input.level}`, WIDTH / 2, 730);
   }
 
-  // Footer — date
+  // Footer - date
   ctx.fillStyle = "#7a8bab";
   ctx.font = "20px Vazirmatn, sans-serif";
   ctx.fillText(`تاریخ صدور: ${input.date}`, WIDTH / 2, HEIGHT - 200);

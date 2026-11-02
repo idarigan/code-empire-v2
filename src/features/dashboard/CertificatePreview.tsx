@@ -1,5 +1,5 @@
 /**
- * Code Empire — Certificate preview
+ * Code Empire - Certificate preview
  *
  * Renders a preview of the generated certificate using our canvas helper.
  * Download and open-in-new-tab buttons appear below.

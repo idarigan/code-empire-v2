@@ -1,5 +1,5 @@
 /**
- * Code Empire — Progress
+ * Code Empire - Progress
  */
 
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { Card, Progress, Button, Badge } from "dara-ui";
 import { useProgress } from "@/contexts";
 import { getCourseBySlug } from "@/data/courses";
 import { XPLevelCard } from "@/features/dashboard/XPLevelCard";
-import { RankBadge, getTierForXP } from "@/features/dashboard/RankBadge";
+import { RankBadge } from "@/features/dashboard/RankBadge";
 import { formatPercent } from "@/lib/format";
 import { coursesContent } from "@/content/courses";
 import { dashboard } from "@/content/dashboard";

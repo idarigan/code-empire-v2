@@ -1,5 +1,5 @@
 /**
- * Code Empire — Rules list
+ * Code Empire - Rules list
  */
 
 import { Link } from "react-router-dom";

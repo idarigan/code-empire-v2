@@ -1,5 +1,5 @@
 /**
- * Code Empire — Team members
+ * Code Empire - Team members
  */
 
 import type { TeamMember } from "@/types";

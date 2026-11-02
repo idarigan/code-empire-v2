@@ -1,4 +1,4 @@
-# Code Empire — robots.txt
+# Code Empire - robots.txt
 
 User-agent: *
 Allow: /

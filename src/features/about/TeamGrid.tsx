@@ -1,5 +1,5 @@
 /**
- * Code Empire — Team grid
+ * Code Empire - Team grid
  */
 
 import { CharacterCard, ScrollReveal } from "dara-ui";

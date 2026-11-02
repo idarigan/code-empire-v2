@@ -1,5 +1,5 @@
 /**
- * Code Empire — Site-wide constants
+ * Code Empire - Site-wide constants
  */
 
 import type { NavLink, FooterColumn, SocialLink, ClassType } from "@/types";

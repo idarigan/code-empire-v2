@@ -1,5 +1,5 @@
 /**
- * Code Empire — Single blog post
+ * Code Empire - Single blog post
  */
 
 import { useMemo } from "react";

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog sidebar
+ * Code Empire - Blog sidebar
  */
 
 import { Link } from "react-router-dom";
@@ -9,7 +9,6 @@ import type { BlogAuthor } from "@/types";
 import { formatDate, formatReadTime } from "@/lib/format";
 import { blogPostsContent, blogAuthors } from "@/content/blogs";
 import { blog } from "@/content/blog";
-import { Icons } from "@/lib/icons";
 
 interface BlogSidebarProps {
   author: BlogAuthor;

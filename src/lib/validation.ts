@@ -1,5 +1,5 @@
 /**
- * Code Empire — Form validation schemas
+ * Code Empire - Form validation schemas
  *
  * Zod schemas shared between forms and EmailJS payload builders.
  * Persian error messages because fa is the default locale.
@@ -68,7 +68,7 @@ export const newsletterSchema = z.object({
 export type NewsletterInput = z.infer<typeof newsletterSchema>;
 
 // ============================================
-// Helper — flatten Zod errors into a map
+// Helper - flatten Zod errors into a map
 // ============================================
 
 export function zodErrors<T extends z.ZodTypeAny>(

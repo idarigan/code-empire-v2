@@ -1,5 +1,5 @@
 /**
- * Code Empire — Local persistence layer
+ * Code Empire - Local persistence layer
  *
  * All browser-side state lives here. No backend.
  * Uses idb-keyval for IndexedDB access (600 bytes, promise-based).

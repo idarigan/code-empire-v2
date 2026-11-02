@@ -1,5 +1,5 @@
 /**
- * Code Empire — About page
+ * Code Empire - About page
  */
 
 import { useNavigate } from "react-router-dom";

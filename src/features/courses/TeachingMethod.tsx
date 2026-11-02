@@ -1,5 +1,5 @@
 /**
- * Code Empire — Teaching method
+ * Code Empire - Teaching method
  *
  * Guide page section: four cards explaining how Code Empire teaches.
  */

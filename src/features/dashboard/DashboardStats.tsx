@@ -1,5 +1,5 @@
 /**
- * Code Empire — Dashboard stats
+ * Code Empire - Dashboard stats
  *
  * Four quick stat cards: enrolled courses, bookmarks, XP, overall progress.
  */

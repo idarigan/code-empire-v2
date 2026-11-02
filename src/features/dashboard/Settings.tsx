@@ -1,5 +1,5 @@
 /**
- * Code Empire — Settings
+ * Code Empire - Settings
  *
  * Profile edit, preferences (theme, notifications, sound),
  * clear local data.

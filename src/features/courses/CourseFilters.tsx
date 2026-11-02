@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course filters
+ * Code Empire - Course filters
  *
  * Category tabs + search input. Filtering is fully clientside.
  */

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course catalog
+ * Code Empire - Course catalog
  */
 
 import type { Course } from "@/types";

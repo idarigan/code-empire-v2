@@ -1,8 +1,8 @@
 /**
- * Code Empire — Site navbar
+ * Code Empire вҖ” Site navbar
  *
  * Wraps Dara UI's Navbar with:
- * - primary nav links from constants
+ * - primary nav links resolved from content/common
  * - search button that opens the command palette
  * - dashboard link when the user has a profile
  */
@@ -18,7 +18,11 @@ import { home } from "@/content/home";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Icons } from "@/lib/icons";
 
-const navMap: Record<string, string> = {
+// ============================================
+// Label map вҖ” single source of truth
+// ============================================
+
+const navLabels: Record<string, string> = {
   "nav.home": nav.home,
   "nav.courses": nav.courses,
   "nav.guide": nav.guide,
@@ -28,6 +32,14 @@ const navMap: Record<string, string> = {
   "nav.policy": nav.policy,
 };
 
+function labelFor(key: string): string {
+  return navLabels[key] ?? key;
+}
+
+// ============================================
+// Component
+// ============================================
+
 export function SiteNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,7 +47,7 @@ export function SiteNavbar() {
   const { profile } = useProfile();
 
   const links: DaraNavLink[] = primaryNavLinks.map((l) => ({
-    label: navMap[l.key] ?? l.key,
+    label: labelFor(l.key),
     href: l.href,
     active:
       l.href === "/"
@@ -43,48 +55,44 @@ export function SiteNavbar() {
         : location.pathname.startsWith(l.href),
   }));
 
-  const handleSearch = () => openCommandPalette();
-
   return (
-    <>
-      <Navbar
-        brand={
-          <span
-            className="font-heading font-bold text-lg tracking-tight"
-            style={{
-              background: "var(--gradient-primary)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            CODE EMPIRE
-          </span>
-        }
-        links={links}
-        showSearch
-        searchPlaceholder={nav.search}
-        onSearch={handleSearch}
-        showThemeChanger
-        themeChanger={<ThemeSwitcher compact />}
-        themeChangerMobile={<ThemeSwitcher compact />}
-        rightContent={
-          <Button
-            variant={profile ? "secondary" : "primary"}
-            size="sm"
-            leftIcon={
-              profile ? (
-                <Icons.dashboard className="h-4 w-4" />
-              ) : (
-                <Icons.user className="h-4 w-4" />
-              )
-            }
-            onClick={() => navigate(profile ? "/dashboard" : "/courses")}
-          >
-            {profile ? nav.dashboard : home.startLearning}
-          </Button>
-        }
-      />
-    </>
+    <Navbar
+      brand={
+        <span
+          className="font-heading font-bold text-lg tracking-tight"
+          style={{
+            background: "var(--gradient-primary)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          CODE EMPIRE
+        </span>
+      }
+      links={links}
+      showSearch
+      searchPlaceholder={nav.search}
+      onSearch={openCommandPalette}
+      showThemeChanger
+      themeChanger={<ThemeSwitcher compact />}
+      themeChangerMobile={<ThemeSwitcher compact />}
+      rightContent={
+        <Button
+          variant={profile ? "secondary" : "primary"}
+          size="sm"
+          leftIcon={
+            profile ? (
+              <Icons.dashboard className="h-4 w-4" />
+            ) : (
+              <Icons.user className="h-4 w-4" />
+            )
+          }
+          onClick={() => navigate(profile ? "/dashboard" : "/courses")}
+        >
+          {profile ? nav.dashboard : home.startLearning}
+        </Button>
+      }
+    />
   );
 }

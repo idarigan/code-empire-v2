@@ -1,5 +1,5 @@
 /**
- * Code Empire — Scroll restoration
+ * Code Empire - Scroll restoration
  *
  * Resets window scroll to top on every route change.
  * Place inside the router, before Outlet.

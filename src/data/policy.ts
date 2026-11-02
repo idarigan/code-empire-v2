@@ -1,5 +1,5 @@
 /**
- * Code Empire — Rules & charter
+ * Code Empire - Rules & charter
  */
 
 import type { Rule, CharterItem } from "@/types";

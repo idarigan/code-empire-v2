@@ -1,5 +1,5 @@
 /**
- * Code Empire — Article renderer
+ * Code Empire - Article renderer
  */
 
 import { Card, ScrollReveal } from "dara-ui";

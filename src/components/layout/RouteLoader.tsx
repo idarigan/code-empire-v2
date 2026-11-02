@@ -1,5 +1,5 @@
 /**
- * Code Empire — Route change loader
+ * Code Empire - Route change loader
  *
  * Shows Dara UI's PageLoader briefly whenever the pathname changes.
  * Kept short (~600ms) so navigation feels instant, not staged.

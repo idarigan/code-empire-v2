@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course registration form
+ * Code Empire - Course registration form
  */
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";

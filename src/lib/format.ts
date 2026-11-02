@@ -1,5 +1,5 @@
 /**
- * Code Empire — Formatting helpers
+ * Code Empire - Formatting helpers
  *
  * Persian-first formatting. Uses Intl APIs so no extra deps.
  */

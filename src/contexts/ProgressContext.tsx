@@ -1,5 +1,5 @@
 /**
- * Code Empire — Progress context
+ * Code Empire - Progress context
  *
  * Central store for everything a student accumulates:
  * enrollments, bookmarks, per-course progress, XP, completions.
@@ -218,7 +218,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // ============================================
-  // Aggregate — average progress across enrolled courses
+  // Aggregate - average progress across enrolled courses
   // ============================================
 
   const overallProgress = useMemo(() => {
@@ -231,7 +231,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   }, [enrollments, progressMap]);
 
   // ============================================
-  // Reset — wipes everything
+  // Reset - wipes everything
   // ============================================
 
   const reset = useCallback(async () => {
@@ -244,7 +244,6 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       xpStore.reset(),
     ]);
 
-    // Simplest clean slate: reset all local state
     setEnrollments([]);
     setBookmarks([]);
     setProgressMap({});
@@ -312,6 +311,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 // Hook
 // ============================================
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProgress(): ProgressContextValue {
   const ctx = useContext(ProgressContext);
   if (!ctx) {

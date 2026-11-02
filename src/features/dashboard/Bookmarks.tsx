@@ -1,5 +1,5 @@
 /**
- * Code Empire — Bookmarks
+ * Code Empire - Bookmarks
  */
 
 import { useMemo, useState } from "react";

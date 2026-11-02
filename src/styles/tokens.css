@@ -1,5 +1,5 @@
 /* ======================================================
-   CODE EMPIRE — EMPIRE-NIGHT THEME
+   CODE EMPIRE - EMPIRE-NIGHT THEME
    Extends Dara UI's token system with imperial palette
    ====================================================== */
 
@@ -23,21 +23,21 @@
 
   /* ---------- Semantic Colors ---------- */
 
-  /* Primary — Empire Blue */
+  /* Primary - Empire Blue */
   --color-primary: #60a5fa;
   --color-primary-solid: #3b82f6;
   --color-primary-hover: #2563eb;
   --color-primary-active: #1d4ed8;
   --color-primary-light: rgba(59, 130, 246, 0.15);
 
-  /* Secondary — Imperial Purple */
+  /* Secondary - Imperial Purple */
   --color-secondary: #a78bfa;
   --color-secondary-solid: #8b5cf6;
   --color-secondary-hover: #7c3aed;
   --color-secondary-active: #6d28d9;
   --color-secondary-light: rgba(139, 92, 246, 0.15);
 
-  /* Accent — Royal Gold */
+  /* Accent - Royal Gold */
   --color-accent: #fbbf24;
   --color-accent-solid: #f59e0b;
   --color-accent-hover: #d97706;

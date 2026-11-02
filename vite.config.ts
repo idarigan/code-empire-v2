@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: "Code Empire",
         short_name: "Empire",
-        description: "Persian coding academy — Code Empire",
+        description: "Persian coding academy - Code Empire",
         theme_color: "#3b82f6",
         background_color: "#0a0e1a",
         display: "standalone",
@@ -41,7 +41,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
-        maximumFileSizeToCacheInBytes: 7 * 1024 * 1024,
+        // TEMP: raised to ship before image compression lands.
+        // Drop back to 2 MB once .webp swap is done.
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

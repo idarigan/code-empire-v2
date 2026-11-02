@@ -1,5 +1,5 @@
 /**
- * Code Empire — Rank tier ladder
+ * Code Empire - Rank tier ladder
  *
  * Maps XP to one of the five Code Empire tiers.
  * Pure data + pure helpers. No JSX, so fast refresh never sees it.

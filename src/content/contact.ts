@@ -41,6 +41,6 @@ export const contactInfo = {
   email: "info@codeempire.ir",
   address:
     "تهران، پونک، خیابان اشرفی اصفهانی، خیابان فلاح زاده، همیلا سنتر، طبقه ۱۶",
-  hours: "روزهای هفته: ۹ تا ۲۱ — پایان هفته: ۹ تا ۱۵",
+  hours: "روزهای هفته: ۹ تا ۲۱ - پایان هفته: ۹ تا ۱۵",
   telegramHandle: "@codeempire_support",
 };

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course grid
+ * Code Empire - Course grid
  */
 
 import { useNavigate } from "react-router-dom";

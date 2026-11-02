@@ -1,5 +1,5 @@
 /**
- * Code Empire — Command palette
+ * Code Empire - Command palette
  */
 
 import { useMemo, useState, useEffect, useRef } from "react";

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course card
+ * Code Empire - Course card
  */
 
 import { useNavigate } from "react-router-dom";

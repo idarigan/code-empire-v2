@@ -1,5 +1,5 @@
 /**
- * Code Empire — Keyboard shortcuts
+ * Code Empire - Keyboard shortcuts
  *
  * Declarative keydown bindings. Combo strings use "+" separator.
  * Example: useKeyboard("ctrl+k", openSearch)

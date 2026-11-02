@@ -1,5 +1,5 @@
 /**
- * Code Empire — About half sections
+ * Code Empire - About half sections
  *
  * Alternating image/text blocks from about.halfSections.
  */

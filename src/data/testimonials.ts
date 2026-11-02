@@ -1,5 +1,5 @@
 /**
- * Code Empire — Customer reviews
+ * Code Empire - Customer reviews
  */
 
 import type { Testimonial } from "@/types";

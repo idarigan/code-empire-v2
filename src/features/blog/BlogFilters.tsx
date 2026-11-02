@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog filters
+ * Code Empire - Blog filters
  */
 
 import { Dropdown, Input, Tabs } from "dara-ui";

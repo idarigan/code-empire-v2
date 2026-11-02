@@ -1,5 +1,5 @@
 /**
- * Code Empire — Profile context
+ * Code Empire - Profile context
  *
  * Local-only student profile stored in IndexedDB.
  * No auth, no backend, no server round-trips.
@@ -87,6 +87,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 // Hook
 // ============================================
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProfile(): ProfileContextValue {
   const ctx = useContext(ProfileContext);
   if (!ctx) {

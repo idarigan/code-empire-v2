@@ -1,5 +1,5 @@
 /**
- * Code Empire — Dashboard home
+ * Code Empire - Dashboard home
  */
 
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { CertificatePreview } from "@/features/dashboard/CertificatePreview";
 import { getCourseBySlug } from "@/data/courses";
 import { coursesContent } from "@/content/courses";
 import { dashboard } from "@/content/dashboard";
-import { nav, common } from "@/content/common";
+import { nav } from "@/content/common";
 import { Icons } from "@/lib/icons";
 
 export default function DashboardHome() {

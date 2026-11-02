@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog meta bar
+ * Code Empire - Blog meta bar
  */
 
 import { Avatar } from "dara-ui";

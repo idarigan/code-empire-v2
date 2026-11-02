@@ -1,5 +1,5 @@
 /**
- * Code Empire — Site footer
+ * Code Empire - Site footer
  */
 
 import { Link } from "react-router-dom";
@@ -11,17 +11,12 @@ import {
   contactInfo,
   siteMeta,
 } from "@/data/constants";
-import {
-  footer,
-  nav,
-  social,
-  siteMeta as siteMetaContent,
-} from "@/content/common";
+import { footer, nav } from "@/content/common";
 import { contactInfo as contactInfoContent } from "@/content/contact";
 import { NewsletterMini } from "./NewsletterMini";
 
 // ============================================
-// Label resolver — footer first, then nav
+// Label resolver - footer first, then nav
 // ============================================
 
 function resolveLabel(key: string): string {

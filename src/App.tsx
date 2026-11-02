@@ -1,5 +1,5 @@
 /**
- * Code Empire — Root App
+ * Code Empire - Root App
  *
  * Providers + router. SEOManager handles all page titles and meta.
  */

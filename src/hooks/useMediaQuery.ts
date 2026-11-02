@@ -1,5 +1,5 @@
 /**
- * Code Empire — useMediaQuery
+ * Code Empire - useMediaQuery
  *
  * SSR-safe media query hook. Used for responsive layout logic
  * that Tailwind alone can't express (e.g. JS-driven carousels).
@@ -27,7 +27,7 @@ export function useMediaQuery(query: string): boolean {
 }
 
 // ============================================
-// Presets — used across the app
+// Presets - used across the app
 // ============================================
 
 export const useIsMobile = () => useMediaQuery("(max-width: 767px)");

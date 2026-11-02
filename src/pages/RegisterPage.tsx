@@ -1,5 +1,5 @@
 /**
- * Code Empire — Register page
+ * Code Empire - Register page
  *
  * Hero + registration form. Supports query params for prefilling:
  * /courses/register?course=slug&type=group

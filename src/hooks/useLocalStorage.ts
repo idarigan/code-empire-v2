@@ -1,5 +1,5 @@
 /**
- * Code Empire — useLocalStorage
+ * Code Empire - useLocalStorage
  *
  * Lightweight localStorage-backed state.
  * Use for ephemeral preferences; use storage.ts for durable data.
@@ -31,7 +31,7 @@ export function useLocalStorage<T>(
         try {
           window.localStorage.setItem(key, JSON.stringify(next));
         } catch {
-          // Quota exceeded — silently ignore
+          // Quota exceeded - silently ignore
         }
         return next;
       });

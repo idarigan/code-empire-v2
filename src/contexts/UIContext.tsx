@@ -1,5 +1,5 @@
 /**
- * Code Empire — UI context
+ * Code Empire - UI context
  *
  * Global UI flags that don't belong to any single page.
  * Mobile nav, command palette, cookie banner dismissal.
@@ -107,6 +107,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
 // Hook
 // ============================================
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUI(): UIContextValue {
   const ctx = useContext(UIContext);
   if (!ctx) {

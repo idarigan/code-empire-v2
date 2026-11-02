@@ -1,5 +1,5 @@
 /**
- * Code Empire — Rules bill
+ * Code Empire - Rules bill
  */
 
 import { Card, Badge, ScrollReveal } from "dara-ui";

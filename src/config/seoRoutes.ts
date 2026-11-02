@@ -1,5 +1,5 @@
 /**
- * Code Empire — SEO route configuration
+ * Code Empire - SEO route configuration
  */
 
 import { courses } from "@/data/courses";

@@ -1,5 +1,5 @@
 /**
- * Code Empire — XP + level card
+ * Code Empire - XP + level card
  *
  * Big XPBar with our five-tier rank system.
  * Shows current level, rank, XP toward next tier.

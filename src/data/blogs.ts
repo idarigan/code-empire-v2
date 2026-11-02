@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog posts
+ * Code Empire - Blog posts
  */
 
 import type { Blog } from "@/types";
@@ -63,7 +63,7 @@ export const blogs: Blog[] = [
   },
   {
     slug: "empire-place-for-innovation",
-    title: "Code Empire — Home of Innovation",
+    title: "Code Empire - Home of Innovation",
     coverImage:
       "/images/blogs/emperatori-code-jaei-baraye-noavari-va-yadgiri.png",
     author: { name: "sam", avatar: AUTHORS.sam.avatar },
@@ -90,7 +90,7 @@ export const blogs: Blog[] = [
   },
   {
     slug: "steam-gamer-ecosystem",
-    title: "Steam — The Gamer Ecosystem",
+    title: "Steam - The Gamer Ecosystem",
     coverImage: "/images/blogs/steam_game_ecosystem.png",
     author: { name: "empire", avatar: AUTHORS.empire.avatar },
     date: "2024-06-01",
@@ -102,7 +102,7 @@ export const blogs: Blog[] = [
   },
   {
     slug: "game-engine-heart",
-    title: "Game Engines — The Beating Heart",
+    title: "Game Engines - The Beating Heart",
     coverImage: "/images/blogs/game_engine.png",
     author: { name: "empire", avatar: AUTHORS.empire.avatar },
     date: "2024-06-15",
@@ -139,7 +139,7 @@ export const blogs: Blog[] = [
   },
   {
     slug: "bitchat-revolution",
-    title: "Bitchat — Communication Revolution",
+    title: "Bitchat - Communication Revolution",
     coverImage: "/images/blogs/bitchat_revolution.png",
     author: { name: "empire", avatar: AUTHORS.empire.avatar },
     date: "2024-07-05",

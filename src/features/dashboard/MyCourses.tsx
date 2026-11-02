@@ -1,5 +1,5 @@
 /**
- * Code Empire — My courses
+ * Code Empire - My courses
  *
  * Grid of enrolled courses with progress.
  * Empty state points to /courses.

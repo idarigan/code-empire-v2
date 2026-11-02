@@ -1,5 +1,5 @@
 /**
- * Code Empire — Student leaderboard
+ * Code Empire - Student leaderboard
  */
 
 import { Card, Avatar, Badge } from "dara-ui";

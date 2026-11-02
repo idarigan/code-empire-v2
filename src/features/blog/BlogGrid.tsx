@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog grid
+ * Code Empire - Blog grid
  */
 
 import { useNavigate } from "react-router-dom";

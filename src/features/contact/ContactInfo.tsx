@@ -1,5 +1,5 @@
 /**
- * Code Empire — Contact info cards
+ * Code Empire - Contact info cards
  */
 
 import { Card, ScrollReveal } from "dara-ui";

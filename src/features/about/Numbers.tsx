@@ -1,5 +1,5 @@
 /**
- * Code Empire — About numbers
+ * Code Empire - About numbers
  */
 
 import { StatsWidget, ScrollReveal } from "dara-ui";

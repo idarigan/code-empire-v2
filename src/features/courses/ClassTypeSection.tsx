@@ -1,5 +1,5 @@
 /**
- * Code Empire — Class type section
+ * Code Empire - Class type section
  */
 
 import { Card, Badge, ScrollReveal } from "dara-ui";

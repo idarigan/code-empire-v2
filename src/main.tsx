@@ -1,5 +1,5 @@
 /**
- * Code Empire — Application entry
+ * Code Empire - Application entry
  *
  * Renders React and registers the PWA service worker.
  * The SW module is injected by vite-plugin-pwa at build time.

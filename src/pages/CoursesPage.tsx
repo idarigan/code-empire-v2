@@ -1,5 +1,5 @@
 /**
- * Code Empire — All courses page
+ * Code Empire - All courses page
  */
 
 import { useMemo, useState } from "react";

@@ -1,5 +1,5 @@
 /**
- * Code Empire — Icon registry
+ * Code Empire - Icon registry
  *
  * Every icon used in the app is exported from here.
  * Wrap Lucide components so pages never import lucide-react directly.

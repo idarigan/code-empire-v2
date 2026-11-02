@@ -1,5 +1,5 @@
 /**
- * Code Empire — Course progress card
+ * Code Empire - Course progress card
  */
 
 import { useNavigate } from "react-router-dom";

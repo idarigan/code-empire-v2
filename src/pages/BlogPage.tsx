@@ -1,5 +1,5 @@
 /**
- * Code Empire — Blog overview
+ * Code Empire - Blog overview
  */
 
 import { useEffect, useMemo, useState } from "react";

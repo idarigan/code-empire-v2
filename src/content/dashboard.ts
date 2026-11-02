@@ -48,7 +48,7 @@ export const dashboard = {
 export const command = {
   placeholder: "جستجو",
   noResults: "موردی یافت نشد",
-  hint: "جستجو — دوره‌ها & مجله",
+  hint: "جستجو - دوره‌ها & مجله",
   courses: "دوره‌ها",
   blog: "مجله",
 };

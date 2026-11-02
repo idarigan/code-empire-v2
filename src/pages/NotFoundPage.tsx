@@ -1,5 +1,5 @@
 /**
- * Code Empire — 404
+ * Code Empire - 404
  *
  * Full-screen glass card with a clear path home.
  */

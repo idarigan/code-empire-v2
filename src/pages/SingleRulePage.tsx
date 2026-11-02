@@ -1,5 +1,5 @@
 /**
- * Code Empire — Single rule page
+ * Code Empire - Single rule page
  */
 
 import { useMemo } from "react";

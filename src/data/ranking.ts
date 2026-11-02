@@ -1,5 +1,5 @@
 /**
- * Code Empire — Student leaderboard
+ * Code Empire - Student leaderboard
  */
 
 import type { RankedStudent } from "@/types";
