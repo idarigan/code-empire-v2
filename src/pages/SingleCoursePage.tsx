@@ -7,8 +7,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Card, Accordion, Button } from "dara-ui";
 import { getCourseBySlug, getRelatedCourses } from "@/data/courses";
 import { CourseHero } from "@/features/courses/CourseHero";
+import { CourseNav } from "@/features/courses/CourseNav";
+import { CourseBlock } from "@/features/courses/CourseBlock";
 import { CourseOutcomes } from "@/features/courses/CourseOutcomes";
-import { CourseArticle } from "@/features/courses/CourseArticle";
+import { CourseSections } from "@/features/courses/CourseSections";
+import { CourseIncludes } from "@/features/courses/CourseIncludes";
 import { CourseSidebar } from "@/features/courses/CourseSidebar";
 import { CourseMobileBar } from "@/features/courses/CourseMobileBar";
 import { CourseGrid } from "@/features/courses/CourseGrid";
@@ -44,9 +47,7 @@ export default function SingleCoursePage() {
             <Button
               variant="primary"
               onClick={() => navigate("/courses")}
-              leftIcon={
-                <Icons.arrowLeft className="h-4 w-4 rtl:-scale-x-100" />
-              }
+              leftIcon={<Icons.arrowLeft className="h-4 w-4" />}
             >
               {nav.courses}
             </Button>
@@ -70,47 +71,128 @@ export default function SingleCoursePage() {
     content: <p>{item.answer}</p>,
   }));
 
+  const hasOutcomes = content.learningOutcome.length > 0;
+  const hasFaq = faqItems.length > 0;
+
+  const navItems = [
+    ...(hasOutcomes
+      ? [{ id: "outcomes", label: coursesPage.tabOutcomes }]
+      : []),
+    { id: "overview", label: coursesPage.tabOverview },
+    { id: "includes", label: coursesPage.tabIncludes },
+    ...(hasFaq ? [{ id: "faq", label: coursesPage.tabFaq }] : []),
+  ];
+
   return (
     <>
-      {/* ============================================ */}
-      {/* Hero */}
-      {/* ============================================ */}
-      <CourseHero course={course} />
+      <div className="relative isolate">
+        {/* ---------- Backdrop ---------- */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[32rem]"
+          style={{
+            background: `radial-gradient(ellipse 80% 70% at 50% 0%, ${course.color[0]}26 0%, transparent 70%)`,
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(var(--color-border-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-primary) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+            maskImage:
+              "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+          }}
+        />
 
-      {/* ============================================ */}
-      {/* Body + registration sidebar */}
-      {/* ============================================ */}
-      <section className="pb-28 lg:pb-16">
-        <div className="section-container-wide">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_380px]">
-            <div className="flex min-w-0 flex-col gap-12 md:gap-14">
-              <CourseOutcomes outcomes={content.learningOutcome} />
+        <div className="section-container-wide pt-6 pb-28 lg:pb-20">
+          {/* ---------- Breadcrumb ---------- */}
+          <nav
+            aria-label="breadcrumb"
+            className="mb-6 flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-tertiary)] md:mb-8"
+          >
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="transition-colors hover:text-[var(--color-primary)]"
+            >
+              {nav.home}
+            </button>
+            <Icons.chevronLeft className="h-3 w-3" />
+            <button
+              type="button"
+              onClick={() => navigate("/courses")}
+              className="transition-colors hover:text-[var(--color-primary)]"
+            >
+              {nav.courses}
+            </button>
+            <Icons.chevronLeft className="h-3 w-3" />
+            <span className="max-w-[12rem] truncate text-[var(--color-text-secondary)] sm:max-w-xs">
+              {content.title}
+            </span>
+          </nav>
 
-              <div>
-                <SectionHeader
-                  eyebrow={coursesPage.overviewEyebrow}
-                  title={coursesPage.overview}
-                  align="start"
-                />
-                <CourseArticle sections={sections} />
-              </div>
-
-              {faqItems.length > 0 && (
-                <div>
-                  <SectionHeader
-                    eyebrow={coursesPage.faqEyebrow}
-                    title={coursesPage.faq}
-                    align="start"
-                  />
-                  <Accordion items={faqItems} multiple={false} />
-                </div>
-              )}
+          {/* ============================================ */}
+          {/* Hero + sidebar + body grid */}
+          {/* ============================================ */}
+          <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-x-10 xl:gap-x-14">
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <CourseHero course={course} />
             </div>
 
-            <CourseSidebar course={course} />
+            <div className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+              <CourseSidebar course={course} />
+            </div>
+
+            <div className="flex min-w-0 flex-col gap-12 md:gap-16 lg:col-start-1 lg:row-start-2">
+              <CourseNav items={navItems} />
+
+              {hasOutcomes && (
+                <CourseBlock
+                  id="outcomes"
+                  eyebrow={coursesPage.outcomesEyebrow}
+                  title={coursesPage.learningOutcomes}
+                  icon={<Icons.target className="h-5 w-5" />}
+                >
+                  <CourseOutcomes outcomes={content.learningOutcome} />
+                </CourseBlock>
+              )}
+
+              <CourseBlock
+                id="overview"
+                eyebrow={coursesPage.overviewEyebrow}
+                title={coursesPage.overview}
+                icon={<Icons.bookOpen className="h-5 w-5" />}
+              >
+                <CourseSections sections={sections} />
+              </CourseBlock>
+
+              <CourseBlock
+                id="includes"
+                eyebrow={coursesPage.includesEyebrow}
+                title={coursesPage.includesTitle}
+                icon={<Icons.sparkles className="h-5 w-5" />}
+              >
+                <CourseIncludes />
+              </CourseBlock>
+
+              {hasFaq && (
+                <CourseBlock
+                  id="faq"
+                  eyebrow={coursesPage.faqEyebrow}
+                  title={coursesPage.faq}
+                  icon={<Icons.messageCircle className="h-5 w-5" />}
+                >
+                  <Accordion items={faqItems} multiple={false} />
+                </CourseBlock>
+              )}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* ============================================ */}
       {/* Related courses */}
@@ -128,7 +210,7 @@ export default function SingleCoursePage() {
         </section>
       )}
 
-      <CourseMobileBar course={course} />
+      <CourseMobileBar course={course} targetId="course-register" />
     </>
   );
 }
