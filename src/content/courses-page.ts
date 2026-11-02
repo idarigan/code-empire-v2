@@ -39,11 +39,20 @@ export const coursesPage = {
   overview: "معرفی دوره",
   overviewEyebrow: "درباره دوره",
   learningOutcomes: "در این دوره چه یاد می‌گیری؟",
+  outcomesEyebrow: "خروجی",
   includes: "همراه با دوره",
+  includesTitle: "در این مسیر همراهت هستیم",
+  includesEyebrow: "امکانات",
   popular: "پرطرفدار",
   bookmark: "ذخیره دوره",
   bookmarked: "ذخیره شد",
+  share: "کپی لینک",
+  linkCopied: "لینک دوره کپی شد",
   alreadyEnrolled: "در این دوره ثبت‌نام کرده‌اید",
+  tabOutcomes: "خروجی دوره",
+  tabOverview: "معرفی",
+  tabIncludes: "امکانات",
+  tabFaq: "سؤالات",
 };
 
 // ============================================
