@@ -18,6 +18,7 @@ export const siteMeta = {
 export const siteStats = {
   mentors: 30,
   students: 800,
+  trainingKiloHours: 100,
   consultationHours: 300,
 };
 
@@ -26,10 +27,11 @@ export const siteStats = {
 // ============================================
 
 export const contactInfo = {
-  phone: "۰۲۱-۹۸۴۵۰۰۲۲",
+  phone: "021-98450022",
   phoneRaw: "02198450022",
   email: "info@codeempire.ir",
-  hours: "روزهای هفته: ۹ تا ۲۱ - پایان هفته: ۹ تا ۱۵",
+  hours: "روزهای هفته: 9 تا 21 - پایان هفته: 9 تا 15",
+  telegram: "https://t.me/codeempire_support",
 };
 
 // ============================================
