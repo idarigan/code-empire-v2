@@ -1,0 +1,52 @@
+/* =============================================
+   MARQUEE
+   ============================================= */
+
+.tech-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.tech-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: techScroll 45s linear infinite;
+}
+
+.tech-marquee:hover .tech-marquee__track {
+  animation-play-state: paused;
+}
+
+.tech-marquee__item {
+  flex-shrink: 0;
+  padding-inline: 0.4rem;
+}
+
+@keyframes techScroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    row-gap: 0.75rem;
+  }
+}
