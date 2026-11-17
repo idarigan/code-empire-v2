@@ -1,6 +1,13 @@
 // ============================================
-// Featured articles
+// Types
 // ============================================
+
+import type { ContentSection } from "./types";
+
+export interface ArticleFaq {
+  question: string;
+  answer: string;
+}
 
 export interface Article {
   slug: string;
@@ -8,10 +15,21 @@ export interface Article {
   excerpt: string;
   category: string;
   author: string;
+  authorRole?: string;
+  date?: string;
   readTime: number;
+  tags: string[];
+  featured?: boolean;
+  related?: string[];
+  sections: ContentSection[];
+  faq: ArticleFaq[];
 }
 
-export const featuredArticles: Article[] = [
+// ============================================
+// Articles
+// ============================================
+
+export const articles: Article[] = [
   {
     slug: "magic-skill-programming",
     title: "مهارت جادویی: چرا باید برنامه‌نویسی یاد بگیریم؟",
@@ -20,6 +38,11 @@ export const featuredArticles: Article[] = [
     category: "برنامه‌نویسی",
     author: "امپراتوری کد",
     readTime: 7,
+    tags: ["برنامه‌نویسی", "مهارت", "آینده"],
+    featured: false,
+    related: [],
+    sections: [],
+    faq: [],
   },
   {
     slug: "backend-technologies-guide",
@@ -29,6 +52,11 @@ export const featuredArticles: Article[] = [
     category: "برنامه‌نویسی",
     author: "سام تهرانی",
     readTime: 12,
+    tags: ["بک‌اند", "Node.js", "Python"],
+    featured: false,
+    related: [],
+    sections: [],
+    faq: [],
   },
   {
     slug: "game-engine-heart",
@@ -106,3 +134,6 @@ export const featuredArticles: Article[] = [
 export const featuredArticles: Article[] = articles.filter(
   (article) => article.featured,
 );
+
+export const getArticleBySlug = (slug: string): Article | undefined =>
+  articles.find((article) => article.slug === slug);
