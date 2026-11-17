@@ -1,0 +1,41 @@
+/* ======================================================
+   CODE EMPIRE - GLOBAL STYLES
+   ====================================================== */
+
+@import "tailwindcss";
+@import "dara-ui/style.css";
+@import "./tokens.css";
+
+/* ======================================================
+   BASE
+   ====================================================== */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100vh;
+}
+
+::selection {
+  background-color: var(--color-primary-solid);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ======================================================
+   LAYOUT
+   ====================================================== */
+
+.route-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

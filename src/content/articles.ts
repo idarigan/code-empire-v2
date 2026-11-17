@@ -16,11 +16,11 @@ export interface Article {
   category: string;
   author: string;
   authorRole?: string;
-  date?: string;
+  date: string;
   readTime: number;
   tags: string[];
   featured?: boolean;
-  related?: string[];
+  related: string[];
   sections: ContentSection[];
   faq: ArticleFaq[];
 }
@@ -37,6 +37,7 @@ export const articles: Article[] = [
       "برنامه‌نویسی چیزی فراتر از یک شغل است؛ ابزاری برای رشد ذهن، تقویت خلاقیت و ساختن آینده‌ای روشن‌تر.",
     category: "برنامه‌نویسی",
     author: "امپراتوری کد",
+    date: "2024-09-01",
     readTime: 7,
     tags: ["برنامه‌نویسی", "مهارت", "آینده"],
     featured: false,
@@ -51,6 +52,7 @@ export const articles: Article[] = [
       "Node.js، Python، Go، Java یا PHP؟ راهنمای کامل انتخاب تکنولوژی بک‌اند برای پروژه‌های وب.",
     category: "برنامه‌نویسی",
     author: "سام تهرانی",
+    date: "2024-09-01",
     readTime: 12,
     tags: ["بک‌اند", "Node.js", "Python"],
     featured: false,

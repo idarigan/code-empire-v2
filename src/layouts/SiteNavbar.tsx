@@ -24,6 +24,7 @@ export function SiteNavbar() {
   return (
     <RouterLinks>
       <Navbar
+        className="fixed"
         brand={<Brand />}
         links={links}
         showSearch={false}
