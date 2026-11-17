@@ -24,3 +24,18 @@ export const formatIndex = (value: number): string =>
 
 export const formatPrice = (value: number): string =>
   `${formatNumber(value)} تومان`;
+
+// ============================================
+// Dates (Jalali)
+// ============================================
+
+const dateFormatter = new Intl.DateTimeFormat("fa-IR-u-ca-persian-nu-latn", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+export const formatDate = (value: string): string => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : dateFormatter.format(date);
+};
