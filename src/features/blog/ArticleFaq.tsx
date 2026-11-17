@@ -7,9 +7,9 @@
 import { Accordion, ScrollReveal } from "dara-ui";
 import type { AccordionItem } from "dara-ui";
 import { articlePage } from "@/content/blog";
-import type { ArticleFaq as ArticleFaqItem } from "@/content/articles";
+import type { ArticleFaq as ArticleFaqEntry } from "@/content/articles";
 
-export function ArticleFaq({ items }: { items: ArticleFaqItem[] }) {
+export function ArticleFaq({ items }: { items: ArticleFaqEntry[] }) {
   if (items.length === 0) return null;
 
   const accordionItems: AccordionItem[] = items.map((item, i) => ({
