@@ -11,6 +11,8 @@ import AboutPage from "@/pages/AboutPage";
 import ArticlePage from "@/pages/ArticlePage";
 import BlogPage from "@/pages/BlogPage";
 import ContactPage from "@/pages/ContactPage";
+import CoursePage from "@/pages/CoursePage";
+import CoursesPage from "@/pages/CoursesPage";
 import GuidePage from "@/pages/GuidePage";
 import HomePage from "@/pages/HomePage";
 import PolicyPage from "@/pages/PolicyPage";
@@ -28,6 +30,8 @@ function App() {
             <Route path="policy" element={<PolicyPage />} />
             <Route path="blog" element={<BlogPage />} />
             <Route path="blog/:slug" element={<ArticlePage />} />
+            <Route path="courses" element={<CoursesPage />} />
+            <Route path="courses/:slug" element={<CoursePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
