@@ -50,15 +50,15 @@ export function ArticleHeader({ article }: { article: Article }) {
 
       <ScrollReveal animation="fade-up" delay={60}>
         <div className="flex flex-col items-start gap-4">
-          <Badge variant={getBadgeVariant(tone)} glow>
+          <Badge variant={getBadgeVariant(tone)} size="sm">
             {article.category}
           </Badge>
 
-          <h1 className="text-gradient-hero font-heading text-3xl font-bold leading-[1.5] md:text-5xl">
+          <h1 className="text-gradient-hero font-heading text-3xl font-bold leading-[1.4] md:text-5xl">
             {article.title}
           </h1>
 
-          <p className="text-base leading-[2] text-[var(--color-text-secondary)] md:text-lg">
+          <p className="max-w-2xl text-sm leading-[2] text-[var(--color-text-secondary)] md:text-base">
             {article.excerpt}
           </p>
         </div>
@@ -67,26 +67,28 @@ export function ArticleHeader({ article }: { article: Article }) {
       <ScrollReveal animation="fade-up" delay={120}>
         <div className="flex flex-wrap items-center justify-between gap-4 border-y border-[var(--color-border-secondary)] py-4">
           <div className="flex items-center gap-3">
-            <Avatar fallbackText={article.author} size="md" glow="primary" />
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-[var(--color-text-primary)]">
+            <Avatar name={article.author} size="sm" />
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-medium text-[var(--color-text-primary)]">
                 {article.author}
               </span>
-              <span className="text-xs text-[var(--color-text-tertiary)]">
-                {article.authorRole}
-              </span>
+              {article.authorRole && (
+                <span className="text-xs text-[var(--color-text-tertiary)]">
+                  {article.authorRole}
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-tertiary)]">
-            <span>{formatDate(article.date)}</span>
+          <div className="flex items-center gap-4 text-xs text-[var(--color-text-tertiary)]">
+            {article.date && <span>{formatDate(article.date)}</span>}
             <span className="flex items-center gap-1.5">
               <ClockIcon className="h-3.5 w-3.5" />
               {articlePage.readTime(article.readTime)}
             </span>
             <Button
-              size="sm"
               variant="glass"
+              size="sm"
               leftIcon={<CopyIcon className="h-3.5 w-3.5" />}
               onClick={handleShare}
             >
@@ -96,10 +98,10 @@ export function ArticleHeader({ article }: { article: Article }) {
         </div>
       </ScrollReveal>
 
-      <ScrollReveal animation="zoom-in" delay={160}>
+      <ScrollReveal animation="fade-up" delay={180}>
         <ArticleCover
           category={article.category}
-          className="aspect-[21/9] rounded-[var(--radius-lg)] border border-[var(--color-border-secondary)]"
+          className="rounded-[var(--radius-lg)]"
         />
       </ScrollReveal>
     </header>
